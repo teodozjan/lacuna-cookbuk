@@ -12,7 +12,7 @@ my $SULFUR ="Sulfur";
 my $TRONA = "Trona";
 
 
-my @glyphs= [$ACITE, $CHPYTE, $GOLD, $HALITE, $KEROGEN, $MATITE, $METAN, $MOZITE, $SULFUR, $TRONA];
+my @glyphs= $ACITE, $CHPYTE, $GOLD, $HALITE, $KEROGEN, $MATITE, $METAN, $MOZITE, $SULFUR, $TRONA;
 
 my %recipes = 
   {
