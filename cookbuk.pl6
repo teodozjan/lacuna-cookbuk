@@ -27,10 +27,11 @@ my %recipes =
    "Gas Giant Settlement Platform" => [$ACITE, "Galena", $METAN, $SULFUR],
    "Geo Thermal Vent" => [$CHPYTE, $SULFUR],
    "Gratch's Gauntlet" => ["Bauxite","Fluorite",$GOLD, $KEROGEN],
-   "Halls of Vrbansk#1" => [],
-   "Halls of Vrbansk#2" => [],
-   "Halls of Vrbansk#3" => [],
-   "Halls of Vrbansk#4" => [],
+   "Halls of Vrbansk#1" => ["Geothite","Halite", "Gypsum", "Trona"],
+   "Halls of Vrbansk#2" => ["Gold", $ACITE, "Uranite", "Bauxite"],
+   "Halls of Vrbansk#3" => ["Kerogen", $METAN, $SULFUR, "Zircon"],
+   "Halls of Vrbansk#4" => ["Monazite", "Fluorite", "Beryl", "Magnetite"],
+   "Halls of Vrbansk#5" => ["Rutile", "Chromite", "Chalprophyte", "Galena"],
    "Interdimensional Rift" => [],
    "Kalavian Ruins" => [],
    "Lapis Forest" => [],
@@ -44,8 +45,6 @@ my %recipes =
    "Terraforming Platform" => [],
    "Volcano" => [] 
   };
-
-say @glyphs.elems;
 
 for keys %recipes -> $plan {
 			    next unless (%recipes{$plan}.elems);
