@@ -45,12 +45,13 @@ my %recipes =
    "Volcano" => [] 
   };
 
+say @glyphs.elems;
 
 for keys %recipes -> $plan {
 			    next unless (%recipes{$plan}.elems);
 			    say $plan;
 			    for @(%recipes{$plan}) -> $glyph{
-							  say "\t", $glyph, " missing!" unless($glyph ~~ @glyphs);
+							  say "\t", $glyph, " missing!" unless(@glyphs.first($glyph));
 							 }
 			    say "-"xx 40;say;
 			   }
