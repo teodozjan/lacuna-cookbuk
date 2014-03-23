@@ -1,23 +1,23 @@
 use v6;
 
-my $ACITE = "Anthracite";
-my $BERYL = "Beryl";
-my $CHPYTE = "Chalprophyte";
-my $GAL = "Galena";
-my $GOLD = "Gold";
-my $HALITE = "Halite";
-my $KEROGEN = "Kerogen";
-my $MATITE = "Magnetite";
-my $METAN = "Methane";
-my $MOZITE ="Monazite";
-my $SULFUR ="Sulfur";
-my $TRONA = "Trona";
-my $URAN = "Uranite";
+constant $ACITE = "Anthracite";
+constant $BERYL = "Beryl";
+constant $CHPYTE = "Chalprophyte";
+constant $GAL = "Galena";
+constant $GOLD = "Gold";
+constant $HALITE = "Halite";
+constant $KEROGEN = "Kerogen";
+constant $MATITE = "Magnetite";
+constant $METAN = "Methane";
+constant $MOZITE ="Monazite";
+constant $SULFUR ="Sulfur";
+constant $TRONA = "Trona";
+constant $URAN = "Uranite";
 
 
-my @glyphs= $ACITE, $BERYL, $CHPYTE, $GAL, $GOLD, $HALITE, $KEROGEN, $MATITE, $METAN, $MOZITE, $SULFUR, $TRONA, $URAN;
+constant @glyphs= $ACITE, $BERYL, $CHPYTE, $GAL, $GOLD, $HALITE, $KEROGEN, $MATITE, $METAN, $MOZITE, $SULFUR, $TRONA, $URAN;
 
-my %recipes = 
+constant %recipes = 
   {
 
    "Algae Pond" => [$METAN,$URAN],
@@ -35,7 +35,7 @@ my %recipes =
    "Halls of Vrbansk#3" => ["Kerogen", $METAN, $SULFUR, "Zircon"],
    "Halls of Vrbansk#4" => ["Monazite", "Fluorite", $BERYL, "Magnetite"],
    "Halls of Vrbansk#5" => ["Rutile", "Chromite", $CHPYTE, $GAL],
-   "Interdimensional Rift" => [],
+   "Interdimensional Rift" => ["Galena", "Methane", "Zircon"],
    "Kalavian Ruins" => [],
    "Lapis Forest" => [],
    "Library of Jith" => [],
