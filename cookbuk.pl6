@@ -24,9 +24,8 @@ constant $ZIRCON = "Zircon";
 
 constant @glyphs= $ANTHRACITE, $BERYL, $CHALPROPHYTE, $GALENA, $GOLD, $HALITE, $KEROGEN, $MAGNETITE, $METHANE, $MONAZITE, $SULFUR, $TRONA, $URANITE;
 
-constant %recipes = 
+constant %recipes =
   {
-
    "Algae Pond" => [$METHANE,$URANITE],
    "Amalgus Meadow" => [$BERYL, $TRONA],
    "Beeldeban Nest" => [$ANTHRACITE, $KEROGEN,$TRONA],
@@ -43,26 +42,48 @@ constant %recipes =
    "Halls of Vrbansk#4" => [$MONAZITE, $FLUORITE, $BERYL, $MAGNETITE],
    "Halls of Vrbansk#5" => [$RUTILE, $CHROMITE, $CHALPROPHYTE, $GALENA],
    "Interdimensional Rift" => [$GALENA, $METHANE, $ZIRCON],
-   "Kalavian Ruins" => [],
-   "Lapis Forest" => [],
+   "Kalavian Ruins" => [$GALENA, $GOLD],
+   "Lapis Forest" => [$HALITE, $ANTHRACITE],
    "Library of Jith" => [$ANTHRACITE, $BAUXITE, $BERYL, $CHALPROPHYTE],
-   "Malcud Field" => [],
-   "Natural Spring" => [],
-   "Oracle of Anid" => [],
-   "Pantheon of Hagness" => [],
-   "Ravine" => [],
-   "Temple of the Drajilites" => [],
-   "Terraforming Platform" => [],
-   "Volcano" => [] 
+   "Malcud Field" => [$FLUORITE, $KEROGEN],
+   "Natural Spring" => [$MAGNETITE, $HALITE],
+   "Oracle of Anid" => [$GOLD, $URANITE, $BAUXITE, $GEOTHITE],
+   "Pantheon of Hagness" => [$GYPSUM, $TRONA, $BERYL, $ANTHRACITE],
+   "Ravine" => [$ZIRCON, $METHANE, $GALENA, $FLUORITE],
+   "Temple of the Drajilites" => [$KEROGEN, $RUTILE, $CHROMITE, $CHALPROPHYTE],
+   "Terraforming Platform" => [$METHANE, $ZIRCON, $MAGNETITE, $BERYL],
+   "Volcano" => [$MAGNETITE, $URANITE]
   };
 
+
+sub suitsPlan(@recipe){
+  for @recipe -> $glyph {
+			 return False unless @glyphs.first($glyph);
+			} 
+    return True;
+}
+
+sub canBuild{
+  for keys %recipes -> $plan {
+			      my @recipe = @(%recipes{$plan});
+			      say "Can build $plan" if suitsPlan(@recipe);
+			     }
+    say;
+}
+
+sub cannotBuild{
 for keys %recipes -> $plan {
-			    next unless (%recipes{$plan}.elems);
+			    my @recipe = @(%recipes{$plan});
+			    say "Can build $plan" if suitsPlan(@recipe);
+			    next unless !suitsPlan(@recipe);
 			    say $plan;
-			    for @(%recipes{$plan}) -> $glyph{
-							  say "\t", $glyph, " missing!" unless(@glyphs.first($glyph));
-							 }
-			    say "-"xx 40;say;
+			    for @recipe -> $glyph{
+						  say "\t$glyph missing!" unless(@glyphs.first($glyph));
+						 }
+			    say;
 			   }
   say;
+}
 
+canBuild;
+cannotBuild;
