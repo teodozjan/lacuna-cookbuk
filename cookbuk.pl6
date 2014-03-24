@@ -73,7 +73,7 @@ sub cannotBuild{
  for keys %recipes -> $plan {
 			     my @recipe = getRecipe($plan);
 			     next unless !suitsPlan(@recipe);
-				    say $plan, @("",getMissingGlyphs(@recipe)).join("\n\tMissing");
+				    say $plan, @("",getMissingGlyphs(@recipe)).join("\n\tMissing ");
 			   }
 }
 
