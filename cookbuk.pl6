@@ -59,31 +59,32 @@ constant %recipes =
 sub suitsPlan(@recipe){
   for @recipe -> $glyph {
 			 return False unless @glyphs.first($glyph);
-			} 
+			}
     return True;
 }
 
 sub canBuild{
-  for keys %recipes -> $plan {
-			      my @recipe = @(%recipes{$plan});
-			      say "Can build $plan" if suitsPlan(@recipe);
+  gather for keys %recipes -> $plan {
+				     take $plan if suitsPlan( @(%recipes{$plan}) );
 			     }
-    say;
 }
 
 sub cannotBuild{
-for keys %recipes -> $plan {
+ for keys %recipes -> $plan {
 			    my @recipe = @(%recipes{$plan});
-			    say "Can build $plan" if suitsPlan(@recipe);
 			    next unless !suitsPlan(@recipe);
-			    say $plan;
-			    for @recipe -> $glyph{
-						  say "\t$glyph missing!" unless(@glyphs.first($glyph));
-						 }
-			    say;
+				    say $plan, @("",getMissingGlyphs(@recipe)).join("\n\tMissing");
 			   }
-  say;
 }
 
-canBuild;
-cannotBuild;
+sub getMissingGlyphs(@recipe){
+
+  gather for @recipe -> $glyph{
+			       take $glyph unless(@glyphs.first($glyph));
+			      }
+}
+
+say @("",canBuild).join("\nCan build: ");
+say "";
+
+say cannotBuild;
