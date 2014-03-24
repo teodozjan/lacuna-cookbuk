@@ -65,14 +65,14 @@ sub suitsPlan(@recipe){
 
 sub canBuild{
   gather for keys %recipes -> $plan {
-				     take $plan if suitsPlan( @(%recipes{$plan}) );
+				     take $plan if suitsPlan( getRecipe($plan) );
 			     }
 }
 
 sub cannotBuild{
  for keys %recipes -> $plan {
-			    my @recipe = @(%recipes{$plan});
-			    next unless !suitsPlan(@recipe);
+			     my @recipe = getRecipe($plan);
+			     next unless !suitsPlan(@recipe);
 				    say $plan, @("",getMissingGlyphs(@recipe)).join("\n\tMissing");
 			   }
 }
@@ -83,6 +83,11 @@ sub getMissingGlyphs(@recipe){
 			       take $glyph unless(@glyphs.first($glyph));
 			      }
 }
+
+sub getRecipe($plan){
+  @(%recipes{$plan})
+}
+
 
 say @("",canBuild).join("\nCan build: ");
 say "";
