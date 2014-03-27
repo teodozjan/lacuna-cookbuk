@@ -73,7 +73,7 @@ sub canBuild{
 
 sub cannotBuild{
   gather for allrecipes() -> $plan {
-				     take $plan if !suitsPlan( getRecipe($plan) );
+				     take $plan unless suitsPlan( getRecipe($plan) );
 				    }
 }
 
