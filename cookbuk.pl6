@@ -22,7 +22,9 @@ constant $URANITE = "Uranite";
 constant $ZIRCON = "Zircon";
 
 
-constant @glyphs= $ANTHRACITE, $BERYL, $CHALPROPHYTE, $GALENA, $GOLD, $HALITE, $KEROGEN, $MAGNETITE, $METHANE, $MONAZITE, $SULFUR, $TRONA, $URANITE;
+constant @glyphs= $ANTHRACITE, $BERYL, $CHALPROPHYTE, $GALENA, $GOLD,
+  $GYPSUM, $HALITE, $KEROGEN, $MAGNETITE, $METHANE,
+  $MONAZITE, $SULFUR, $TRONA, $URANITE;
 
 constant %recipes =
   {
@@ -70,11 +72,9 @@ sub canBuild{
 }
 
 sub cannotBuild{
- for keys %recipes -> $plan {
-			     my @recipe = getRecipe($plan);
-			     next unless !suitsPlan(@recipe);
-				    say $plan, @("",getMissingGlyphs(@recipe)).join("\n\tMissing ");
-			   }
+  gather for keys %recipes -> $plan {
+				     take $plan if !suitsPlan( getRecipe($plan) );
+				    }
 }
 
 sub getMissingGlyphs(@recipe){
@@ -90,6 +90,8 @@ sub getRecipe($plan){
 
 
 say @("",canBuild).join("\nCan build: ");
-say "";
 
-say cannotBuild;
+for cannotBuild() -> $plan {
+			     my @recipe = getRecipe($plan);
+			     say  "\n$plan:\n\tMissing ", @(getMissingGlyphs(@recipe)).join(", ");
+			   }
