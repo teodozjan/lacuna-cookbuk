@@ -22,7 +22,7 @@ constant $URANITE = "Uranite";
 constant $ZIRCON = "Zircon";
 
 
-constant @glyphs= $ANTHRACITE, $BERYL, $CHALPROPHYTE, $GALENA, $GOLD,
+constant @glyphs= $ANTHRACITE, $BERYL, $CHALPROPHYTE, $GALENA, $GEOTHITE,$GOLD,
   $GYPSUM, $HALITE, $KEROGEN, $MAGNETITE, $METHANE,
   $MONAZITE, $SULFUR, $TRONA, $URANITE;
 
