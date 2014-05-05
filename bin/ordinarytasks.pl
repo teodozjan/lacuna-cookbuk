@@ -24,13 +24,14 @@ class Trade {
 	$!traderpc.get_plan_summary($.session_id, $.id)<plans>;
     } 
 
-    method getPushShips ($targetId) {
+    method getPushShips($targetId) {
 	$!traderpc.get_trade_ships($.session_id, $.id, $targetId)<ships>;
 
     }
 
-
-    #metohd push ($destination, $what){!!!}
+    method pushTo($dst_planet_id, $cargo) {
+	$!traderpc.push_items($.session_id, $.id, $dst_planet_id, $cargo)
+    }
 
 
 }
@@ -83,7 +84,9 @@ for @planets -> $planet_id {
     my $trade = $f.find_trade_ministry($planet_id);
     if $trade
     {
-	say $trade.getPushShips($planet_id);
+	next unless $trade.getPushShips($home_planet_id);
+	next unless $trade.getGlyphs;
+	say $trade.pushTo($home_planet_id, $trade.getGlyphs);
 #	say $trade.getPlans;
 #	say $trade.getGlyphs;
     }
