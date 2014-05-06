@@ -5,7 +5,7 @@ use LacunaCookbuk::RPCMaker;
 use LacunaCookbuk::EmpireInfo;
 
 use LacunaBuilding::Trade;
-use LacunaBuilding::Archeology;
+use LacunaBuilding::Archaeology;
 
 class PlanMaker is LacunaSession;
 has EmpireInfo $.f;

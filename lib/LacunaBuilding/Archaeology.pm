@@ -1,7 +1,7 @@
 use v6;
 
 use LacunaCookbuk::LacunaBuilding;
-
+use LacunaCookbuk::RPCMaker;
 
 class Archaeology is LacunaBuilding;
 

@@ -5,7 +5,7 @@ use LacunaCookbuk::RPCMaker;
 
 class Trade is LacunaBuilding;
 
-submethod getGlyphs {
+submethod getGlyphs( --> Array) {
 ##	my @array =
 ##	gather 
     my @array;
@@ -21,7 +21,7 @@ submethod getGlyphs {
    return @array;
 } 
 
-submethod getGlyphsHash {
+submethod getGlyphsHash (--> Hash){
     my Int %hash;
     for RPCMaker.aq_client_for('/trade').get_glyph_summary(self.session_id, self.id)<glyphs> -> @glyph
     {

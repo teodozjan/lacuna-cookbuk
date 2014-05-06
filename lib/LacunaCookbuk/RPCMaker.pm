@@ -4,7 +4,7 @@ use JSON::RPC::Client;
 class RPCMaker; 
 my %rpcs;
 method new {!!!}
-method aq_client_for($name --> JSON::RPC::Client) {
+method aq_client_for (Str $name --> JSON::RPC::Client) {
     unless %rpcs{$name} {
 	#say "Creating client for $name";
 	my $url = 'http://us1.lacunaexpanse.com'~ $name;

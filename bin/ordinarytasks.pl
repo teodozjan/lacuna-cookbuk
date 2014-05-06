@@ -13,7 +13,7 @@ $f.create_session;
 my $home_planet_id = $f.find_home_planet_id;
 my @planets = keys $f.find_planets;
 
-
+if 0 {
 say "Creating all possible halls";
 say PlanMaker.new(f => $f).makePossibleHalls($home_planet_id);
 
@@ -38,7 +38,7 @@ for @planets -> $planet_id {
 	say $trade.pushTo($home_planet_id, @glyphs);
     }
 }
-
+}
 say "Checking balance on home planet (takes ages)";
 say $f.calculateSustainablity($home_planet_id);
 
