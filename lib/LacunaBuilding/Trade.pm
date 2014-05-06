@@ -22,11 +22,11 @@ submethod getGlyphs {
 } 
 
 submethod getGlyphsHash {
-    my %hash;
+    my Int %hash;
     for RPCMaker.aq_client_for('/trade').get_glyph_summary(self.session_id, self.id)<glyphs> -> @glyph
     {
 	for @glyph -> %sth { 
-	    %hash{%sth<name>} = %sth<quantity>;
+	    %hash{%sth<name>} = +(%sth<quantity>);
 	}
 	
     }

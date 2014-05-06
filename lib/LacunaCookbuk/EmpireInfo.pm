@@ -3,7 +3,7 @@ use v6;
 use LacunaCookbuk::LacunaSession;
 use LacunaCookbuk::RPCMaker;
 
-use LacunaBuilding::Archeology;
+use LacunaBuilding::Archaeology;
 use LacunaBuilding::Trade;
 
 class EmpireInfo is LacunaSession;
@@ -26,9 +26,9 @@ method find_planets{
 method find_archeology_ministry($planet_id){
     my %buildings = $!body.get_buildings(self.session_id, $planet_id)<buildings>;
     for keys %buildings -> $building_id {
-	return Archeology.new(id => $building_id, session => self.session) if %buildings{$building_id}<url> ~~ '/archeology';
+	return Archaeology.new(id => $building_id, session => self.session) if %buildings{$building_id}<url> ~~ '/archaeology';
     }
-    #die("No trade ministry on $planet_id");
+    die("No archeology ministry on $planet_id");
 }   
 
 method find_trade_ministry($planet_id){

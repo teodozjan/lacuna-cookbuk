@@ -8,7 +8,7 @@ class LacunaSession;
 has %.session;
 
 method create_session {
-    %.session = RPCMaker.aq_client_for('/empire').login(|%login);
+    self.session = RPCMaker.aq_client_for('/empire').login(|%login);
 }
 
 method close_session(){
@@ -16,6 +16,6 @@ method close_session(){
 }
 
 method session_id{
-    %.session<session_id>;
+    self.session<session_id>;
 }
 
