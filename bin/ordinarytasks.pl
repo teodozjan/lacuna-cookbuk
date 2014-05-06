@@ -78,6 +78,26 @@ class EmpireInfo {
 	%!session<session_id>;
     }
 
+#  submethod get_buildings($planet_id){
+#	my %buildings = $!body.get_buildings(self!session_id, $planet_id)<buildings>;
+#	gather for keys  %buildings -> $building {
+#	    my $rpc = RpcMaker.aq_client_for(%buildings{$building}<url>);
+#	    my %building =  $rpc.view(self!session_id, $building)<building>;	  
+#	    take %building;
+#	}     
+#    }
+
+ #   method calculateSustainablity($planet_id){
+#	my %balance;
+#	for get_buildings($planet_id) -> %building {
+#	    %balance<food_hour> += %building<food_hour>;
+#	    %balance<energy_hour> += %building<enerygy_hour>;
+#	    %balance<ore_hour> += %building<ore_hour>;
+#	    %balance<water_hour> += %building<water_hour>;
+#	}
+#	return %balance;
+#    }
+
     submethod create_session{
 	%!session = $!empire.login(|%login);
     }
@@ -87,6 +107,19 @@ class EmpireInfo {
     }
 }
 
+class RpcMaker {
+    my %rpcs;
+    method new {!!!}
+    method aq_client_for($name --> JSON::RPC::Client) {
+	unless %rpcs{$name} {
+				say "Creating client for $name";
+				my $url = 'http://us1.lacunaexpanse.com'~ $name;
+				%rpcs{$name} = JSON::RPC::Client.new( url => $url);
+	}
+
+	return %rpcs{$name}
+    }
+}
 
 my $f = EmpireInfo.new;
 $f.create_session;
@@ -94,22 +127,25 @@ $f.create_session;
 my $home_planet_id = $f.find_home_planet_id;
 my @planets = keys $f.find_planets;
 
+say "Transporting all glyphs to home planet if possible";
 for @planets -> $planet_id {
     next if $planet_id == $home_planet_id;
     my $trade = $f.find_trade_ministry($planet_id);
     if $trade
     {
-	say @($trade.getGlyphs);
+	#say @($trade.getGlyphs);
 	next unless $trade.getPushShips($home_planet_id);
 	next unless $trade.getGlyphs;
 
 
 
 	say $trade.pushTo($home_planet_id, $trade.getGlyphs);
-	#say $trade.getPlans;
-	#say $trade.getGlyphs;
     }
 }
+
+say "Checking balance on home planet";
+#say $f.calculateSustainablity($home_planet_id);
+
 
 $f.close_session;
 
