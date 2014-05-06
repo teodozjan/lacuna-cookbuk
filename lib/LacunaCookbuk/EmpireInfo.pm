@@ -24,17 +24,18 @@ submethod find_planets{
 }
 
 submethod find_archeology_ministry($planet_id){
-    my %buildings = $!body.get_buildings(self.session_id, $planet_id)<buildings>;
-    for keys %buildings -> $building_id {
-	return Archaeology.new(id => $building_id) if %buildings{$building_id}<url> ~~ '/archaeology';
+  
+    for self.get_buildings($planet_id) -> %building {
+	return Archaeology.new(id => %building<id>) if %building<url> ~~ '/archaeology';
     }
     warn "No archaeology ministry on $planet_id";
 }   
 
+#TODO move to planet related!!!!!!!
 submethod find_trade_ministry($planet_id){
-    my %buildings = $!body.get_buildings(self.session_id, $planet_id)<buildings>;
-    for keys %buildings -> $building_id {
-	return Trade.new(id => $building_id) if %buildings{$building_id}<url> ~~ '/trade';
+    
+    for self.get_buildings($planet_id) -> %building {
+	return Trade.new(id => %building<id>) if %building<url> ~~ '/trade';
     }
     warn "No trade ministry on $planet_id";
 }   
@@ -44,9 +45,12 @@ submethod get_buildings($planet_id --> List){
     self.status = %buildings<status>;
     
     gather for keys %buildings<buildings> -> $building_id {
-	my $rpc = RPCMaker.aq_client_for(%buildings<buildings>{$building_id}<url>);
+	my $url = %buildings<buildings>{$building_id}<url>;
+	my $rpc = RPCMaker.aq_client_for($url);
 	my %building =  $rpc.view(self.session_id, $building_id);
-	self.status = %building<status>;	 
+	self.status = %building<status>;
+	%building<building><id> = $building_id;	 
+	%building<building><url> = $url;
 	take %building<building>;
     }     
 }
