@@ -16,27 +16,27 @@ method getPlanetName($planet_id --> Str){
 }
 
 method find_home_planet_id{
-    $.session<status><empire><home_planet_id>;
+    %.session<status><empire><home_planet_id>;
 }
 
 method find_planets{
-    $.session<status><empire><planets>;
+    %.session<status><empire><planets>;
 }
 
 method find_archeology_ministry($planet_id){
     my %buildings = $!body.get_buildings(self.session_id, $planet_id)<buildings>;
     for keys %buildings -> $building_id {
-	return Archaeology.new(id => $building_id, session => self.session) if %buildings{$building_id}<url> ~~ '/archaeology';
+	return Archaeology.new(id => $building_id) if %buildings{$building_id}<url> ~~ '/archaeology';
     }
-    die("No archeology ministry on $planet_id");
+    warn "No archaeology ministry on $planet_id";
 }   
 
 method find_trade_ministry($planet_id){
     my %buildings = $!body.get_buildings(self.session_id, $planet_id)<buildings>;
     for keys %buildings -> $building_id {
-	return Trade.new(id => $building_id, session => self.session) if %buildings{$building_id}<url> ~~ '/trade';
+	return Trade.new(id => $building_id) if %buildings{$building_id}<url> ~~ '/trade';
     }
-    #die("No trade ministry on $planet_id");
+    warn "No trade ministry on $planet_id";
 }   
 
 submethod get_buildings($planet_id --> Array){

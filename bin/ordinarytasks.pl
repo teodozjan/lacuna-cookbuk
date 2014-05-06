@@ -15,19 +15,26 @@ my @planets = keys $f.find_planets;
 
 
 say "Creating all possible halls";
-say PlanMaker.new(f => $f, session =>$f.session).makePossibleHalls($home_planet_id);
+say PlanMaker.new(f => $f).makePossibleHalls($home_planet_id);
 
 say "Transporting all glyphs to home planet if possible";
 for @planets -> $planet_id {
     next if $planet_id == $home_planet_id;
     my $trade = $f.find_trade_ministry($planet_id);
-    my $planet_name = $f.getPlanetName($home_planet_id);
+    my $planet_name = $f.getPlanetName($planet_id);
     if $trade
     {
 
-	{warn "No glyphs"; next }unless my @glyphs = $trade.getGlyphs;
-	{warn "No ships on ", $planet_name; next } unless $trade.getPushShips($home_planet_id);
+	unless my @glyphs = $trade.getGlyphs {
+	    note "No glyphs on ", $planet_name;
+	    next
+	}
 
+	unless $trade.getPushShips($home_planet_id) {
+	    warn "No ships available on ", $planet_name;
+	    next
+	}
+ 
 	say $trade.pushTo($home_planet_id, @glyphs);
     }
 }

@@ -5,10 +5,10 @@ use LacunaCookbuk::Config;
 
 
 class LacunaSession;
-has %.session;
+my %.session;
 
 method create_session {
-    self.session = RPCMaker.aq_client_for('/empire').login(|%login);
+    %.session = RPCMaker.aq_client_for('/empire').login(|%login);
 }
 
 method close_session(){
@@ -16,6 +16,7 @@ method close_session(){
 }
 
 method session_id{
-    self.session<session_id>;
+    %.session<session_id>;
 }
+
 
