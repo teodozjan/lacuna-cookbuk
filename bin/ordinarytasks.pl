@@ -10,7 +10,7 @@ class RpcMaker {
     method new {!!!}
     method aq_client_for($name --> JSON::RPC::Client) {
 	unless %rpcs{$name} {
-				say "Creating client for $name";
+				#say "Creating client for $name";
 				my $url = 'http://us1.lacunaexpanse.com'~ $name;
 				%rpcs{$name} = JSON::RPC::Client.new( url => $url);
 	}
@@ -92,7 +92,7 @@ class EmpireInfo {
 	%!session<session_id>;
     }
     
-    submethod get_buildings($planet_id){
+    submethod get_buildings($planet_id --> Array){
 	my %buildings = $!body.get_buildings(self!session_id, $planet_id)<buildings>;
 	gather for keys  %buildings -> $building {
 	    my $rpc = RpcMaker.aq_client_for(%buildings{$building}<url>);
@@ -101,13 +101,19 @@ class EmpireInfo {
 	}     
     }
 
-  method calculateSustainablity($planet_id){
+  submethod calculateSustainablity($planet_id){
 	my %balance;
-	for get_buildings($planet_id) -> %building {
-#	    %balance<food_hour> += %building<food_hour>;
-#	    %balance<energy_hour> += %building<enerygy_hour>;
-#	    %balance<ore_hour> += %building<ore_hour>;
-#	    %balance<water_hour> += %building<water_hour>;
+	my %buildings = $!body.get_buildings(self!session_id, $planet_id)<buildings>;
+	my @houses = gather for keys  %buildings -> $building {
+	    my $rpc = RpcMaker.aq_client_for(%buildings{$building}<url>);
+	    my %building =  $rpc.view(self!session_id, $building)<building>;	  
+	    take %building;
+	}     
+#	my @buildings = get_buildings($planet_id); #rakudo bug causes no ICU loaded error
+	for @houses -> %building {
+	    for (keys %building).grep(/_hour/) -> $key {
+	    %balance{$key} += %building{$key};
+	    }
 	}
 	return %balance;
     }
@@ -146,7 +152,7 @@ for @planets -> $planet_id {
 }
 
 say "Checking balance on home planet";
-#say $f.calculateSustainablity($home_planet_id);
+say $f.calculateSustainablity($home_planet_id);
 
 
 $f.close_session;
