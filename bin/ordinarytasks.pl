@@ -7,8 +7,6 @@ use LacunaCookbuk::PlanMaker;
 
 
 
-
-
 my $f = EmpireInfo.new;
 $f.create_session;
 
@@ -25,13 +23,10 @@ for @planets -> $planet_id {
     my $trade = $f.find_trade_ministry($planet_id);
     if $trade
     {
-	#say @($trade.getGlyphs);
 	next unless $trade.getPushShips($home_planet_id);
-	next unless $trade.getGlyphs;
+	next unless my @glyphs = $trade.getGlyphs;
 
-
-
-	say $trade.pushTo($home_planet_id, $trade.getGlyphs);
+	say $trade.pushTo($home_planet_id, @glyphs);
     }
 }
 
