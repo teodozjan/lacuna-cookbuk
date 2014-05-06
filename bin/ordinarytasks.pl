@@ -18,7 +18,7 @@ class Trade {
 	for $!traderpc.get_glyph_summary($.session_id, $.id)<glyphs> -> @glyph
 	{
 	    for @glyph -> %sth { 
-		my Hash $hash = %(:type(%sth<type>), :name(%sth<name>), :quantity(%sth<quantity>));
+		my Hash $hash = %(:type("glyph"), :name(%sth<name>), :quantity(%sth<quantity>));
 		@array.push($hash);
 		
 	    }
@@ -42,7 +42,7 @@ class Trade {
     }
 
     method pushTo($dst_planet_id, $cargo) {
-	$!traderpc.push_items($.session_id, $.id, $dst_planet_id, $cargo)
+	$!traderpc.push_items($.session_id, $.id, $dst_planet_id, $cargo)<ship>
     }
 
 
@@ -99,7 +99,7 @@ for @planets -> $planet_id {
     my $trade = $f.find_trade_ministry($planet_id);
     if $trade
     {
-	say @($trade.getGlyphs)[0].WHAT;
+	say @($trade.getGlyphs);
 	next unless $trade.getPushShips($home_planet_id);
 	next unless $trade.getGlyphs;
 
