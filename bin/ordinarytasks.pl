@@ -12,9 +12,21 @@ class Trade {
 
 
     method getGlyphs {
-	$!traderpc.get_glyph_summary($.session_id, $.id)<glyphs>;
+#	my @array =
+#	gather 
+	my @array;
+	for $!traderpc.get_glyph_summary($.session_id, $.id)<glyphs> -> @glyph
+	{
+	    for @glyph -> %sth { 
+		my Hash $hash = %(:type(%sth<type>), :name(%sth<name>), :quantity(%sth<quantity>));
+		@array.push($hash);
+		
+	    }
+	    
+	}
+	return @array;
     } 
-
+    
     method getResources {
 	$!traderpc.get_stored_resources($.session_id, $.id)<resources>;
     }
@@ -42,6 +54,10 @@ class EmpireInfo {
     has $!body = JSON::RPC::Client.new( url => 'http://us1.lacunaexpanse.com/body');
     has $!empire = JSON::RPC::Client.new( url => 'http://us1.lacunaexpanse.com/empire');
 
+    method getPlanetName($planet_id --> Str){
+	%!session<status><empire><planets>{$planet_id};
+    }
+
     method find_home_planet_id{
 	%!session<status><empire><home_planet_id>;
     }
@@ -61,7 +77,6 @@ class EmpireInfo {
     submethod !session_id{
 	%!session<session_id>;
     }
-
 
     submethod create_session{
 	%!session = $!empire.login(|%login);
@@ -84,11 +99,15 @@ for @planets -> $planet_id {
     my $trade = $f.find_trade_ministry($planet_id);
     if $trade
     {
+	say @($trade.getGlyphs)[0].WHAT;
 	next unless $trade.getPushShips($home_planet_id);
 	next unless $trade.getGlyphs;
+
+
+
 	say $trade.pushTo($home_planet_id, $trade.getGlyphs);
-#	say $trade.getPlans;
-#	say $trade.getGlyphs;
+	#say $trade.getPlans;
+	#say $trade.getGlyphs;
     }
 }
 
