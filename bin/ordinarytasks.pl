@@ -5,6 +5,20 @@ use v6;
 use LacunaCookbuk::Config;
 use JSON::RPC::Client;
 
+class RpcMaker {
+    my %rpcs;
+    method new {!!!}
+    method aq_client_for($name --> JSON::RPC::Client) {
+	unless %rpcs{$name} {
+				say "Creating client for $name";
+				my $url = 'http://us1.lacunaexpanse.com'~ $name;
+				%rpcs{$name} = JSON::RPC::Client.new( url => $url);
+	}
+
+	return %rpcs{$name}
+    }
+}
+
 class Trade {
     has $!traderpc = JSON::RPC::Client.new( url => 'http://us1.lacunaexpanse.com/trade');
     has $.id;
@@ -77,15 +91,15 @@ class EmpireInfo {
     submethod !session_id{
 	%!session<session_id>;
     }
-
-#  submethod get_buildings($planet_id){
-#	my %buildings = $!body.get_buildings(self!session_id, $planet_id)<buildings>;
-#	gather for keys  %buildings -> $building {
-#	    my $rpc = RpcMaker.aq_client_for(%buildings{$building}<url>);
-#	    my %building =  $rpc.view(self!session_id, $building)<building>;	  
-#	    take %building;
-#	}     
-#    }
+    
+    submethod get_buildings($planet_id){
+	my %buildings = $!body.get_buildings(self!session_id, $planet_id)<buildings>;
+	gather for keys  %buildings -> $building {
+	    my $rpc = RpcMaker.aq_client_for(%buildings{$building}<url>);
+	    my %building =  $rpc.view(self!session_id, $building)<building>;	  
+	    take %building;
+	}     
+    }
 
  #   method calculateSustainablity($planet_id){
 #	my %balance;
@@ -107,19 +121,7 @@ class EmpireInfo {
     }
 }
 
-class RpcMaker {
-    my %rpcs;
-    method new {!!!}
-    method aq_client_for($name --> JSON::RPC::Client) {
-	unless %rpcs{$name} {
-				say "Creating client for $name";
-				my $url = 'http://us1.lacunaexpanse.com'~ $name;
-				%rpcs{$name} = JSON::RPC::Client.new( url => $url);
-	}
 
-	return %rpcs{$name}
-    }
-}
 
 my $f = EmpireInfo.new;
 $f.create_session;
