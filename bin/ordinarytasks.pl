@@ -23,8 +23,9 @@ for @planets -> $planet_id {
     my $trade = $f.find_trade_ministry($planet_id);
     if $trade
     {
-	next unless $trade.getPushShips($home_planet_id);
+
 	next unless my @glyphs = $trade.getGlyphs;
+	next unless $trade.getPushShips($home_planet_id);
 
 	say $trade.pushTo($home_planet_id, @glyphs);
     }
