@@ -101,7 +101,7 @@ class EmpireInfo {
 	}     
     }
 
- #   method calculateSustainablity($planet_id){
+  method calculateSustainablity($planet_id){
 #	my %balance;
 #	for get_buildings($planet_id) -> %building {
 #	    %balance<food_hour> += %building<food_hour>;
@@ -110,7 +110,7 @@ class EmpireInfo {
 #	    %balance<water_hour> += %building<water_hour>;
 #	}
 #	return %balance;
-#    }
+    }
 
     submethod create_session{
 	%!session = $!empire.login(|%login);
