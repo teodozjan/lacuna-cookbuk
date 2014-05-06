@@ -1,11 +1,7 @@
 use v6;
 
 use JSON::RPC::Client;
-use LacunaCookbuk::RPCMaker;
-use LacunaCookbuk::LacunaSession;
-use LacunaCookbuk::LacunaBuilding;
-use LacunaBuilding::Archeology;
-use LacunaBuilding::Trade;
+
 use LacunaCookbuk::EmpireInfo;
 use LacunaCookbuk::PlanMaker; 
 
