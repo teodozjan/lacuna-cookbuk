@@ -21,11 +21,12 @@ say "Transporting all glyphs to home planet if possible";
 for @planets -> $planet_id {
     next if $planet_id == $home_planet_id;
     my $trade = $f.find_trade_ministry($planet_id);
+    my $planet_name = $f.getPlanetName($home_planet_id);
     if $trade
     {
 
-	next unless my @glyphs = $trade.getGlyphs;
-	next unless $trade.getPushShips($home_planet_id);
+	{warn "No glyphs"; next }unless my @glyphs = $trade.getGlyphs;
+	{warn "No ships on ", $planet_name; next } unless $trade.getPushShips($home_planet_id);
 
 	say $trade.pushTo($home_planet_id, @glyphs);
     }
