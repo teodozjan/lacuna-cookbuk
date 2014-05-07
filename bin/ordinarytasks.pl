@@ -21,7 +21,7 @@ for $f.planets.keys -> $planet_id {
     my $planet_name = $planet.planet_name($planet_id);
     if $trade
     {
-
+	
 	unless my @glyphs = $trade.get_glyphs {
 	    note "No glyphs on ", $planet_name;
 	    next
