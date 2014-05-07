@@ -1,46 +1,43 @@
 use v6;
 
-use JSON::RPC::Client;
+use LacunaCookbuk::Model::LacunaSession;
+use LacunaCookbuk::Model::Planet;
+#use JSON::RPC::Client;
+use LacunaCookbuk::Logic::PlanMaker;
 
-use LacunaCookbuk::EmpireInfo;
-use LacunaCookbuk::PlanMaker; 
-
-
-
-my $f = EmpireInfo.new;
+#session info is static for all classes
+my LacunaSession $f = LacunaSession.new;
 $f.create_session;
 
-my $home_planet_id = $f.find_home_planet_id;
-my @planets = keys $f.find_planets;
-
-
 say "Creating all possible halls";
-say PlanMaker.new(f => $f).makePossibleHalls($home_planet_id);
+PlanMaker.new.makePossibleHalls();
 
+#todo transport in separate class
 say "Transporting all glyphs to home planet if possible";
-for @planets -> $planet_id {
-    next if $planet_id == $home_planet_id;
-    my $trade = $f.find_trade_ministry($planet_id);
-    my $planet_name = $f.getPlanetName($planet_id);
+for $f.planets.keys -> $planet_id {
+    next if $planet_id == $f.home_planet_id;
+    my Planet $planet = Planet.new(id => $planet_id);
+    my $trade = $planet.find_trade_ministry;
+    my $planet_name = $planet.planet_name($planet_id);
     if $trade
     {
 
-	unless my @glyphs = $trade.getGlyphs {
+	unless my @glyphs = $trade.get_glyphs {
 	    note "No glyphs on ", $planet_name;
 	    next
 	}
 
-	unless $trade.getPushShips($home_planet_id) {
+	unless $trade.get_push_ships($f.home_planet_id) {
 	    warn "No ships available on ", $planet_name;
 	    next
 	}
- 
-	say $trade.pushTo($home_planet_id, @glyphs);
+	#todo home planet as default destination;
+	say $trade.push_to($f.home_planet_id, @glyphs);
     }
 }
 
 say "Checking balance on home planet (takes ages)";
-say $f.calculateSustainablity($home_planet_id);
+say Planet.new(id => $f.home_planet_id).calculate_sustainablity();
 
 $f.close_session;
 

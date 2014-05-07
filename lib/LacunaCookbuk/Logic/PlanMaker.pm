@@ -1,14 +1,9 @@
 use v6;
 
-use LacunaCookbuk::LacunaSession;
-use LacunaCookbuk::RPCMaker;
-use LacunaCookbuk::EmpireInfo;
-
-use LacunaBuilding::Trade;
-use LacunaBuilding::Archaeology;
+use LacunaCookbuk::Model::LacunaSession;
+use LacunaCookbuk::Model::Planet;
 
 class PlanMaker is LacunaSession;
-has EmpireInfo $.f;
 
 constant $ANTHRACITE = "anthracite";
 constant $BAUXITE = "bauxite";
@@ -62,16 +57,18 @@ constant %recipes =
     "Volcano" => @($MAGNETITE, $URANITE)
 };
 
+has Planet $home_planet = Planet.new(id => self.home_planet_id);
 
-method makePossibleHalls($planet_id) {
-    my Trade $t = self.f.find_trade_ministry($planet_id);
-    my %glyphs = $t.getGlyphsHash();
+#TODO use achaeology instead of trade
+method makePossibleHalls {
+    my Trade $t = $home_planet.find_trade_ministry;
+    my %glyphs = $t.get_glyphs_hash();
    
     for @(keys %recipes).grep(/Halls/) -> $recipename {
 	say $recipename;
 	my $count = self!countPlans(%recipes{$recipename}, %glyphs);
 	say $count;
-	self.createRecipe(%recipes{$recipename}, $count, $planet_id) if $count > 0 ;
+	self.createRecipe(%recipes{$recipename}, $count, $home_planet.id) if $count > 0 ;
     }
 }
 
@@ -99,6 +96,6 @@ method !countPlans(@planRecipe, %glyphs) {
 method createRecipe(@recipe, Int $quantity, $planet_id) {
     return if $quantity == 0;
     
-    self.f.find_archeology_ministry($planet_id).assemble_glyphs(@recipe, $quantity)
+    $home_planet.find_archaeology_ministry($planet_id).assemble_glyphs(@recipe, $quantity)
 }
 
