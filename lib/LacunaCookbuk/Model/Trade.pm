@@ -45,11 +45,11 @@ method get_plans {
    self.rpc($URL).get_plan_summary(self.session_id, $.id)<plans>;
 } 
 
-method get_push_ships($targetId) {
+method get_push_ships($targetId = self.home_planet_id) {
    self.rpc($URL).get_trade_ships(self.session_id, $.id, $targetId)<ships>;
 
 }
 
-method push_to($dst_planet_id, $cargo) {
+method push($cargo, $dst_planet_id = self.home_planet_id) {
    self.rpc($URL).push_items(self.session_id, self.id, $dst_planet_id, $cargo)<ship>
 }

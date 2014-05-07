@@ -6,8 +6,14 @@ use LacunaCookbuk::Model::Trade;
 
 class Planet is LacunaSession;
 constant $URL = '/body';
-has $.id;
+has $.id = self.home_planet_id;
 has @.buildings = self.get_buildings;
+my Planet %planets;
+
+method planet ($id) {
+    %planets{$id} = Planet.new(id => $id) unless %planets{$id};
+    %planets{$id}
+}
 
 submethod find_archaeology_ministry(){
   

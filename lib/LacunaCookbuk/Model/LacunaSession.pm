@@ -8,18 +8,17 @@ class LacunaSession;
 constant $EMPIRE = '/empire';
 my %.status;
 my $.session_id;
-my %rpcs;
 
-method rpc(Str $name --> JSON::RPC::Client) {
-    unless %rpcs{$name} {
-	#say "Creating client for $name";
-	my $url = 'http://us1.lacunaexpanse.com'~ $name;
-	%rpcs{$name} = JSON::RPC::Client.new( url => $url);
-    }
+my JSON::RPC::Client %rpcs;
 
-    %rpcs{$name}
+method lacuna_url(Str $url){
+    'http://us1.lacunaexpanse.com'~ $url
 }
 
+method rpc(Str $name --> JSON::RPC::Client) {
+    %rpcs{$name} = JSON::RPC::Client.new( url => self.lacuna_url($name)) unless %rpcs{$name};
+    %rpcs{$name}
+}
 
 method create_session {
   my %logged = self.rpc($EMPIRE).login(|%login);
@@ -42,6 +41,8 @@ method home_planet_id{
 method planets {
     self.status<empire><planets>;
 }
+
+
 
 
 
