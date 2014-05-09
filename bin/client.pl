@@ -66,7 +66,7 @@ class Client {
 											       $fh_ships.say($rpc.view_all_ships(self!session_id, $building)<ships>.perl);
 											       $fh_ships.close;
 											      }
-					      elsif %buildings{$building}<url> ~~ '/archeology' {
+					      elsif %buildings{$building}<url> ~~ '/archaeology' {
 												my $fh_glyphs = open self!get_path($planet_id, 'glyphs'), :w;
 												$fh_glyphs.say($rpc.get_glyph_summary(self!session_id, $building)<glyphs>.perl);
 												$fh_glyphs.close;
