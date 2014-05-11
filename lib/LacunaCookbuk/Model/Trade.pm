@@ -20,11 +20,11 @@ submethod get_glyphs( --> Array) {
 	}
 	
    }
-   return @array;
+   @array;
 } 
 
 #todo move to achaeology
-submethod get_glyphs_hash (--> Hash){
+submethod get_glyphs_hash (--> Hash) {
     my Int %hash;
     for self.rpc($URL).get_glyph_summary(self.session_id, self.id)<glyphs> -> @glyph
     {
@@ -33,7 +33,7 @@ submethod get_glyphs_hash (--> Hash){
 	}
 	
     }
-    return %hash;
+    %hash;
 } 
 
 method get_resources {
@@ -47,7 +47,6 @@ method get_plans {
 
 method get_push_ships($targetId = self.home_planet_id) {
    self.rpc($URL).get_trade_ships(self.session_id, $.id, $targetId)<ships>;
-
 }
 
 method push($cargo, $dst_planet_id = self.home_planet_id) {

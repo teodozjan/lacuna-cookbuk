@@ -20,14 +20,14 @@ submethod find_archaeology_ministry(){
     for self.buildings -> %building {
 	return Archaeology.new(id => %building<id>) if %building<url> ~~ $Archaeology::URL;
     }
-    warn "No archaeology ministry on" ~ self.name;
+    note "No archaeology ministry on " ~ self.name;
 }   
 
 submethod find_trade_ministry(){
     for self.buildings -> %building {
 	return Trade.new(id => %building<id>) if %building<url> ~~ $Trade::URL;
     }
-    warn "No trade ministry" ~ self.name;
+    note "No trade ministry on" ~ self.name;
 }   
 
 
