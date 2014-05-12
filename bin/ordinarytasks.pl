@@ -17,7 +17,7 @@ say "Transporting all glyphs to home planet if possible";
 Transporter.new.transport_glyphs;
 
 say "Checking balance on home planet (takes ages)";
-say Planet.new(id => $f.home_planet_id).calculate_sustainablity();
+say Planet.new.calculate_sustainablity();
 
 $f.close_session;
 

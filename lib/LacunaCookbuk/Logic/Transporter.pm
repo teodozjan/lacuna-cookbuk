@@ -13,8 +13,8 @@ submethod transport_glyphs {
 	
 	if $trade
 	{
-	    
-	    unless my @glyphs = $trade.get_glyphs {
+	    my @glyphs = $trade.get_glyphs;
+	    unless  @glyphs {
 		note "No glyphs on " ~ $planet.name;;
 		next
 	    }

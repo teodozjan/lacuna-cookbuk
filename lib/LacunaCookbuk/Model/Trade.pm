@@ -7,10 +7,10 @@ class Trade is LacunaBuilding;
 
 constant $URL = '/trade';
 
-submethod get_glyphs( --> Array) {
+submethod get_glyphs { #( --> Array[Hash]) {
 ##	my @array =
 ##	gather 
-    my @array;
+    my Hash  @array;
     for self.rpc($URL).get_glyph_summary(self.session_id, self.id)<glyphs> -> @glyph
     {
 	for @glyph -> %sth { 
@@ -24,7 +24,7 @@ submethod get_glyphs( --> Array) {
 } 
 
 #todo move to achaeology
-submethod get_glyphs_hash (--> Hash) {
+submethod get_glyphs_hash { #(--> Hash) {
     my Int %hash;
     for self.rpc($URL).get_glyph_summary(self.session_id, self.id)<glyphs> -> @glyph
     {
