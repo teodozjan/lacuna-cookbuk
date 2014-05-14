@@ -80,6 +80,7 @@ method !countPlans(@planRecipe, %glyphs) {
     for @planRecipe -> $glp {
 
 	if !%glyphs{$glp} {
+	    note "Missing: " ~ $glp;
 	    return 0;
 	}
 	elsif $num == 0 
