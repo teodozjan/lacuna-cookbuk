@@ -3,7 +3,7 @@ use v6;
 use LacunaCookbuk::Model::LacunaSession;
 use LacunaCookbuk::Model::Planet;
 
-class PlanMaker is LacunaSession;
+class PlanMaker;
 
 constant $ANTHRACITE = "anthracite";
 constant $BAUXITE = "bauxite";
@@ -57,7 +57,7 @@ constant %recipes =
     "Volcano" => @($MAGNETITE, $URANINITE)
 };
 
-has Planet $home_planet = Planet.new(id => self.home_planet_id);
+has Planet $home_planet = Planet.home_planet;
 
 #TODO use achaeology instead of trade
 method makePossibleHalls {

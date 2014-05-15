@@ -9,8 +9,8 @@ use LacunaCookbuk::Logic::Transporter;
 my LacunaSession $f = LacunaSession.new;
 $f.create_session;
 
-#say "Creating all possible halls";
-#PlanMaker.new.makePossibleHalls();
+say "Creating all possible halls";
+PlanMaker.new.makePossibleHalls();
 
 #todo transport in separate class
 say "Transporting all glyphs to home planet if possible";

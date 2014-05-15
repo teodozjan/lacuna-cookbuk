@@ -5,7 +5,6 @@ use LacunaCookbuk::Logic::Cargo;
 
 class Transporter;
 
-
 submethod transport(@goods,Planet $src, Planet $dst = Planet.home_planet)
 {
   	my @cargo;
