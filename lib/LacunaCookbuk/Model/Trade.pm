@@ -1,7 +1,7 @@
 use v6;
 
 use LacunaCookbuk::Model::LacunaBuilding;
-
+use LacunaCookbuk::Model::Ship;
 
 class Trade is LacunaBuilding;
 
@@ -49,6 +49,8 @@ method get_push_ships($targetId = self.home_planet_id) {
    self.rpc($URL).get_trade_ships(self.session_id, $.id, $targetId)<ships>;
 }
 
-method push($cargo, $dst_planet_id = self.home_planet_id) {
-   self.rpc($URL).push_items(self.session_id, self.id, $dst_planet_id, $cargo)<ship>
+method push($cargo, $dst_planet_id = self.home_planet_id) {    
+    my %ship = self.rpc($URL).push_items(self.session_id, self.id, $dst_planet_id, $cargo)<ship>;
+    say %ship;
+    Ship.new(attr => %ship)
 }
