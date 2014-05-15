@@ -10,7 +10,7 @@ constant $URL = '/trade';
 submethod get_glyphs { #( --> Array[Hash]) {
 ##	my @array =
 ##	gather 
-    my Hash  @array;
+    my Hash @array;
     for self.rpc($URL).get_glyph_summary(self.session_id, self.id)<glyphs> -> @glyph
     {
 	for @glyph -> %sth { 
@@ -19,8 +19,8 @@ submethod get_glyphs { #( --> Array[Hash]) {
 	    
 	}
 	
-   }
-   @array;
+    }
+    @array;
 } 
 
 #todo move to achaeology
@@ -37,20 +37,47 @@ submethod get_glyphs_hash { #(--> Hash) {
 } 
 
 method get_resources {
-   self.rpc($URL).get_stored_resources(self.session_id, $.id)<resources>;
+    self.rpc($URL).get_stored_resources(self.session_id, $.id)<resources>;
 }
 
 
 method get_plans {
-   self.rpc($URL).get_plan_summary(self.session_id, $.id)<plans>;
+    my Hash @array;
+    for self.rpc($URL).get_plan_summary(self.session_id, $.id)<plans> -> @plans
+    {
+	for @plans -> %sth { 
+	    my Hash $hash = %(:type("plan"), :plan_type(%sth<plan_type>), :level(%sth<level>), :extra_build_level(%sth<extra_build_level>), :quantity(%sth<quantity>));
+	    @array.push($hash);
+	    
+	}
+	
+    }
+    @array;
+    
 } 
 
 method get_push_ships($targetId = self.home_planet_id) {
-   self.rpc($URL).get_trade_ships(self.session_id, $.id, $targetId)<ships>;
+    self.rpc($URL).get_trade_ships(self.session_id, $.id, $targetId)<ships>
 }
 
-method push($cargo, $dst_planet_id = self.home_planet_id) {    
-    my %ship = self.rpc($URL).push_items(self.session_id, self.id, $dst_planet_id, $cargo)<ship>;
-    say %ship;
+method push($cargo, $dst_planet_id = self.home_planet_id) {   
+    
+    my %ship = self.rpc($URL).push_items(self.session_id, self.id, $dst_planet_id, $cargo, %(:ship_id(self.find_fastest_ship<id>), :stay(0)))<ship>;
+    
     Ship.new(attr => %ship)
+}
+
+method find_fastest_ship {
+    my $fastest_ship;
+    for self.get_push_ships -> @ships {
+	for @ships -> $ship {
+	    if $fastest_ship {
+		$fastest_ship = $ship<id> if $ship<estimated_travel_time> < $fastest_ship<estimated_travel_time>; 
+	    } else {
+		$fastest_ship = $ship;
+	    }
+	}
+    }
+
+    $fastest_ship;
 }

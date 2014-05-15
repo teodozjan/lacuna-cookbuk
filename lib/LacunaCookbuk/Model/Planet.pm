@@ -11,7 +11,7 @@ has $.id = self.home_planet_id;
 has @.buildings = self.get_buildings;
 my Planet %planets;
 
-method planet ($id --> Planet) {
+method planet ($id = self.home_planet_id --> Planet) {
     %planets{$id} = Planet.new(id => $id) unless %planets{$id};
     %planets{$id}
 }
@@ -65,4 +65,16 @@ submethod calculate_sustainablity (--> Hash) {
 
 submethod name (--> Str){
     self.planet_name(self.id);
+}
+
+method planets {
+    %planets;
+}
+
+method is_home(--> Bool) {
+    +self.id == +self.home_planet_id;
+}
+
+submethod home_planet(--> Planet) {
+    self.planet();
 }

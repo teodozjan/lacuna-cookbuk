@@ -9,12 +9,12 @@ use LacunaCookbuk::Logic::Transporter;
 my LacunaSession $f = LacunaSession.new;
 $f.create_session;
 
-say "Creating all possible halls";
-PlanMaker.new.makePossibleHalls();
+#say "Creating all possible halls";
+#PlanMaker.new.makePossibleHalls();
 
 #todo transport in separate class
 say "Transporting all glyphs to home planet if possible";
-Transporter.new.transport_glyphs;
+Transporter.new.transport_all_cargo;
 
 #say "Checking balance on home planet (takes ages)";
 #ay Planet.new.calculate_sustainablity();

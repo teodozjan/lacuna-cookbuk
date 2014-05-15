@@ -38,7 +38,7 @@ method home_planet_id{
     self.status<empire><home_planet_id>;
 }
 
-method planets {
+method planets_hash {
     self.status<empire><planets>;
 }
 
