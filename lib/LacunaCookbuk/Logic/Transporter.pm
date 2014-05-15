@@ -1,10 +1,9 @@
 use v6;
 
-use LacunaCookbuk::Model::LacunaSession;
 use LacunaCookbuk::Model::Planet;
 use LacunaCookbuk::Logic::Cargo;
 
-class Transporter is LacunaSession;
+class Transporter;
 
 
 submethod transport(@goods,Planet $src, Planet $dst = Planet.home_planet)
@@ -24,7 +23,7 @@ submethod transport(@goods,Planet $src, Planet $dst = Planet.home_planet)
 submethod transport_all_cargo(Planet $dst = Planet.home_planet) {
     my @goods = (Glyphs, Plans);
 
-    for self.planets_hash.keys -> $planet_id {
+    for Planet.planets_hash.keys -> $planet_id {
 	
 	my Planet $planet = Planet.planet($planet_id);
 	#note $planet.name;
