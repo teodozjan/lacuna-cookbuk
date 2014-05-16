@@ -16,8 +16,8 @@ PlanMaker.new.makePossibleHalls();
 say "Transporting all glyphs to home planet if possible";
 Transporter.new.transport_all_cargo;
 
-#say "Checking balance on home planet (takes ages)";
-#ay Planet.new.calculate_sustainablity();
+say "Checking balance on home planet (takes ages)";
+say Planet.new.calculate_sustainablity();
 
 $f.close_session;
 

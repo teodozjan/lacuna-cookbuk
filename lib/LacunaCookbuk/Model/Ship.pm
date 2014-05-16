@@ -7,7 +7,10 @@ has %.attr;
 
 multi method gist {
 #if $attr<task> Travelling
-    %.attr<type_human> ~ ": " ~ %.attr<from><name> ~ " -> " ~ %.attr<to><name> ~ " [" ~ %.attr<payload> ~ "]   ETA " ~ %.attr<date_arrives>; 
+    join "\n\t", 
+	 %.attr<from><name> ~ " -> " ~ %.attr<to><name>,
+	 %.attr<type_human> ~ ": " ~ "ETA " ~ %.attr<date_arrives>,
+	 "[" ~ %.attr<payload> ~ "]"; 
 
 }
 

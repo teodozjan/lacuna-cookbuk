@@ -1,7 +1,7 @@
 use v6;
 
 use LacunaCookbuk::Model::Planet;
-use LacunaCookbuk::Logic::Cargo;
+use LacunaCookbuk::Logic::Transporter::Cargo;
 
 class Transporter;
 
