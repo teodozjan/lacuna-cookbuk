@@ -5,7 +5,7 @@ use LacunaCookbuk::Model::Parliament;
 
 class SpaceStation is Body;
 
-submethod find_parliament { #(--> Trade)){
+submethod find_parliament(--> Parliament) { #(--> Trade)){
     for self.buildings -> %building {
 	return Parliament.new(id => %building<id>) if %building<url> ~~ $Parliament::URL;
     }

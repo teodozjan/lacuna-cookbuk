@@ -20,7 +20,7 @@ say "Transporting all glyphs to home planet if possible";
 Transporter.new(bodybuilder => $b).transport_all_cargo;
 
 say "Checking balance on home planet (takes ages)";
-say Planet.new(bodybuilder => $b).calculate_sustainablity();
+say Planet.home_planet.calculate_sustainablity();
 
 $f.close_session;
 
