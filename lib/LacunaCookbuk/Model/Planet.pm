@@ -41,11 +41,3 @@ method is_home(--> Bool) {
 method home_planet(--> Planet) is cached {
     Planet.new(id => self.home_planet_id);
 }
-
-method planets is cached { # --> Array[Planet]
- gather for self.planets_hash.keys -> $planet_id {     
-	 my Planet $planet =  Planet.planet($planet_id);
-	 take $planet if $planet.find_trade_ministry;     
- }
-}
-
