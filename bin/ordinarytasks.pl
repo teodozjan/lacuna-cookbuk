@@ -9,15 +9,18 @@ use LacunaCookbuk::Logic::Transporter;
 my LacunaSession $f = LacunaSession.new;
 $f.create_session;
 
+my BodyBuilder $b = BodyBuilder.new(session =>$f);
+$b.process_all_bodies($f.planets_hash);
+
 say "Creating all possible halls";
-PlanMaker.new.makePossibleHalls();
+PlanMaker.new(bodybuilder => $b).makePossibleHalls;
 
 #todo transport in separate class
 say "Transporting all glyphs to home planet if possible";
-Transporter.new.transport_all_cargo;
+Transporter.new(bodybuilder => $b).transport_all_cargo;
 
 say "Checking balance on home planet (takes ages)";
-say Planet.new.calculate_sustainablity();
+say Planet.new(bodybuilder => $b).calculate_sustainablity();
 
 $f.close_session;
 

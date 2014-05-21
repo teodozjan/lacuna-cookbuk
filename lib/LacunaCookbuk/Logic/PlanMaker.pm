@@ -1,9 +1,9 @@
 use v6;
 
-use LacunaCookbuk::Model::LacunaSession;
 use LacunaCookbuk::Model::Planet;
+use LacunaCookbuk::Logic;
 
-class PlanMaker;
+class PlanMaker does Logic;
 
 constant $ANTHRACITE = "anthracite";
 constant $BAUXITE = "bauxite";

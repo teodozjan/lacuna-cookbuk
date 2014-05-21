@@ -3,21 +3,11 @@ use v6;
 use LacunaCookbuk::Model::LacunaSession;
 use LacunaCookbuk::Model::Archaeology;
 use LacunaCookbuk::Model::Trade;
+use LacunaCookbuk::Model::Body;
 
-
-class Planet is LacunaSession;
-constant $URL = '/body';
-has $.id = self.home_planet_id;
-has @.buildings = self.get_buildings;
-my Planet %planets;
-
-method planet ($id = self.home_planet_id --> Planet) {
-    %planets{$id} = Planet.new(id => $id) unless %planets{$id};
-    %planets{$id}
-}
+class Planet is Body;
 
 submethod find_archaeology_ministry (--> Archaeology){
-  
     for self.buildings -> %building {
 	return Archaeology.new(id => %building<id>) if %building<url> ~~ $Archaeology::URL;
     }
@@ -33,25 +23,6 @@ submethod find_trade_ministry { #(--> Trade)){
     Trade;
 }   
 
-
-submethod get_buildings { #( --> Array[Hash]) {
-    my %buildings = self.rpc($URL).get_buildings(self.session_id, self.id);
-    my Hash @result = gather for keys %buildings<buildings> -> $building_id {
-	my Hash $building = %buildings<buildings>{$building_id};
-	$building<id> = $building_id;
-	take $building;
-    }     
-}
-
-submethod get_buildings_view {#( --> BuildingsView) {
-    gather for self.buildings -> %building {
-	my $rpc = self.rpc(%building<url>);
-	my %building_view =  $rpc.view(self.session_id, %building<id>);
-	%building_view<building><id> = %building<id>;	 
-	take %building_view<building>;
-    }     
-}
-
 #todo -> compare with body hour production - supply chains
 submethod calculate_sustainablity (--> Hash) {
     my %balance;
@@ -63,18 +34,18 @@ submethod calculate_sustainablity (--> Hash) {
     %balance;
 }  
 
-submethod name (--> Str){
-    self.planet_name(self.id);
-}
-
-method planets {
-    %planets;
-}
-
 method is_home(--> Bool) {
     +self.id == +self.home_planet_id;
 }
 
-submethod home_planet(--> Planet) {
-    self.planet();
+method home_planet(--> Planet) is cached {
+    Planet.new(id => self.home_planet_id);
 }
+
+method planets is cached { # --> Array[Planet]
+ gather for self.planets_hash.keys -> $planet_id {     
+	 my Planet $planet =  Planet.planet($planet_id);
+	 take $planet if $planet.find_trade_ministry;     
+ }
+}
+

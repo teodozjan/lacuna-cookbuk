@@ -1,9 +1,10 @@
 use v6;
 
 use LacunaCookbuk::Model::Planet;
+use LacunaCookbuk::Logic;
 use LacunaCookbuk::Logic::Transporter::Cargo;
 
-class Transporter;
+class Transporter does Logic;
 
 submethod transport(@goods,Planet $src, Planet $dst = Planet.home_planet)
 {
@@ -21,11 +22,9 @@ submethod transport(@goods,Planet $src, Planet $dst = Planet.home_planet)
 
 submethod transport_all_cargo(Planet $dst = Planet.home_planet) {
     my @goods = (Glyphs, Plans);
-
-    for Planet.planets_hash.keys -> $planet_id {
-	
-	my Planet $planet = Planet.planet($planet_id);
-	#note $planet.name;
+    my @planets = self.bodybuilder.planets;
+    for @planets -> Planet $planet {
+	#note $planet.name;	
 	next if $planet.is_home;
 	self.transport(@goods, $planet, $dst);
     }

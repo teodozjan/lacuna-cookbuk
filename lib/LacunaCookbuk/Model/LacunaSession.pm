@@ -3,21 +3,19 @@ use v6;
 use LacunaCookbuk::Config;
 use JSON::RPC::Client;
 
+#! Every object that requires session id should inherrit from LacunaSession
 class LacunaSession;
 
 constant $EMPIRE = '/empire';
 my %.status;
 my $.session_id;
 
-my JSON::RPC::Client %rpcs;
-
 method lacuna_url(Str $url){
     'http://us1.lacunaexpanse.com'~ $url
 }
 
-method rpc(Str $name --> JSON::RPC::Client) {
-    %rpcs{$name} = JSON::RPC::Client.new( url => self.lacuna_url($name)) unless %rpcs{$name};
-    %rpcs{$name}
+method rpc(Str $name --> JSON::RPC::Client) is cached {
+    JSON::RPC::Client.new( url => self.lacuna_url($name))
 }
 
 method create_session {
@@ -41,9 +39,3 @@ method home_planet_id{
 method planets_hash {
     self.status<empire><planets>;
 }
-
-
-
-
-
-
