@@ -18,5 +18,6 @@ method to_file($path) {
 }
 
 method from_file($path) {
-     self.deserialize(slurp $path)
+    warn "Reading class from file may be very slow";
+    self.deserialize(slurp $path)
 }

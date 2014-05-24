@@ -6,7 +6,7 @@ use Form;
 class BodyCritic is Logic;
 
 submethod elaborate_spaceport(Planet $planet) {
-    my $spaceport = $planet.find_space_port;
+    my SpacePort $spaceport = $planet.find_space_port;
 
 #bug?
     my Int $free = $spaceport.free_docks;    
@@ -14,9 +14,20 @@ submethod elaborate_spaceport(Planet $planet) {
     my Str $max = ~$spaceport.max_ships;
     
     
-    say form( 
-	'{<<<<<<<<<<<<<<<<<<<<<<<} {>>>>>>>>>>>>>>>>>>}/{>>>}',
+    print form( 
+	'{<<<<<<<<<<<<<<<<<<<<<} {>>>>>>>>>>>>>>>>>>}/{<<<<}',
 	$planet.name, $docks, $max);
+
+}
+
+submethod elaborate_intelligence(Planet $planet) {
+    my Intelligence $imini = $planet.find_intelligence_ministry;
+    my Str $numspies = ~$imini.current;
+    my Str $spies = $numspies == 0 ?? "NONE!!!" !! ~$numspies;
+    my Str $max = ~$imini.maximum;     
+    print form( 
+	'{<<<<<<<<<<<<<<<<<<<<<<<} {>>>>>>>>>>>>>>>>>>}/{<<<<}',
+	$planet.name, $spies, $max);
 
 }
 
@@ -25,4 +36,10 @@ submethod elaborate {
     for self.bodybuilder.planets -> Planet $planet {
 	self.elaborate_spaceport($planet);
     }
+
+    say "\nIntellignece -- Spies";
+    for self.bodybuilder.planets -> Planet $planet {
+	self.elaborate_intelligence($planet);
+    }
+
 }

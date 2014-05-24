@@ -6,14 +6,13 @@ use LacunaCookbuk::Logic::PlanMaker;
 use LacunaCookbuk::Logic::Transporter;
 use LacunaCookbuk::Logic::BodyCritic;
 
-#session info is static for all classes
-my LacunaSession $f = LacunaSession.new;
-$f.create_session;
-
-
 
 my BodyBuilder $b = BodyBuilder.from_file('./var/bodybuilder.pl');
 
+
+#session info is static for all classes
+my LacunaSession $f = LacunaSession.new;
+$f.create_session;
 
 BodyCritic.new(bodybuilder => $b).elaborate;
 

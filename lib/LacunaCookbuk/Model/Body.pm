@@ -1,22 +1,24 @@
 use v6;
 
 use LacunaCookbuk::Model::LacunaSession;
-
+use LacunaCookbuk::Model::LacunaBuilding;
 
 class Body is LacunaSession;
 
 constant $URL = '/body';
 has $.id;
-has @.buildings; 
+has LacunaBuilding @.buildings; 
 method name (--> Str){
     self.planet_name(self.id);
 }
 
-method get_buildings { #( --> Array[Hash]) {
+submethod get_buildings { #( --> Array[Hash]) {
     my %buildings = self.rpc($URL).get_buildings(self.session_id, self.id);
-    my Hash @result = gather for keys %buildings<buildings> -> $building_id {
-	my Hash $building = %buildings<buildings>{$building_id};
-	$building<id> = $building_id;
+    my LacunaBuilding @result = gather for keys %buildings<buildings> -> $building_id {
+	my LacunaBuilding $building = LacunaBuilding.new(id =>$building_id, url => %buildings<buildings>{$building_id}<url>);
+	note $building.perl;
+	#%buildings<buildings>{$building_id};
+	#$building<id> = $building_id;
 	take $building;
     }   
 

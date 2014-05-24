@@ -5,31 +5,48 @@ use LacunaCookbuk::Model::Archaeology;
 use LacunaCookbuk::Model::Trade;
 use LacunaCookbuk::Model::Body;
 use LacunaCookbuk::Model::SpacePort;
-
+use LacunaCookbuk::Model::Intelligence;
 class Planet is Body;
 
 submethod find_archaeology_ministry(--> Archaeology) {
-    for self.buildings -> %building {
-	return Archaeology.new(id => %building<id>) if %building<url> ~~ $Archaeology::URL;
+    for self.buildings -> LacunaBuilding $building {
+	return Archaeology.new(id => $building.id) if $building.url ~~ $Archaeology::URL;
     }
     note "No archaeology ministry on " ~ self.name;
     Archaeology;
 }   
 
 submethod find_trade_ministry(--> Trade) { #(--> Trade)){
-    for self.buildings -> %building {
-	return Trade.new(id => %building<id>) if %building<url> ~~ $Trade::URL;
+    for self.buildings -> LacunaBuilding $building {
+	return Trade.new(id => $building<id>, url=>$building.url) if $building.url ~~ $Trade::URL;
     }
     note "No trade ministry on " ~ self.name;
     Trade;
 }   
 
 submethod find_space_port(--> SpacePort) {
-    for self.buildings -> %building {
-	return SpacePort.new(id => %building<id>) if %building<url> ~~ $SpacePort::URL;
+    for self.buildings -> LacunaBuilding $building {
+	return SpacePort.new(id => $building.id) if $building.url ~~ $SpacePort::URL;
     }
     note "No space port on " ~ self.name;
     SpacePort;
+}
+
+
+submethod find_intelligence_ministry(--> Intelligence) {
+    
+    for self.buildings -> LacunaBuilding $building {
+	
+	if $building.url ~~ $Intelligence::URL {
+	    my $id = $building.id;
+	    
+	    my %attr = self.rpc($building.url).view(self.session_id, $id)<spies>;
+	    %attr<id> = $id;
+	    return Intelligence.new(|%attr);
+	}
+    }
+    note "No intelligence on " ~ self.name;
+    Intelligence;
 }
 
 
