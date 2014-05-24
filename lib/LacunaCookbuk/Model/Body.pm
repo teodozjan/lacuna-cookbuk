@@ -7,8 +7,7 @@ class Body is LacunaSession;
 
 constant $URL = '/body';
 has $.id;
-has @.buildings = self.get_buildings;
-
+has @.buildings; 
 method name (--> Str){
     self.planet_name(self.id);
 }
@@ -19,7 +18,9 @@ method get_buildings { #( --> Array[Hash]) {
 	my Hash $building = %buildings<buildings>{$building_id};
 	$building<id> = $building_id;
 	take $building;
-    }     
+    }   
+
+    self.buildings = @result;  
 }
 
 method get_buildings_view {#( --> BuildingsView) {
@@ -29,10 +30,6 @@ method get_buildings_view {#( --> BuildingsView) {
 	%building_view<building><id> = %building<id>;	 
 	take %building_view<building>;
     }     
-}
-
-method lac_status($id) is cached {
-    self.rpc($URL).get_status(self.session_id, $id);
 }
 
 

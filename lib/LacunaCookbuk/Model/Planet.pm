@@ -50,5 +50,7 @@ method is_home(--> Bool) {
 }
 
 method home_planet(--> Planet) is cached {
-    Planet.new(id => self.home_planet_id);
+    my $planet = Planet.new(id => self.home_planet_id);
+    $planet.get_buildings;
+    $planet;
 }

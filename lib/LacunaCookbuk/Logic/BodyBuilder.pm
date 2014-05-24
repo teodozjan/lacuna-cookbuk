@@ -2,9 +2,10 @@ use v6;
 
 use LacunaCookbuk::Model::SpaceStation;
 use LacunaCookbuk::Model::Planet;
+use LacunaCookbuk::CoreAdditions::FileSerialization;
 
 
-class BodyBuilder;
+class BodyBuilder does FileSerialization;
 
 has LacunaSession $.session;
 has Planet @.planets;
@@ -14,10 +15,12 @@ has SpaceStation @.stations;
 submethod process_all_bodies($planets_hash) {
 
     for $planets_hash.keys -> $planet_id {      
-#todo stop wasting rpc calls
-	my SpaceStation $station = SpaceStation.new(id => $planet_id);
-	my Planet $planet = Planet.new(id => $planet_id);
-
+	my $body = Body.new(id => $planet_id);
+	$body.get_buildings;
+#todo consider usability of having separate classes for space station and planet while it can be a fiels
+	my SpaceStation $station = SpaceStation.new(id => $planet_id, buildings => $body.buildings);
+	my Planet $planet = Planet.new(id => $planet_id, buildings => $body.buildings);
+	
 	if $station.find_parliament {
 	    note $station.name ~ " is a Space Station";
 	    self.stations.push($station)
@@ -27,10 +30,8 @@ submethod process_all_bodies($planets_hash) {
 	}else {
 	    warn $planet.name ~ " Cannot be used";
 	}
-
-
     } 
-
-
 }
+
+
 
