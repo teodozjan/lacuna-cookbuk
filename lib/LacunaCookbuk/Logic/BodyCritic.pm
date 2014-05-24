@@ -5,19 +5,24 @@ use Form;
 
 class BodyCritic is Logic;
 
-submethod elaborate_planet(Planet $planet) {
+submethod elaborate_spaceport(Planet $planet) {
     my $spaceport = $planet.find_space_port;
-    die "Planet " ~ $planet.name ~ " without space port" unless $spaceport;
-    my Str $docks = ~$spaceport.free_docks;
+
+#bug?
+    my Int $free = $spaceport.free_docks;    
+    my Str $docks = $free == 0 ?? "FULL" !! ~$free;
     my Str $max = ~$spaceport.max_ships;
-    say form(
-	'{||||||||}',~$planet.name, 
-	'Docks {>>>>} of {>>>>}',  $docks, $max); 
+    
+    
+    say form( 
+	'{<<<<<<<<<<<<<<<<<<<<<<<} {>>>>>>>>>>>>>>>>>>}/{>>>}',
+	$planet.name, $docks, $max);
 
 }
 
 submethod elaborate {
-    for self.bodybuilder.planets -> Planet $planet{
-	self.elaborate_planet($planet);
+    say "Spaceport -- Docks";
+    for self.bodybuilder.planets -> Planet $planet {
+	self.elaborate_spaceport($planet);
     }
 }

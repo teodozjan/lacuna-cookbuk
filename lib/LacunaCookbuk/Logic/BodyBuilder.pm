@@ -8,6 +8,7 @@ use LacunaCookbuk::CoreAdditions::FileSerialization;
 class BodyBuilder does FileSerialization;
 
 has LacunaSession $.session;
+#serialization of this class is terribly slow
 has Planet @.planets;
 has SpaceStation @.stations;
 
@@ -17,7 +18,7 @@ submethod process_all_bodies($planets_hash) {
     for $planets_hash.keys -> $planet_id {      
 	my $body = Body.new(id => $planet_id);
 	$body.get_buildings;
-#todo consider usability of having separate classes for space station and planet while it can be a fiels
+#todo consider usability of having separate classes for space station and planet while it can be a fields
 	my SpaceStation $station = SpaceStation.new(id => $planet_id, buildings => $body.buildings);
 	my Planet $planet = Planet.new(id => $planet_id, buildings => $body.buildings);
 	
