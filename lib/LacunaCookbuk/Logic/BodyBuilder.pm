@@ -20,8 +20,8 @@ submethod process_all_bodies($planets_hash) {
 	$body.get_buildings;
 #todo consider usability of having separate classes for space station and planet while it can be a fields
 	my SpaceStation $station = SpaceStation.new(id => $planet_id, buildings => $body.buildings);
-	my Planet $planet = Planet.new(id => $planet_id, buildings => $body.buildings);
-	
+	my Planet $planet = Planet.new(id => $planet_id, buildings => $body.buildings, ore => $body.ore);
+       
 	if $station.find_parliament {
 	    note $station.name ~ " is a Space Station";
 	    self.stations.push($station)

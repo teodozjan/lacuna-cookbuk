@@ -5,7 +5,12 @@ use Form;
 
 class BodyCritic is Logic;
 
+constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<} {>>>>>>>>>>>>>>>>>>}/{<<<<}';
+constant $ore_format_str = '{<<<<<<<<<<<<<<<<<<<}  ' ~ '{||||} ' x 20;
+
+
 submethod elaborate_spaceport(Planet $planet) {
+    
     my SpacePort $spaceport = $planet.find_space_port;
 
 #bug?
@@ -15,7 +20,7 @@ submethod elaborate_spaceport(Planet $planet) {
     
     
     print form( 
-	'{<<<<<<<<<<<<<<<<<<<<<} {>>>>>>>>>>>>>>>>>>}/{<<<<}',
+	$limited_format,
 	$planet.name, $docks, $max);
 
 }
@@ -26,13 +31,34 @@ submethod elaborate_intelligence(Planet $planet) {
     my Str $spies = $numspies == 0 ?? "NONE!!!" !! ~$numspies;
     my Str $max = ~$imini.maximum;     
     print form( 
-	'{<<<<<<<<<<<<<<<<<<<<<<<} {>>>>>>>>>>>>>>>>>>}/{<<<<}',
+	$limited_format,
 	$planet.name, $spies, $max);
 
 }
 
+submethod elaborate_ores(Planet $planet, Str @header){
+#keys and values in hash 
+    my Str @header_copy = @header.clone;
+    @header_copy.shift;
+
+    my Str @values = gather for @header_copy -> $head {
+	take ~$planet.ore{$head};
+    }
+    @values.unshift($planet.name);
+    print form($ore_format_str, @values);
+}
+
+#todo optimize for reading
 submethod elaborate {
-    say "Spaceport -- Docks";
+    say "Planets -- Potential ores";
+    my Str @header = self.bodybuilder.home_planet.ore.keys;
+    @header.unshift('Planet name');
+    print form($ore_format_str, @header);
+    for self.bodybuilder.planets -> Planet $planet {
+	self.elaborate_ores($planet, @header);
+    }    
+
+    say "\n\nSpaceport -- Docks";
     for self.bodybuilder.planets -> Planet $planet {
 	self.elaborate_spaceport($planet);
     }

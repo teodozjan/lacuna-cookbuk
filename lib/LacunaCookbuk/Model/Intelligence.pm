@@ -8,3 +8,8 @@ class Intelligence does LacunaBuilding;
 constant $URL = '/intelligence';
 has $.maximum;
 has $.current;
+
+method train_spies(Int $num=(self.maximum-current)){
+
+
+}

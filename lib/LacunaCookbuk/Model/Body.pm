@@ -7,20 +7,18 @@ class Body is LacunaSession;
 
 constant $URL = '/body';
 has $.id;
-has LacunaBuilding @.buildings; 
+has LacunaBuilding @.buildings;
+has %.ore; 
 method name (--> Str){
     self.planet_name(self.id);
 }
 
-# perl does not see difference between inherriting and calling on object
-# so it must be method for Planet.home_planet instead of submethod
-method get_buildings { #( --> Array[Hash]) {
+submethod get_buildings { 
     my %buildings = self.rpc($URL).get_buildings(self.session_id, self.id);
+    self.ore = %buildings<status><body><ore>;    
     my LacunaBuilding @result = gather for keys %buildings<buildings> -> $building_id {
 	my LacunaBuilding $building = LacunaBuilding.new(id =>$building_id, url => %buildings<buildings>{$building_id}<url>);
 	note $building.perl;
-	#%buildings<buildings>{$building_id};
-	#$building<id> = $building_id;
 	take $building;
     }   
 
