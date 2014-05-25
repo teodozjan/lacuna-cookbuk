@@ -26,6 +26,7 @@ submethod get_glyphs { #( --> Array[Hash]) {
 #todo move to achaeology
 submethod get_glyphs_hash { #(--> Hash) {
     my Int %hash;
+
     for self.rpc($URL).get_glyph_summary(self.session_id, self.id)<glyphs> -> @glyph
     {
 	for @glyph -> %sth { 

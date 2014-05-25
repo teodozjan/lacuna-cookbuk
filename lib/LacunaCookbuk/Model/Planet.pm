@@ -18,7 +18,7 @@ submethod find_archaeology_ministry(--> Archaeology) {
 
 submethod find_trade_ministry(--> Trade) { #(--> Trade)){
     for self.buildings -> LacunaBuilding $building {
-	return Trade.new(id => $building<id>, url=>$building.url) if $building.url ~~ $Trade::URL;
+	return Trade.new(id => $building.id, url=>$building.url) if $building.url ~~ $Trade::URL;
     }
     note "No trade ministry on " ~ self.name;
     Trade;
@@ -66,8 +66,3 @@ method is_home(--> Bool) {
     +self.id == +self.home_planet_id;
 }
 
-method home_planet(--> Planet) is cached {
-    my $planet = Planet.new(id => self.home_planet_id);
-    $planet.get_buildings;
-    $planet;
-}

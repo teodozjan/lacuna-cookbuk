@@ -12,7 +12,9 @@ method name (--> Str){
     self.planet_name(self.id);
 }
 
-submethod get_buildings { #( --> Array[Hash]) {
+# perl does not see difference between inherriting and calling on object
+# so it must be method for Planet.home_planet instead of submethod
+method get_buildings { #( --> Array[Hash]) {
     my %buildings = self.rpc($URL).get_buildings(self.session_id, self.id);
     my LacunaBuilding @result = gather for keys %buildings<buildings> -> $building_id {
 	my LacunaBuilding $building = LacunaBuilding.new(id =>$building_id, url => %buildings<buildings>{$building_id}<url>);

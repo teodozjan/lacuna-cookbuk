@@ -6,7 +6,7 @@ use LacunaCookbuk::Logic::Transporter::Cargo;
 
 class Transporter does Logic;
 
-submethod transport(@goods,Planet $src, Planet $dst = Planet.home_planet)
+submethod transport(@goods,Planet $src, Planet $dst = self.bodybuilder.home_planet)
 {
   	my @cargo;
 	my $trade = $src.find_trade_ministry;
@@ -20,7 +20,7 @@ submethod transport(@goods,Planet $src, Planet $dst = Planet.home_planet)
 	say $trade.push(@packed) if @packed;   
 }
 
-submethod transport_all_cargo(Planet $dst = Planet.home_planet) {
+submethod transport_all_cargo(Planet $dst = self.bodybuilder.home_planet) {
     my @goods = (Glyphs, Plans);
     my @planets = self.bodybuilder.planets;
     for @planets -> Planet $planet {

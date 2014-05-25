@@ -34,5 +34,10 @@ submethod process_all_bodies($planets_hash) {
     } 
 }
 
-
+method home_planet(--> Planet) {
+    for self.planets -> Planet $planet {
+	return $planet if $planet.is_home;
+    }
+    Planet;
+}
 
