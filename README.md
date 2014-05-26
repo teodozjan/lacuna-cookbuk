@@ -8,7 +8,7 @@ I use parrot backend for building this.
 All planets must have Trade Ministry, Intelligence Ministry and Archaeology Ministry. All space stations must have Parliament.
 
 Compilation:
-'''
+```
 $ panda install JSON::RPC
 $ panda install ufo
 $ panda install Form 
@@ -20,9 +20,9 @@ $ editor ib/LacunaCookbuk/Config.pm
 
 $ ufo
 $ make install
-'''
+```
 
 Usage (examples are in bin directory):
-'''
+```
 $ perl6 your_fancy script.pl
-'''
+```
