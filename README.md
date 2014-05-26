@@ -1,7 +1,7 @@
 lacuna-cookbuk
 ==============
 
-Script helps [lacunaexpanse.com](https://us1.lacunaexpanse.com/) players doing boring tasks like moving glyphs to one place that can make plans from them. 
+Script helps [lacunaexpanse.com](https://us1.lacunaexpanse.com/) players doing boring tasks like moving glyphs to one place that can make plans from them or searching where excess fighters can be put. The intention was putting perl6 into life. 
 
 I use parrot backend for building this. 
 
