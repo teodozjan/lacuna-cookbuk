@@ -16,7 +16,7 @@ $ panda install Form
 $ git clone https://github.com/teodozjan/lacuna-cookbuk.git
 $ cd lacuna-cookbuk
 $ cp lib/LacunaCookbuk/SampleConfig.pm lib/LacunaCookbuk/Config.pm 
-$ editor ib/LacunaCookbuk/Config.pm 
+$ editor lib/LacunaCookbuk/Config.pm 
 
 $ ufo
 $ make install
