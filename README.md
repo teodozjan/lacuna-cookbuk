@@ -29,7 +29,7 @@ $ perl6 your_fancy script.pl
 
 Things that seem to work:
 - Caching planets and its buildings
-- Find out what ores are on planets
-- Check whether space port or intelligence ministries are full
-- Move glyphs and plans between planets
-- Assemble halls
+- Finding out what ores are on planets
+- Checking whether space port or intelligence ministries are full
+- Moving glyphs and plans between planets
+- Assembling halls
