@@ -26,3 +26,10 @@ Usage (examples are in bin directory):
 ```
 $ perl6 your_fancy script.pl
 ```
+
+Things that seem to work:
+- Caching planets and its buildings
+- Find out what ores are on planets
+- Check whether space port or intelligence ministries are full
+- Move glyphs and plans between planets
+- Assemble halls
