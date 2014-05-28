@@ -5,7 +5,7 @@ use Form;
 
 class BodyCritic is Logic;
 
-constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<} {>>>>>>>>>>>>>>>>>>}/{<<<<}';
+constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
 constant $ore_format_str = '{<<<<<<<<<<<<<<<<<<<}  ' ~ '{||||} ' x 20;
 
 
@@ -14,14 +14,15 @@ submethod elaborate_spaceport(Planet $planet) {
     my SpacePort $spaceport = $planet.find_space_port;
 
 #bug?
-    my Int $free = $spaceport.free_docks;    
+    my Int $free = $spaceport.docks_available;    
     my Str $docks = $free == 0 ?? "FULL" !! ~$free;
     my Str $max = ~$spaceport.max_ships;
+    my Str $ships = self.format_ships($spaceport.docked_ships);
     
     
     print form( 
 	$limited_format,
-	$planet.name, $docks, $max);
+	$planet.name, $docks, $max, $ships);
 
 }
 
@@ -30,9 +31,10 @@ submethod elaborate_intelligence(Planet $planet) {
     my Str $numspies = ~$imini.current;
     my Str $spies = $numspies == 0 ?? "NONE!!!" !! ~$numspies;
     my Str $max = ~$imini.maximum;     
+    my Str $spiesl = self.format_spies($imini.get_view_spies);
     print form( 
 	$limited_format,
-	$planet.name, $spies, $max);
+	$planet.name, $spies, $max, $spiesl);
 
 }
 
@@ -50,6 +52,7 @@ submethod elaborate_ores(Planet $planet, Str @header){
 
 #todo optimize for reading
 submethod elaborate {
+
     say "Planets -- Potential ores";
     my Str @header = self.bodybuilder.home_planet.ore.keys;
     @header.unshift('Planet name');
@@ -68,4 +71,27 @@ submethod elaborate {
 	self.elaborate_intelligence($planet);
     }
 
+   
+
+}
+
+method format_ships(%ships --> Str){
+    my Str $ret;
+    for %ships.keys -> Str $key {
+	$ret ~=	 $key ~ ":" ~ %ships{$key} ~ " ";
+    }
+    $ret;
+}
+
+method format_spies(Spy @spies --> Str) {
+    my %assignments;
+    for @spies -> Spy $spy {
+	%assignments{$spy.assignment}++;
+    }
+
+    my Str $ret;
+    for %assignments.keys -> Str $key {
+	$ret ~=	form(' {>>>>>}:{<<<<} ', $key, ~%assignments{$key});
+    }
+    $ret;
 }

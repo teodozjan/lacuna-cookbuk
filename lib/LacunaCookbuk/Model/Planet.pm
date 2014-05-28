@@ -26,7 +26,12 @@ submethod find_trade_ministry(--> Trade) { #(--> Trade)){
 
 submethod find_space_port(--> SpacePort) {
     for self.buildings -> LacunaBuilding $building {
-	return SpacePort.new(id => $building.id) if $building.url ~~ $SpacePort::URL;
+	
+	if $building.url ~~ $SpacePort::URL {
+	    my %attr = self.rpc($SpacePort::URL).view(self.session_id,$building.id);
+	    %attr<id> = $building.id;
+	    return SpacePort.new(|%attr)
+	}
     }
     note "No space port on " ~ self.name;
     SpacePort;
