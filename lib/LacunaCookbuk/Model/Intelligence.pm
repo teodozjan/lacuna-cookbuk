@@ -15,7 +15,6 @@ method train_spies(Int $num=(self.maximum)){
 }
 
 method get_view_spies {
-
     my @spies = self.rpc($URL).view_spies(self.session_id, self.id)<spies>;
     my Spy @list = gather for @spies -> @spy {
 	for @spy -> %spyattr {

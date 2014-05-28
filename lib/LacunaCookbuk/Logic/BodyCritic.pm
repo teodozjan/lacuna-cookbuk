@@ -32,6 +32,7 @@ submethod elaborate_intelligence(Planet $planet) {
     my Str $spies = $numspies == 0 ?? "NONE!!!" !! ~$numspies;
     my Str $max = ~$imini.maximum;     
     my Str $spiesl = self.format_spies($imini.get_view_spies);
+    
     print form( 
 	$limited_format,
 	$planet.name, $spies, $max, $spiesl);
@@ -78,7 +79,7 @@ submethod elaborate {
 method format_ships(%ships --> Str){
     my Str $ret;
     for %ships.keys -> Str $key {
-	$ret ~=	 $key ~ ":" ~ %ships{$key} ~ " ";
+	$ret ~=	 $key ~ ":" ~ %ships{$key} ~ ' ';
     }
     $ret;
 }
@@ -91,7 +92,7 @@ method format_spies(Spy @spies --> Str) {
 
     my Str $ret;
     for %assignments.keys -> Str $key {
-	$ret ~=	form(' {>>>>>}:{<<<<} ', $key, ~%assignments{$key});
+	$ret ~=	$key ~ ':' ~%assignments{$key} ~ '   ';
     }
     $ret;
 }
