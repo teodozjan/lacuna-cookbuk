@@ -42,3 +42,11 @@ method get_happiness(--> Int:D){
 
 }
 
+method find_buildings(Str $url) {
+    my LacunaBuilding @buildings = gather for self.buildings -> LacunaBuilding $building {
+	take $building if $building.url ~~ $url;
+    };    
+   
+    @buildings;
+  
+}
