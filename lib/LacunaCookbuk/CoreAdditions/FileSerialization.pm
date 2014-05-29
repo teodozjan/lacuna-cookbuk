@@ -14,10 +14,14 @@ method to_file($path) {
     given open($path, :w) {
 	.say(self.serialize);
 	.close
-   }
+    }
 }
 
 method from_file($path) {
-    warn "Reading class from file may be very slow";
-    self.deserialize(slurp $path)
+    note "Reading class from file may be very slow";
+    if $path.IO ~~ :e {
+	self.deserialize(slurp $path)
+    } else {
+	warn "Cannot read $path";
+}
 }

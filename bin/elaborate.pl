@@ -1,9 +1,6 @@
 use v6;
 
 use LacunaCookbuk::Model::LacunaSession;
-use LacunaCookbuk::Model::Planet;
-use LacunaCookbuk::Logic::PlanMaker;
-use LacunaCookbuk::Logic::Transporter;
 use LacunaCookbuk::Logic::BodyCritic;
 
 

@@ -9,6 +9,7 @@ constant $URL = '/body';
 has $.id;
 has LacunaBuilding @.buildings;
 has %.ore; 
+
 method name (--> Str){
     self.planet_name(self.id);
 }
@@ -35,4 +36,9 @@ method get_buildings_view {#( --> BuildingsView) {
 }
 
 
+method get_happiness(--> Int:D){
+    my %res = self.rpc($URL).get_status(self.session_id, self.id);
+    %res<body><happiness>;
+
+}
 
