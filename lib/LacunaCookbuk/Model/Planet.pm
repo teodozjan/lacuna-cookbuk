@@ -6,6 +6,8 @@ use LacunaCookbuk::Model::Trade;
 use LacunaCookbuk::Model::Body;
 use LacunaCookbuk::Model::SpacePort;
 use LacunaCookbuk::Model::Intelligence;
+use LacunaCookbuk::Model::Development;
+
 class Planet is Body;
 
 submethod find_archaeology_ministry(--> Archaeology) {
@@ -45,7 +47,7 @@ submethod find_intelligence_ministry(--> Intelligence) {
 	if $building.url ~~ $Intelligence::URL {
 	    my $id = $building.id;
 	    
-	    my %attr = self.rpc($building.url).view(self.session_id, $id)<spies>;
+	    my %attr = self.rpc($building.url).view(self.session_id, $id)<spies>;	  
 	    %attr<id> = $id;
 	    return Intelligence.new(|%attr);
 	}
@@ -54,7 +56,22 @@ submethod find_intelligence_ministry(--> Intelligence) {
     Intelligence;
 }
 
-
+submethod find_development_ministry(--> Development) {
+    
+    for self.buildings -> LacunaBuilding $building {
+	
+	if $building.url ~~ $Development::URL {
+	    my $id = $building.id;
+	    my %resp = self.rpc($building.url).view(self.session_id, $id);
+	    my %attr = %resp;
+	    %attr<url> = $building.url;
+	    %attr<id> = $id;
+	    return Development.new(|%attr);
+	}
+    }
+    note "No intelligence on " ~ self.name;
+    Development;
+}
 
 #todo -> compare with body hour production - supply chains
 submethod calculate_sustainablity (--> Hash) {

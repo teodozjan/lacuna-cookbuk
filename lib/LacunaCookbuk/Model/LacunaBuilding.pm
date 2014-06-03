@@ -8,11 +8,10 @@ has $.id;
 has $.url; 
 
 
-method upgrade returns Bool {
+method upgrade {
     self.rpc(self.url).upgrade(self.session_id, self.id);    
 }
 
-method level returns Int {
-    warn "This may be not sort efficient";
+method level returns Int {    
     +self.rpc(self.url).view(self.session_id, self.id)<building><level>;    
 }
