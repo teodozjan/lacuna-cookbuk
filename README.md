@@ -33,6 +33,8 @@ Things that seem to work:
 - Checking whether space port or intelligence ministries are full
 - Moving glyphs and plans between planets
 - Assembling halls
+- Upgrading spaceports to level 10
+- Primitive upgrading rules
 
 ## TODO
 
