@@ -1,6 +1,7 @@
 use v6;
 
 use LacunaCookbuk::Model::LacunaSession;
+use LacunaCookbuk::Model::BuildingView;
 
 role LacunaBuilding is LacunaSession;
 
@@ -12,6 +13,6 @@ method upgrade {
     self.rpc(self.url).upgrade(self.session_id, self.id);    
 }
 
-method level returns Int {    
-    +self.rpc(self.url).view(self.session_id, self.id)<building><level>;    
+method view returns BuildingView {    
+    BuildingView.new(|self.rpc(self.url).view(self.session_id, self.id)<building>);    
 }

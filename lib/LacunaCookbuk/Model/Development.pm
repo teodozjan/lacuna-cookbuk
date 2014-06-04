@@ -9,5 +9,5 @@ constant $URL = '/development';
 has Hash @.build_queue;
 
 method full returns Bool {
-    self.level < self.build_queue.elems
+    self.view.level < self.build_queue.elems
 }

@@ -18,7 +18,7 @@ submethod get_buildings {
     my %buildings = self.rpc($URL).get_buildings(self.session_id, self.id);
     self.ore = %buildings<status><body><ore>;    
     my LacunaBuilding @result = gather for keys %buildings<buildings> -> $building_id {
-	my LacunaBuilding $building .= new(id =>$building_id, url => %buildings<buildings>{$building_id}<url>);
+	my LacunaBuilding $building = LacunaBuilding.new(id =>$building_id, url => %buildings<buildings>{$building_id}<url>);
 	note $building.perl;
 	take $building;
     }   
