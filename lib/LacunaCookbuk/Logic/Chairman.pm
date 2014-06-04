@@ -10,6 +10,7 @@ enum Building <algae algaepond amalgusmeadow apple archaeology atmosphericevapor
 has Building @.build_order;
 constant @STORAGE = (foodreserve, energyreserve, orestorage, wastesequestration, waterstorage);
 
+#constant @RESOURCES = 
 method build(Body $body) {  
     if $body.find_development_ministry.full {
 	note "Queue full on \n";
@@ -22,10 +23,11 @@ method build(Body $body) {
 	for @buildings -> LacunaBuilding $building {
 	    try $building.upgrade;
 	    if ($!) {
-		note "Cannot upgrade " ~ $buildingguide;		
+		note "Cannot upgrade " ~ $buildingguide;
+		last;		
 	    } else {
 		note "Successful upgrade of " ~ $buildingguide;
-		#	last;
+#		last;
 	    }
 	    
 	}
