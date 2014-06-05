@@ -40,7 +40,7 @@ submethod elaborate_intelligence(Planet $planet) {
 
 }
 
-submethod elaborate_ores(Planet $planet, Str @header){
+submethod elaborate_ores(Planet $planet, Str @header) {
 #keys and values in hash 
     my Str @header_copy = @header.clone;
     @header_copy.shift;
@@ -52,10 +52,8 @@ submethod elaborate_ores(Planet $planet, Str @header){
     print form($ore_format_str, @values);
 }
 
-#todo optimize for reading
-submethod elaborate {
+submethod elaborate_ore {
 
-{
     say "Planets -- Potential ores";
     my Str @header = self.bodybuilder.home_planet.ore.keys;
     @header.unshift('Planet name');
@@ -65,7 +63,9 @@ submethod elaborate {
 	self.elaborate_ores($planet, @header);
     }    
 }
-{
+
+
+submethod elaborate_ships {
 
     say "\n\nSpaceport -- Docks";
     my @header = <planet free all details>;
@@ -76,7 +76,9 @@ submethod elaborate {
     }
 
 }
-{
+
+
+submethod elaborate_spies{
     say "\nIntellignece -- Spies";
     my @header = <planet num limit details>;
     print form ($limited_format, @header);
@@ -87,25 +89,25 @@ submethod elaborate {
 }
 
 
-}
 
-method format_ships(%ships --> Str){
+
+method format_ships(%ships --> Str) {
     my Str $ret;
-for %ships.keys -> Str $key {
-    $ret ~=	 $key ~ ":" ~ %ships{$key} ~ ' ';
-}
-$ret;
+    for %ships.keys -> Str $key {
+	$ret ~=	 $key ~ ":" ~ %ships{$key} ~ ' ';
+    }
+    $ret;
 }
 
 method format_spies(Spy @spies --> Str) {
     my %assignments;
-for @spies -> Spy $spy {
-    %assignments{$spy.assignment}++;
-}
+    for @spies -> Spy $spy {
+	%assignments{$spy.assignment}++;
+    }
 
-my Str $ret;
-for %assignments.keys -> Str $key {
-    $ret ~=	$key ~ ':' ~%assignments{$key} ~ '   ';
-}
-$ret;
+    my Str $ret;
+    for %assignments.keys -> Str $key {
+	$ret ~=	$key ~ ':' ~%assignments{$key} ~ '   ';
+    }
+    $ret;
 }

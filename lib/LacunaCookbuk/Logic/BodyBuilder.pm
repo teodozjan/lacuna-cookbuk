@@ -14,7 +14,8 @@ has SpaceStation @.stations;
 
 #this not something I'm proud of
 submethod process_all_bodies($planets_hash) {
-
+    self.planets = ();
+    self.stations = ();
     for $planets_hash.keys -> $planet_id {      
 	my Body $body .= new(id => $planet_id);
 	$body.get_buildings;
