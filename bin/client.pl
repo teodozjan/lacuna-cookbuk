@@ -5,7 +5,7 @@ use LacunaCookbuk::Logic::BodyBuilder;
 use LacunaCookbuk::Logic::PlanMaker;
 use LacunaCookbuk::Logic::Transporter;
 use LacunaCookbuk::Logic::BodyCritic;
-use LacunaCookbuk::Logic::Chairman;
+use LacunaCookbuk::Logic::Chairman::GoalChairman;
 use LacunaCookbuk::Logic::Chairman::Building;
 use LacunaCookbuk::Logic::Chairman::BuildGoal;
 
@@ -41,7 +41,7 @@ class Client {
 	my BuildGoal $space =  BuildGoal.new(building => spaceport, level=>10);
 	my BuildGoal $arch =  BuildGoal.new(building => archaeology, level=>30);
 	my BuildGoal @goals = ($wastet,$space, $arch);
-	my $c = Chairman.new(
+	my $c = GoalChairman.new(
 	    bodybuilder => $!cache,
 	    build_goals=>(@goals)	    
 	    );
