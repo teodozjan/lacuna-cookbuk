@@ -1,7 +1,7 @@
 use v6;
 
 use LacunaCookbuk::Model::LacunaSession;
-use LacunaCookbuk::Model::BuildingView;
+use LacunaCookbuk::Model::Building::BuildingView;
 
 role LacunaBuilding is LacunaSession;
 

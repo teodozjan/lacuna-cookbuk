@@ -1,12 +1,13 @@
 use v6;
 
 use LacunaCookbuk::Model::LacunaSession;
-use LacunaCookbuk::Model::Archaeology;
-use LacunaCookbuk::Model::Trade;
 use LacunaCookbuk::Model::Body;
-use LacunaCookbuk::Model::SpacePort;
-use LacunaCookbuk::Model::Intelligence;
-use LacunaCookbuk::Model::Development;
+
+use LacunaCookbuk::Model::Building::Archaeology;
+use LacunaCookbuk::Model::Building::Trade;
+use LacunaCookbuk::Model::Building::SpacePort;
+use LacunaCookbuk::Model::Building::Intelligence;
+use LacunaCookbuk::Model::Building::Development;
 
 class Planet is Body;
 

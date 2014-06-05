@@ -29,7 +29,7 @@ method upgrade(Body $body, LacunaBuilding $building, BuildGoal $goal ) {
 
     if ($view.upgrade<can>) {
 	$building.upgrade;
-	note "Upgrade started" ~ $goal.building;
+	note "Upgrade started " ~ $goal.building;
     } else {
 	given $view.upgrade<reason>[0] {
 	    when $UNSUSTAINABLE {

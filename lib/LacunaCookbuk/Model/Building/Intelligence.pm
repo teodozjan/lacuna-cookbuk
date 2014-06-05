@@ -1,7 +1,7 @@
 use v6;
 
 use LacunaCookbuk::Model::LacunaBuilding;
-use LacunaCookbuk::Model::Intelligence::Spy;
+use LacunaCookbuk::Model::Spy;
 
 class Intelligence does LacunaBuilding;
 #has $.view = self.rpc($url).view(self.session_id, self.id)<spies>;

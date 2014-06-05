@@ -1,11 +1,11 @@
 use v6;
 
 use LacunaCookbuk::Model::Body;
-use LacunaCookbuk::Model::Parliament;
+use LacunaCookbuk::Model::Building::Parliament;
 
 class SpaceStation is Body;
 
-submethod find_parliament(--> Parliament) { #(--> Trade)){
+submethod find_parliament(--> Parliament) { 
     for self.buildings -> LacunaBuilding $building {
 	return Parliament.new(id => $building.id) if $building.url ~~ $Parliament::URL;
     }

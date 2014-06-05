@@ -1,7 +1,7 @@
 use v6;
 
-use LacunaCookbuk::Model::SpaceStation;
-use LacunaCookbuk::Model::Planet;
+use LacunaCookbuk::Model::Body::SpaceStation;
+use LacunaCookbuk::Model::Body::Planet;
 use LacunaCookbuk::CoreAdditions::FileSerialization;
 
 

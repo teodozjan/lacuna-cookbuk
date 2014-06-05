@@ -1,6 +1,6 @@
 use v6;
 
-use LacunaCookbuk::Model::Planet;
+use LacunaCookbuk::Model::Body::Planet;
 use LacunaCookbuk::Logic;
 
 class PlanMaker does Logic;
