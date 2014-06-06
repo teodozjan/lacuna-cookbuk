@@ -25,7 +25,7 @@ multi sub MAIN(:$report){
     $f.create_session;
     my ReportClient $client .= new(session => $f);
     
-    die "NIY";
+    $client."$report"();
 
     $f.close_session;
 }

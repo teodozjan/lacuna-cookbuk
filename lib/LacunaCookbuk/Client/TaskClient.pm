@@ -5,7 +5,7 @@ use LacunaCookbuk::Model::LacunaSession;
 use LacunaCookbuk::Logic::BodyBuilder;
 use LacunaCookbuk::Logic::PlanMaker;
 use LacunaCookbuk::Logic::Transporter;
-use LacunaCookbuk::Logic::BodyCritic;
+
 use LacunaCookbuk::Logic::Chairman::GoalChairman;
 use LacunaCookbuk::Logic::Chairman::Building;
 use LacunaCookbuk::Logic::Chairman::BuildGoal;

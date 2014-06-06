@@ -8,6 +8,7 @@ use LacunaCookbuk::Model::Building::Trade;
 use LacunaCookbuk::Model::Building::SpacePort;
 use LacunaCookbuk::Model::Building::Intelligence;
 use LacunaCookbuk::Model::Building::Development;
+use LacunaCookbuk::Model::Building::Shipyard;
 
 class Planet is Body;
 
@@ -26,6 +27,14 @@ submethod find_trade_ministry(--> Trade) { #(--> Trade)){
     note "No trade ministry on " ~ self.name;
     Trade;
 }   
+
+submethod find_shipyard(--> Shipyard) { #(--> Trade)){
+    for self.buildings -> LacunaBuilding $building {
+	return Shipyard.new(id => $building.id, url=>$building.url) if $building.url ~~ $Shipyard::URL;
+    }
+    note "No shipyard on " ~ self.name;
+    Shipyard;
+} 
 
 submethod find_space_port(--> SpacePort) {
     for self.buildings -> LacunaBuilding $building {

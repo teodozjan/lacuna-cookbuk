@@ -2,14 +2,17 @@ use v6;
 
 use LacunaCookbuk::Logic;
 use Form;
+use Term::ANSIColor;
 
+#| TODO split
 class BodyCritic is Logic;
 
 constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
 constant $ore_format_str = '{<<<<<<<<<<<<<<<<<<<}  ' ~ '{||||} ' x 20;
 constant $ruler = '-' x 160;
+constant $ship_templ = '{<<<<<<<<<<<<<<<<<<<<<<<<<} ' ~ ' {>>>>>>>>>} ' x 4;
 
-submethod elaborate_spaceport(Planet $planet) {
+submethod elaborate_spaceport(Planet $planet --> SpacePort) {
     
     my SpacePort $spaceport = $planet.find_space_port;
 
@@ -17,13 +20,15 @@ submethod elaborate_spaceport(Planet $planet) {
     my Int $free = $spaceport.docks_available;    
     my Str $docks = $free == 0 ?? "FULL" !! ~$free;
     my Str $max = ~$spaceport.max_ships;
-    my Str $ships = self.format_ships($spaceport.docked_ships);
+    my %shipz = $spaceport.docked_ships;
+    my Str $ships = self.format_ships(%shipz);
     
     
     print form( 
 	$limited_format,
 	$planet.name, $docks, $max, $ships);
 
+    return $spaceport;
 }
 
 submethod elaborate_intelligence(Planet $planet) {
@@ -57,7 +62,7 @@ submethod elaborate_ore {
     say "Planets -- Potential ores";
     my Str @header = self.bodybuilder.home_planet.ore.keys;
     @header.unshift('Planet name');
-    print form($ore_format_str, @header);
+    print BOLD, form($ore_format_str, @header), RESET;
     
     for self.bodybuilder.planets -> Planet $planet {
 	self.elaborate_ores($planet, @header);
@@ -65,18 +70,67 @@ submethod elaborate_ore {
 }
 
 
-submethod elaborate_ships {
+submethod elaborate_ships {   
+    my %ports; 
+    {
+	say "\n\nSpaceport -- Docks";
+	my @header = <planet free all details>;
+	print BOLD, form ($limited_format, @header), RESET;
+	say $ruler;
+	for self.bodybuilder.planets -> Planet $planet {
+	    %ports{$planet.name} = self.elaborate_spaceport($planet);
+	}
 
-    say "\n\nSpaceport -- Docks";
-    my @header = <planet free all details>;
-    print form ($limited_format, @header);
-    say $ruler;
-    for self.bodybuilder.planets -> Planet $planet {
-	self.elaborate_spaceport($planet);
     }
+    {
+	my %available = self.bodybuilder.home_planet.find_shipyard.get_buildable;
+	for %ports.pairs -> $pair {
+	    
+	    my @shipz = $pair.value.view_all_ships;
+	    say;
+	    say BOLD, $pair.key, RESET;
+	    say BOLD, $ruler, RESET;
+	    print BOLD, form($ship_templ, 'Name', 'Speed','Stealth', 'Hold size', 'Combat'), RESET;
+	    for @shipz -> @ship_h{
+
+		for @ship_h -> %ship {
+		    
+		    my %compared = self.compare_ships(%ship, %available{%ship<type>}<attributes>);
+		    my Str $color = 'reset';
+		    $color = 'blue' if any(%compared.values) > 100;
+		    $color = 'red' if any(%compared.values) < 45;
+		    my Str $line = form($ship_templ,
+					%ship<name>,
+					~(%compared<speed>),
+					~(%compared<stealth>),
+					~(%compared<hold_size>),
+					~(%compared<combat>)
+			);
+		    print colored($line, $color);
+		}
+
+	    }
+	}
+    }
+}
+
+method compare_ships(%existing, %reference --> Hash){
+    my %ret;
+    
+    %ret<speed> = safe_divide(%existing<speed>,%reference<speed>);
+    %ret<stealth> = safe_divide(%existing<stealth>,%reference<stealth>);
+    %ret<hold_size> = safe_divide(%existing<hold_size>,%reference<hold_size>);    
+    %ret<combat> = safe_divide(%existing<combat> , %reference<combat>);
+
+    %ret;
 
 }
 
+sub safe_divide($a, $b --> Int) {
+    return 100 if $a*$b == 0;
+    return Int($a*100/$b);
+    
+}
 
 submethod elaborate_spies{
     say "\nIntellignece -- Spies";

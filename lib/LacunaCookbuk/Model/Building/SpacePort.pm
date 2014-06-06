@@ -10,3 +10,6 @@ has $.max_ships;
 has $.docks_available;
 has %.docked_ships;
 
+method view_all_ships {
+    self.rpc($URL).view_all_ships(self.session_id,self.id)<ships>;
+}

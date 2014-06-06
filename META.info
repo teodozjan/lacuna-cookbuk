@@ -2,6 +2,6 @@
     "name"        : "LacunaCookbuk",
     "version"     : "*",
     "description" : "Lacuna expanse player helper",
-    "depends"     : [ "JSON::RPC", "Form" ],
+    "depends"     : [ "JSON::RPC", "Form", "Term::ANSIColor"],
     "source-url"  : "git://github.com/teodozjan/lacuna-cookbuk.git"
 }
