@@ -7,7 +7,6 @@ use LacunaCookbuk::CoreAdditions::FileSerialization;
 
 class BodyBuilder does FileSerialization;
 
-has LacunaSession $.session;
 #serialization of this class is terribly slow
 has Planet @.planets;
 has SpaceStation @.stations;
@@ -41,4 +40,3 @@ method home_planet(--> Planet) {
     }
     Planet;
 }
-

@@ -9,13 +9,11 @@ use LacunaCookbuk::Logic::BodyCritic;
 
 class ReportClient is Client;
 
-submethod ships {
-    
+submethod ships {    
     BodyCritic.new(bodybuilder => self.cache).elaborate_ships;
 }
 
-submethod ore {
-    
+submethod ore {    
     BodyCritic.new(bodybuilder => self.cache).elaborate_ore;
 }
 

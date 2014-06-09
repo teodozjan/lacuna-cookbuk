@@ -23,5 +23,6 @@ method from_file($path) {
 	self.deserialize(slurp $path)
     } else {
 	warn "Cannot read $path";
+	return self.new;
 }
 }
