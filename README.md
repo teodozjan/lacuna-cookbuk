@@ -34,10 +34,10 @@ Things that seem to work:
 - Moving glyphs and plans between planets
 - Assembling halls
 - Upgrading rules
+- Find ineffective ships to replace 
+- 
 
 ## TODO
-
 - Specify different upgrade order for different planets
-- Find ineffective ships to replace 
 - Autobalance supply chains (send to home planet)
 - Autobalance home planet (if all supply chains will become 0 it won't go negative on happiness)
