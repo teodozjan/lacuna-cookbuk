@@ -35,7 +35,7 @@ Things that seem to work:
 - Assembling halls
 - Upgrading rules
 - Find ineffective ships to replace 
-- 
+ 
 
 ## TODO
 - Specify different upgrade order for different planets
