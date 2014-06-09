@@ -119,16 +119,16 @@ submethod elaborate_ships {
 method compare_ships(%existing, %reference --> Hash){
     my %ret;
     
-    %ret<speed> = safe_divide(%existing<speed>,%reference<speed>);
-    %ret<stealth> = safe_divide(%existing<stealth>,%reference<stealth>);
-    %ret<hold_size> = safe_divide(%existing<hold_size>,%reference<hold_size>);    
-    %ret<combat> = safe_divide(%existing<combat> , %reference<combat>);
+    %ret<speed> = calculate_percentage(%existing<speed>,%reference<speed>);
+    %ret<stealth> = calculate_percentage(%existing<stealth>,%reference<stealth>);
+    %ret<hold_size> = calculate_percentage(%existing<hold_size>,%reference<hold_size>);    
+    %ret<combat> = calculate_percentage(%existing<combat> , %reference<combat>);
 
     %ret;
 
 }
 
-sub safe_divide($a, $b --> Int) {
+sub calculate_percentage($a, $b --> Int) {
     return 100 if $a*$b == 0;
     return Int($a*100/$b);
     
