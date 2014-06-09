@@ -33,12 +33,11 @@ Things that seem to work:
 - Checking whether space port or intelligence ministries are full
 - Moving glyphs and plans between planets
 - Assembling halls
-- Upgrading spaceports to level 10
-- Primitive upgrading rules
+- Upgrading rules
 
 ## TODO
 
-- Specify different upgrade order for diffrenet planets
+- Specify different upgrade order for diffrent planets
 - Find ineffective ships to replace 
 - Autobalance supply chains (send to home planet)
-- Autobalance home planet (if all supply chains will become 0 it wont go negative on happiness)
+- Autobalance home planet (if all supply chains will become 0 it won't go negative on happiness)
