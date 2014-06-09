@@ -97,7 +97,8 @@ submethod elaborate_ships {
 		    
 		    my %compared = self.compare_ships(%ship, %available{%ship<type>}<attributes>);
 		    my Str $color = 'reset';
-		    $color = 'blue' if any(%compared.values) > 100;
+		    $color = 'cyan' if any(%compared.values) > 100;
+		    $color = 'yellow' if any(%compared.values) < 65;
 		    $color = 'red' if any(%compared.values) < 45;
 		    my Str $line = form($ship_templ,
 					%ship<name>,
