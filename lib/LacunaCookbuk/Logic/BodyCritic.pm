@@ -10,7 +10,7 @@ class BodyCritic is Logic;
 constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
 constant $ore_format_str = '{<<<<<<<<<<<<<<<<<<<}  ' ~ '{||||} ' x 20;
 constant $ruler = '-' x 160;
-constant $ship_templ = '{<<<<<<<<<<<<<<<<<<<<<<<<<} ' ~ ' {>>>>>>>>>} ' x 4;
+constant $ship_templ = '{<<<<<<<<<<<<<<<<<<<<<<<<<} ' ~ ' {>>>>>>>} ' x 6;
 
 submethod elaborate_spaceport(Planet $planet --> SpacePort) {
     
@@ -73,10 +73,10 @@ submethod elaborate_ore {
 submethod elaborate_ships {   
     my %ports; 
     {
-	say "\n\nSpaceport -- Docks";
+	say BOLD,"\n\nSpaceport -- Docks";
 	my @header = <planet free all details>;
-	print BOLD, form ($limited_format, @header), RESET;
-	say $ruler;
+	print  form ($limited_format, @header);
+	say $ruler, RESET;
 	for self.bodybuilder.planets -> Planet $planet {
 	    %ports{$planet.name} = self.elaborate_spaceport($planet);
 	}
@@ -88,9 +88,9 @@ submethod elaborate_ships {
 	    
 	    my @shipz = $pair.value.view_all_ships;
 	    say;
-	    say BOLD, $pair.key, RESET;
-	    say BOLD, $ruler, RESET;
-	    print BOLD, form($ship_templ, 'Name', 'Speed','Stealth', 'Hold size', 'Combat'), RESET;
+	    say BOLD, $pair.key;
+	    say $ruler,;
+	    print form($ship_templ, 'Name', 'ID', 'Speed','Stealth', 'Hold size', 'Combat', 'Task'), RESET;
 	    for @shipz -> @ship_h{
 
 		for @ship_h -> %ship {
@@ -101,11 +101,12 @@ submethod elaborate_ships {
 		    $color = 'yellow' if any(%compared.values) < 65;
 		    $color = 'red' if any(%compared.values) < 45;
 		    my Str $line = form($ship_templ,
-					%ship<name>,
+					%ship<name>, ~%ship<id>,
 					~(%compared<speed>),
 					~(%compared<stealth>),
 					~(%compared<hold_size>),
-					~(%compared<combat>)
+					~(%compared<combat>),
+					~(%ship<task>)
 			);
 		    print colored($line, $color);
 		}
