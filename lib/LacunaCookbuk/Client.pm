@@ -13,14 +13,19 @@ use LacunaCookbuk::Logic::Chairman::Building;
 use LacunaCookbuk::Logic::Chairman::BuildGoal;
 use LacunaCookbuk::Logic::Ambassador;
 
+
+my $path =  IO::Path.new($*PROGRAM_NAME).parent.parent ~ '/var/bodybuilder.pl';
+
+
 class Client;
 
-has BodyBuilder $.cache = BodyBuilder.from_file('./var/bodybuilder.pl');
+has BodyBuilder $.cache = BodyBuilder.from_file($path);
 has LacunaSession $.session;
+
 
 method fill_cache {
     self.cache.process_all_bodies(self.session.planets_hash);
-    self.cache.to_file('./var/bodybuilder.pl');
+    self.cache.to_file($path);
 }
 
 submethod ships {    
