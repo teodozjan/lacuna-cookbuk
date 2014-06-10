@@ -1,33 +1,29 @@
 use v6;
 
-use LacunaCookbuk::Client::TaskClient;
-use LacunaCookbuk::Client::ReportClient;
+use LacunaCookbuk::Client;
 
-multi sub MAIN(:$tasks = 'all'){
-    my @todo=$tasks.split(/\s+/);
-    
-    @todo := <fill_cache ordinary chairman> if @todo.grep('all'); 
+sub MAIN(:$tasks!){
+    #die "" unless any($tasks, $report);
 
     my LacunaSession $f = LacunaSession.new;
+    my Client $client .= new(session => $f);
     $f.create_session;
-    my TaskClient $client .= new(session => $f);
-    
-    for @todo -> $willdo {
-	$client."$willdo"();
+
+    if $tasks {
+	my @todo=$tasks.split(/\s+/);
+	
+	@todo := <fill_cache ordinary chairman> if @todo.grep('all'); 
+	
+	for @todo -> $willdo {
+	    $client."$willdo"();
+	}
     }
 
+    if $report {
+	$client."$report"();
+    }
     $f.close_session;
 }
 
-multi sub MAIN(:$report){
-
-    my LacunaSession $f = LacunaSession.new;
-    $f.create_session;
-    my ReportClient $client .= new(session => $f);
-    
-    $client."$report"();
-
-    $f.close_session;
-}
 
 

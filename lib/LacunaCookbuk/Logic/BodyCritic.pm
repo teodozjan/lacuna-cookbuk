@@ -99,7 +99,14 @@ submethod elaborate_ships {
 		    my Str $color = 'reset';
 		    $color = 'cyan' if any(%compared.values) > 100;
 		    $color = 'yellow' if any(%compared.values) < 65;
-		    $color = 'red' if any(%compared.values) < 45;
+		    if any(%compared.values) < 45 {
+			$color = 'red';
+			if %ship<can_scuttle> {
+			$pair.value.scuttle_ship(%ship<id>);
+			%ship<task> = "Scuttled"
+			}
+
+		    }
 		    my Str $line = form($ship_templ,
 					%ship<name>, ~%ship<id>,
 					~(%compared<speed>),
@@ -109,6 +116,7 @@ submethod elaborate_ships {
 					~(%ship<task>)
 			);
 		    print colored($line, $color);
+		    
 		}
 
 	    }
