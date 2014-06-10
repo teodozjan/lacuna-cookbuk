@@ -11,7 +11,7 @@ sub MAIN(:$tasks!){
 
     my @todo=$tasks.split(/\s+/);
     
-    @todo := <fill_cache ordinary chairman ships> if @todo.grep('all'); 
+    @todo := <fill_cache ordinary chairman ships votes> if @todo.grep('all'); 
     
     for @todo -> $willdo {
 	$client."$willdo"();
