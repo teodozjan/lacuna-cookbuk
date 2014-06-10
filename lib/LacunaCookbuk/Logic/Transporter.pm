@@ -16,6 +16,7 @@ submethod transport(@goods,Planet $src, Planet $dst = self.bodybuilder.home_plan
 	}
 	my $ship = $trade.find_fastest_ship;
 	return unless $ship;
+
 	my @packed = self.cut_size(@cargo, +$ship<hold_size>);
 	say $trade.push(@packed) if @packed;   
 }

@@ -2,7 +2,9 @@ use v6;
 
 use LacunaCookbuk::Model::LacunaSession;
 use LacunaCookbuk::Logic::BodyBuilder;
-use LacunaCookbuk::Logic::BodyCritic;
+use LacunaCookbuk::Logic::ShipCritic;
+use LacunaCookbuk::Logic::OreCritic;
+use LacunaCookbuk::Logic::IntelCritic;
 use LacunaCookbuk::Logic::BodyBuilder;
 use LacunaCookbuk::Logic::PlanMaker;
 use LacunaCookbuk::Logic::Transporter;
@@ -21,11 +23,11 @@ method fill_cache {
 }
 
 submethod ships {    
-    BodyCritic.new(bodybuilder => self.cache).elaborate_ships;
+    ShipCritic.new(bodybuilder => self.cache).elaborate_ships;
 }
 
 submethod ore {    
-    BodyCritic.new(bodybuilder => self.cache).elaborate_ore;
+    OreCritic.new(bodybuilder => self.cache).elaborate_ore;
 }
 
 
