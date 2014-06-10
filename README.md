@@ -34,7 +34,8 @@ Things that seem to work:
 - Moving glyphs and plans between planets
 - Assembling halls
 - Upgrading rules
-- Find ineffective ships to replace 
+- Find ineffective ships to replace
+- Automatic voting in parliament
  
 
 ## TODO
