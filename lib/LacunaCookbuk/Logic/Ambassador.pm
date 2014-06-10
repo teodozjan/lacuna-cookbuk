@@ -21,9 +21,9 @@ submethod vote_all(Bool $vote) {
 	for @prop -> @weirdo {
 	    for @weirdo -> $to_vote {
 		next unless $to_vote;
-		say $to_vote.perl;
-		my $number = $vote ?? 1 !! 0;		
-		$par.cast_vote($to_vote<id>, $number) unless $to_vote<my_vote>:exists;#FIXME
+		
+		my $number = $vote ?? "1" !! "0";		
+		say $par.cast_vote($to_vote<id>, $number) unless $to_vote<my_vote>:exists;#FIXME
 	    }
 	}
     }

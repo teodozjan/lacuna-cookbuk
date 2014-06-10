@@ -11,5 +11,5 @@ method view_propositions {
 }
 
 method cast_vote($vote_id, $vote) {    
-    self.rpc($URL).cast_vote(self.session_id, self.id, $vote_id);
+    self.rpc($URL).cast_vote(self.session_id, self.id, $vote_id, $vote)<proposition>;
 }
