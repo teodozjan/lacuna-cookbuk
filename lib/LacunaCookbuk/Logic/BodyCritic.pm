@@ -69,7 +69,10 @@ submethod elaborate_ore {
     }    
 }
 
-
+#| If any of ship attributes is
+#| <45% RED and scuttled if docked
+#| <65% YELLOW
+#| >100% Blue
 submethod elaborate_ships {   
     my %ports; 
     {

@@ -6,7 +6,7 @@ use LacunaCookbuk::Logic::BodyCritic;
 use LacunaCookbuk::Logic::BodyBuilder;
 use LacunaCookbuk::Logic::PlanMaker;
 use LacunaCookbuk::Logic::Transporter;
-use LacunaCookbuk::Logic::Chairman::GoalChairman;
+use LacunaCookbuk::Logic::Chairman;
 use LacunaCookbuk::Logic::Chairman::Building;
 use LacunaCookbuk::Logic::Chairman::BuildGoal;
 
@@ -61,7 +61,7 @@ method chairman {
 	$happy
 	);
 
-    my $c = GoalChairman.new(
+    my $c = Chairman.new(
 	bodybuilder => self.cache,
 	build_goals=>(@goals)	    
 	);

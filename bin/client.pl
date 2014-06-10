@@ -9,19 +9,13 @@ sub MAIN(:$tasks!){
     my Client $client .= new(session => $f);
     $f.create_session;
 
-    if $tasks {
-	my @todo=$tasks.split(/\s+/);
-	
-	@todo := <fill_cache ordinary chairman> if @todo.grep('all'); 
-	
-	for @todo -> $willdo {
-	    $client."$willdo"();
-	}
-    }
-
-    if $report {
-	$client."$report"();
-    }
+    my @todo=$tasks.split(/\s+/);
+    
+    @todo := <fill_cache ordinary chairman ships> if @todo.grep('all'); 
+    
+    for @todo -> $willdo {
+	$client."$willdo"();
+    } 
     $f.close_session;
 }
 
