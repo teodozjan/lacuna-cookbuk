@@ -16,29 +16,33 @@ use LacunaCookbuk::Logic::Ambassador;
 
 my $path =  IO::Path.new($*PROGRAM_NAME).parent.parent ~ '/var/bodybuilder.pl';
 
-
+#| LacunaCookbuk main client
 class Client;
 
 has BodyBuilder $.cache = BodyBuilder.from_file($path);
 has LacunaSession $.session;
 
-
+#| LacunaCookbuk client requires all building ids with its urls to work. Due to it is big rpc costs and rare changes they are stored inside a file
 method fill_cache {
     self.cache.process_all_bodies(self.session.planets_hash);
     self.cache.to_file($path);
 }
 
+#| Will show summary for docks and scuttle ships that have efficency lower 45% if ship is docked
 submethod ships {    
     ShipCritic.new(bodybuilder => self.cache).elaborate_ships;
 }
 
+#| Will show all ores on planet stub 
 submethod ore {    
     OreCritic.new(bodybuilder => self.cache).elaborate_ore;
 }
 
+#| Will vote YES to ALL propostions. Be careful if you care about politics
 submethod votes {
     Ambassador.new(bodybuilder => self.cache).vote_all(True);
 }
+
 
 submethod ordinary {
     
@@ -49,9 +53,9 @@ submethod ordinary {
     Transporter.new(bodybuilder => self.cache).transport_all_cargo;
 }
 
-#= chairman will work only on existing buildings but this may change in future
+#| Will upgrade buildings in order passed to L<doc:LacunaCookbuk::Chariman> chairman will work only on existing buildings but this may change in future    
 method chairman {
-    
+
     my BuildGoal $wastet =  BuildGoal.new(building => wastetreatment, level=>15);
     my BuildGoal $space .=  new(building => spaceport, level=>10);
     my BuildGoal $arch .=  new(building => archaeology, level=>30);
