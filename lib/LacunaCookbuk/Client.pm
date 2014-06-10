@@ -11,6 +11,7 @@ use LacunaCookbuk::Logic::Transporter;
 use LacunaCookbuk::Logic::Chairman;
 use LacunaCookbuk::Logic::Chairman::Building;
 use LacunaCookbuk::Logic::Chairman::BuildGoal;
+use LacunaCookbuk::Logic::Ambassador;
 
 class Client;
 
@@ -30,6 +31,9 @@ submethod ore {
     OreCritic.new(bodybuilder => self.cache).elaborate_ore;
 }
 
+submethod votes {
+    Ambassador.new(bodybuilder => self.cache).vote_all(True);
+}
 
 submethod ordinary {
     

@@ -5,6 +5,8 @@ use LacunaCookbuk::Logic::Chairman::Building;
 use LacunaCookbuk::Logic::Chairman::Resource;
 use LacunaCookbuk::Logic::Chairman::BuildGoal;
 
+use Term::ANSIColor;
+
 class Chairman does Logic;
 
 has BuildGoal @.build_goals;
@@ -41,7 +43,10 @@ method upgrade(LacunaBuilding @buildings, BuildGoal $goal --> BuildGoal){
 	} else {
 	    given $view.upgrade<reason>[0] {
 		when $UNSUSTAINABLE {
-		    note 'Need to produce more ' ~ $view.upgrade<reason>[2] ~ ' for ' ~ $goal.building
+		    my Resource $resource = value_of($view.upgrade<reason>[2]);
+		    note 'Need to produce more ' ~ $resource  ~ ' for ' ~ $goal.building;
+		    my $new_goal =  BuildGoal.new(building=> self.production($resource), level => 30);
+		    note "Too low $resource for upgrading $resource" && return $new_goal unless $new_goal.building == $goal.building;
 		}
 		when $NOT_ENOUGH_STORAGE {
 		    
@@ -79,10 +84,34 @@ method storage(Resource $resource --> Building) {
     }
 }
 
+method production(Resource $resource --> Building) {
+    
+    given $resource {
+	when food {
+	    my @array of Building = (Building::dairy, 
+				     Building::lapis,
+				     Building::apple,
+				     Building::beeldeban,
+				     Building::algae,
+				     Building::malcud
+		);
+	    return @array.pick }#FIXME
+	when ore {
+	    my @array of Building = (Building::mine, Building::orerefinery);
+	    return  @array.pick
+	}
+	when water {return Building::atmosphericevaporator}
+#	when waste {return Building::wastesequestration}
+	when energy {return Building::singularity}
+	default{die $resource}
+    }
+}
+
+
 method all {
     for self.bodybuilder.planets -> Planet $planet {
 	next if $planet.is_home;
-	note "Upgrading " ~ $planet.name;
+	note BOLD, "Upgrading " ~ $planet.name, RESET;
 	self.build($planet)
     }
 }
