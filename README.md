@@ -22,9 +22,9 @@ $ ufo
 $ make install
 ```
 
-Usage (examples are in bin directory):
+Fun with client:
 ```
-$ perl6 your_fancy script.pl
+$ perl6 bin/client.pl --taks=all
 ```
 
 Things that seem to work:
