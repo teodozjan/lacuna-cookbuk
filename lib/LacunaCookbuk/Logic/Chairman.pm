@@ -20,12 +20,17 @@ constant $NOT_ENOUGH_STORAGE = 1011;
 
 method build(Body $body) {
     for self.build_goals -> BuildGoal $goal {
-
-	my $alt_goal = $goal;
+      #| to avoid infinite recurence
+      constant TRIAL_LIMIT = 5;
+      my $alt_goal = $goal;
+      my $trial = 0;
 	repeat {
+
 	    return if $alt_goal.level < 1;
+	    last if ++$trial == TRIAL_LIMIT;
 	    my LacunaBuilding @buildings = $body.find_buildings('/' ~ $alt_goal.building);
 	    $alt_goal = self.upgrade(@buildings, $alt_goal);
+
 	} while $alt_goal
 
    }
@@ -36,7 +41,6 @@ method upgrade(LacunaBuilding @buildings, BuildGoal $goal --> BuildGoal){
 	next unless $goal.level > $building.view.level;#goal reached
 
 	my $view := $building.view;
-	
 	if $view.upgrade<can> {
 	    $building.upgrade;
 	    note "Upgrade started " ~ $goal.building;
@@ -49,9 +53,7 @@ method upgrade(LacunaBuilding @buildings, BuildGoal $goal --> BuildGoal){
 		    note "Too low $resource for upgrading $resource" && return $new_goal unless $new_goal.building == $goal.building;
 		}
 		when $NOT_ENOUGH_STORAGE {
-		    
 		    my Resource $resource = value_of($view.upgrade<reason>[2]);
-		    
 		    note "Need to store more $resource for {$goal.building}";
 
 		    my $new_goal =  BuildGoal.new(building=> self.storage($resource), level => 30);
