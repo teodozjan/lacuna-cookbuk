@@ -42,3 +42,6 @@ Things that seem to work:
 - Specify different upgrade order for different planets
 - Autobalance supply chains (send to home planet)
 - Autobalance home planet (if all supply chains will become 0 it won't go negative on happiness)
+- Multi user voting for aliance master
+- Delete Parliament messages automatically
+
