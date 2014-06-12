@@ -42,7 +42,9 @@ method format_spies(Spy @spies --> Str) {
 
     my Str $ret;
     for %assignments.keys -> Str $key {
-	$ret ~=	$key ~ ':' ~%assignments{$key} ~ '   ';
+	my $val = $key ~ ':' ~%assignments{$key} ~ '   ';	
+	$val = colored($val, 'yellow') if $key ~~ 'Idle';
+	$ret ~=	$val;
     }
     $ret;
 }

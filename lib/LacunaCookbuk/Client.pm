@@ -90,6 +90,10 @@ method defend {
     Commander.new(bodybuilder => self.cache).find_incoming;
 }
 
+method spies {
+    IntelCritic.new(bodybuilder => self.cache).elaborate_spies;
+}
+
 =begin pod
 
 =head1 NAME
