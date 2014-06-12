@@ -14,6 +14,11 @@ method name (--> Str){
     self.planet_name(self.id);
 }
 
+
+method get_status { 
+    self.rpc($URL).get_status(self.session_id, self.id);
+}
+
 submethod get_buildings { 
   my %buildings = self.rpc($URL).get_buildings(self.session_id, self.id);
     self.ore = %buildings<status><body><ore>;    

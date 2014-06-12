@@ -12,7 +12,7 @@ use LacunaCookbuk::Logic::Chairman;
 use LacunaCookbuk::Logic::Chairman::Building;
 use LacunaCookbuk::Logic::Chairman::BuildGoal;
 use LacunaCookbuk::Logic::Ambassador;
-
+use LacunaCookbuk::Logic::Commander;
 
 my $path =  IO::Path.new($*PROGRAM_NAME).parent.parent ~ '/var/bodybuilder.pl';
 
@@ -86,6 +86,9 @@ method chairman {
 
 }
 
+method defend {
+    Commander.new(bodybuilder => self.cache).find_incoming;
+}
 
 =begin pod
 
