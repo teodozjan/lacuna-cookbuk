@@ -17,8 +17,4 @@ method view_inbox(@tags){
  	self.rpc($URL).view_inbox(self.session_id, %(tags => @tags))<messages>
 }
 
-sub fake_ref(@array --> Str){
-'[' ~ @array.join(',') ~ ']'
-
-}
 
