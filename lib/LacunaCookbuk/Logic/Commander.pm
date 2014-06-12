@@ -6,7 +6,11 @@ use Term::ANSIColor;
 
 
 class Commander does Logic;
-my Str $form = '{<<<<<<<<<<<<<<<<<<} ' ~ colored('{||||||}', 'red') ~ colored('{||||||}', 'magenta') ~ colored('{||||||}', 'green');
+my Str $form =
+    color('white') ~ '{<<<<<<<<<<<<<<<<<<} '
+    ~ color('red') ~ '{||||||}'
+    ~ color('magenta') ~'{||||||}'
+    ~ colored('{||||||}','green');
 
 method find_incoming {
 
