@@ -36,6 +36,7 @@ Things that seem to work:
 - Upgrading rules
 - Find ineffective ships to replace
 - Automatic voting in parliament
+- List incoming ships
  
 
 ## TODO
