@@ -13,6 +13,7 @@ use LacunaCookbuk::Logic::Chairman::Building;
 use LacunaCookbuk::Logic::Chairman::BuildGoal;
 use LacunaCookbuk::Logic::Ambassador;
 use LacunaCookbuk::Logic::Commander;
+use LacunaCookbuk::Logic::Secretary;
 
 my $path =  IO::Path.new($*PROGRAM_NAME).parent.parent ~ '/var/bodybuilder.pl';
 
@@ -40,6 +41,7 @@ submethod ore {
 
 #= Will vote YES to ALL propostions. Be careful if you care about politics
 submethod votes {
+    Secretary.new(bodybuilder=> self.cache).clean(["Parliament"]);
     Ambassador.new(bodybuilder => self.cache).vote_all(True);
 }
 
@@ -56,19 +58,19 @@ submethod ordinary {
 #= Will upgrade buildings in order passed to L<doc:LacunaCookbuk::Chariman> chairman will work only on existing buildings but this may change in future
 method chairman {
 
-    my BuildGoal $wastet =  BuildGoal.new(building => wastetreatment, level=>15);
-    my BuildGoal $space .=  new(building => spaceport, level=>10);
-    my BuildGoal $arch .=  new(building => archaeology, level=>30);
-    my BuildGoal $sec .= new(building => security, level => 30); 
+    my BuildGoal $wastet =  BuildGoal.new(building => Building::wastetreatment, level=>15);
+    my BuildGoal $space .=  new(building => Building::spaceport, level=>10);
+    my BuildGoal $arch .=  new(building => Building::archaeology, level=>30);
+    my BuildGoal $sec .= new(building => Building::security, level => 30); 
 
 
-    my BuildGoal $politic .= new(building => politicstraining,level => 15);
-    my BuildGoal $mayhem .= new(building => mayhemtraining, level => 15);
-    my BuildGoal $intel .= new(building => inteltraining, level => 15);
-    my BuildGoal $espionage .= new(building => espionage, level => 30);
-    my BuildGoal $intelli .= new(building => intelligence, level =>30);
+    my BuildGoal $politic .= new(building => Building::politicstraining,level => 15);
+    my BuildGoal $mayhem .= new(building => Building::mayhemtraining, level => 15);
+    my BuildGoal $intel .= new(building => Building::inteltraining, level => 15);
+    my BuildGoal $espionage .= new(building => Building::espionage, level => 30);
+    my BuildGoal $intelli .= new(building => Building::intelligence, level =>30);
 
-    my BuildGoal $happy .= new(building => entertainment, level => 30);
+    my BuildGoal $happy .= new(building => Building::entertainment, level => 30);
 
     my BuildGoal @goals = (
 	$wastet,$space, $arch, $sec,

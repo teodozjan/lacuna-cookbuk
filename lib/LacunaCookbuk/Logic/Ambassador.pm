@@ -7,12 +7,6 @@ use LacunaCookbuk::Model::Building::Parliament;
 class Ambassador does Logic;
 
 
-submethod delete_messages {
-
-
-
-}
-
 submethod vote_all(Bool $vote) {
     for self.bodybuilder.stations -> SpaceStation $station {
 	my Parliament $par = $station.find_parliament;
