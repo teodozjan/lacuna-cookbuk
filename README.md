@@ -48,4 +48,5 @@ Things that seem to work:
 
 ## TODO Code smell
 - Remove logic from Model classess
-- Don't give bodybuilder
+- Don't give bodybuilder everyone
+- Change loops to list generic functions where possible
