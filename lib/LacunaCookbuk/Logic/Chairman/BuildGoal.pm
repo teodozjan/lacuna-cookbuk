@@ -3,7 +3,7 @@ use LacunaCookbuk::Logic::Chairman::Building;
 
 class BuildGoal;
 
-has Building $.building;
+has Building::Building $.building;
 has Int $.level;
 
 

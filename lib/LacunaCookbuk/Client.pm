@@ -58,19 +58,19 @@ submethod ordinary {
 #= Will upgrade buildings in order passed to L<doc:LacunaCookbuk::Chariman> chairman will work only on existing buildings but this may change in future
 method chairman {
 
-    my BuildGoal $wastet =  BuildGoal.new(building => Building::wastetreatment, level=>15);
-    my BuildGoal $space .=  new(building => Building::spaceport, level=>10);
-    my BuildGoal $arch .=  new(building => Building::archaeology, level=>30);
-    my BuildGoal $sec .= new(building => Building::security, level => 30); 
+    my BuildGoal $wastet =  BuildGoal.new(building => Building::Building::wastetreatment, level=>15);
+    my BuildGoal $space .=  new(building => Building::Building::spaceport, level=>10);
+    my BuildGoal $arch .=  new(building => Building::Building::archaeology, level=>30);
+    my BuildGoal $sec .= new(building => Building::Building::security, level => 30); 
 
 
-    my BuildGoal $politic .= new(building => Building::politicstraining,level => 15);
-    my BuildGoal $mayhem .= new(building => Building::mayhemtraining, level => 15);
-    my BuildGoal $intel .= new(building => Building::inteltraining, level => 15);
-    my BuildGoal $espionage .= new(building => Building::espionage, level => 30);
-    my BuildGoal $intelli .= new(building => Building::intelligence, level =>30);
+    my BuildGoal $politic .= new(building => Building::Building::politicstraining,level => 15);
+    my BuildGoal $mayhem .= new(building => Building::Building::mayhemtraining, level => 15);
+    my BuildGoal $intel .= new(building => Building::Building::inteltraining, level => 15);
+    my BuildGoal $espionage .= new(building => Building::Building::espionage, level => 30);
+    my BuildGoal $intelli .= new(building => Building::Building::intelligence, level =>30);
 
-    my BuildGoal $happy .= new(building => Building::entertainment, level => 30);
+    my BuildGoal $happy .= new(building => Building::Building::entertainment, level => 30);
 
     my BuildGoal @goals = (
 	$wastet,$space, $arch, $sec,
