@@ -63,7 +63,7 @@ submethod elaborate_ships {
 		    my Str $color = 'reset';
 		    $color = 'cyan' if any(%compared.values) > 100;
 		    $color = 'yellow' if any(%compared.values) < 65;
-		    if any(%compared.values) < 45 {
+		    if any(%compared.values) < 45 && none(%compared.values) > 110 {
 			$color = 'red';
 			if %ship<can_scuttle> {
 			$pair.value.scuttle_ship(%ship<id>);
