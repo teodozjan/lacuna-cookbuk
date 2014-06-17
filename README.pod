@@ -52,7 +52,6 @@ Things that seem to work:
 =item Specify different upgrade order for different planets
 =item Autobalance supply chains (send to home planet)
 =item Autobalance home planet (if all supply chains will become 0 it won't go negative on happiness)
-=item Multi user voting for aliance master
 
 =head1 TODO Code smell
 
