@@ -3,5 +3,8 @@
     "version"     : "*",
     "description" : "Lacuna expanse player helper",
     "depends"     : [ "JSON::RPC", "Form", "Term::ANSIColor"],
+    "provides"    : {
+	        "LacunaCookbuk::Client" : "lib/LacunaCookbuk/Client.pm"
+	 },
     "source-url"  : "git://github.com/teodozjan/lacuna-cookbuk.git"
 }
