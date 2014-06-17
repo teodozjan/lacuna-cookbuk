@@ -47,7 +47,6 @@ submethod votes {
 
 #= Create Halls of Vrbansk and transport all glyphs and plans to home planet
 submethod ordinary {
-    #= dadasdad
     say "Creating all possible halls";
     PlanMaker.new(bodybuilder => self.cache).makePossibleHalls;
     
@@ -82,7 +81,6 @@ method chairman {
 	bodybuilder => self.cache,
 	build_goals=>(@goals)	    
 	);
-    #$c.check_space_ports;
     $c.all;
 
 
