@@ -15,14 +15,20 @@ use LacunaCookbuk::Logic::Ambassador;
 use LacunaCookbuk::Logic::Commander;
 use LacunaCookbuk::Logic::Secretary;
 
-my $path =  IO::Path.new($*PROGRAM_NAME).parent.parent ~ '/var/bodybuilder.pl';
+
 
 #= LacunaCookbuk main client
 class Client;
 
-has BodyBuilder $.cache = BodyBuilder.from_file($path);
+has BodyBuilder $.cache;
 has LacunaSession $.session;
 
+my $path =  IO::Path.new($*PROGRAM_NAME).parent.parent ~ '/var/bodybuilder.pl';
+
+submethod BUILD(LacunaSession :$session!){
+    
+    $!cache = BodyBuilder.from_file($path);
+}
 #= LacunaCookbuk client requires all building ids with its urls to work. Due to it is big rpc costs and rare changes they are stored inside a file
 method fill_cache {
     self.cache.process_all_bodies(self.session.planets_hash);
@@ -94,10 +100,4 @@ method spies {
     IntelCritic.new(bodybuilder => self.cache).elaborate_spies;
 }
 
-=begin pod
 
-=head1 NAME
-
-Client.pm main client for Lacuna cookbuk
-
-=end pod
