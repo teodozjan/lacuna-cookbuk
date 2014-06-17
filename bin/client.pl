@@ -4,7 +4,14 @@ use v6;
 
 use LacunaCookbuk::Client;
 
-sub MAIN(:$tasks!){
+
+multi sub MAIN(Bool :$help!){
+note "Available tasks" ~ Client.^methods.join(", ")
+
+
+}
+
+multi sub MAIN(:$tasks!){
   my LacunaSession $f = LacunaSession.new;
   my Client $client .= new(session => $f);
   $f.create_session;
