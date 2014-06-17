@@ -45,7 +45,7 @@ Things that seem to work:
 =item Find ineffective ships to replace
 =item Automatic voting in parliament
 =item List incoming ships
- 
+=item Delete Parliament messages automatically 
 
 =head1 TODO Functions
 
@@ -53,7 +53,6 @@ Things that seem to work:
 =item Autobalance supply chains (send to home planet)
 =item Autobalance home planet (if all supply chains will become 0 it won't go negative on happiness)
 =item Multi user voting for aliance master
-=item Delete Parliament messages automatically
 
 =head1 TODO Code smell
 
