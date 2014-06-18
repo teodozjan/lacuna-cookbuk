@@ -14,19 +14,13 @@ All planets must have Trade Ministry, Intelligence Ministry and Archaeology Mini
 Compilation:
 
 	$ panda install LacunaCookbuk
-	# To get dependencies
-	$ git clone https://github.com/teodozjan/lacuna-cookbuk.git
-	$ cd lacuna-cookbuk
-
-	$ ufo
-	$ make install
 
 Fun with client:
 
     $ perl6 bin/client.pl --taks=all
     # will die
-    $ edit /var/login.pl
-    $ perl6 bin/client.pl --taks=all
+    $ nano .lacuna_cookbuk/login.pl
+    $ perl6 bin/client.pl --taks=all --update
 
 Things that seem to work:
 
@@ -50,6 +44,8 @@ Things that seem to work:
 
 =head1 TODO Code smell
 
-	- Dont want clone repository... it should create own folder if required
-	- Change loops to list generic functions where possible
+       - Change some classes into modules
+       - Create separate library for file serialization
+       - Tidy	 - planet/station mess
+       - Change loops to list generic functions where possible
 

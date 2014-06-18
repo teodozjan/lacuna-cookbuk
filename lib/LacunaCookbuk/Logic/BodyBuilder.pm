@@ -10,15 +10,16 @@ class BodyBuilder;
 my Planet @planets;
 my SpaceStation @stations;
 
-my $path = IO::Path.new($*PROGRAM_NAME).parent.parent ~ '/var/';
+my $path_planets = make_path('planets.pl');
+my $path_stations = make_path('stations.pl');
 submethod read {
-    @planets = from_file($path ~ 'planets.pl');
-    @stations = from_file($path ~ 'stations.pl');
+    @planets = from_file($path_planets);
+    @stations = from_file($path_stations);
 }
 
 submethod write {
-    to_file($path ~ 'planets.pl', @planets);
-    to_file($path ~ 'stations.pl', @stations);
+    to_file($path_planets, @planets);
+    to_file($path_stations, @stations);
 }
 
 #this not something I'm proud of

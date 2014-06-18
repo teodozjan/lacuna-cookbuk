@@ -5,7 +5,7 @@ use JSON::RPC::Client;
 #! Data provided by this class are required by anything in this  game 
 class Empire;
 
-my $path = IO::Path.new($*PROGRAM_NAME).parent.parent ~ '/var/login.pl';
+my $path = make_path('login.pl');
 
 constant $EMPIRE = '/empire';
 my %status;
@@ -55,7 +55,7 @@ sub find_credentials returns Hash {
 	    :api_key('anonymous'),
 	    :MyGreatEmpire('password');
 	to_file($path, %login);
-	die "Must fill your data in $path"
+	die "Must fill your data in $path, data were pregenerated for you"
     }
 }
 
@@ -72,5 +72,9 @@ submethod credentials(Pair $user_password){
 
 sub session_id is export {
     $session_id;
+}
 
+sub make_path(Str $anyth) is cached is export {
+    mkdir('.lacuna_cookbuk') unless '.lacuna_cookbuk'.IO ~~ :e;
+    IO::Path.new('.lacuna_cookbuk/' ~ $anyth)
 }
