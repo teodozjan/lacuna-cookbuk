@@ -38,14 +38,14 @@ Things that seem to work:
 
 =head1 TODO Functions
 
-	- Specify different upgrade order for different planets
-	- Autobalance supply chains (send to home planet)
-	- Autobalance home planet (if all supply chains will become 0 it won't go negative on happiness)
+       - Space port plans?
+       - Specify different upgrade order for different planets
+       - Autobalance supply chains (send to home planet)
+       - Autobalance home planet (if all supply chains will become 0 it won't go negative on happiness)
 
 =head1 TODO Code smell
 
        - Change some classes into modules
-       - Create separate library for file serialization
        - Tidy	 - planet/station mess
        - Change loops to list generic functions where possible
 

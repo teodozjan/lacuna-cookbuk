@@ -2,7 +2,7 @@ use v6;
 
 use LacunaCookbuk::Model::Body::SpaceStation;
 use LacunaCookbuk::Model::Body::Planet;
-use LacunaCookbuk::CoreAdditions::FileSerialization;
+use PerlStore::FileStore;
 use LacunaCookbuk::Model::Empire;
 
 class BodyBuilder;

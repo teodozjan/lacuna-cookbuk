@@ -1,5 +1,5 @@
 use v6;
-use LacunaCookbuk::CoreAdditions::FileSerialization;
+use PerlStore::FileStore;
 use JSON::RPC::Client;
 
 #! Data provided by this class are required by anything in this  game 
