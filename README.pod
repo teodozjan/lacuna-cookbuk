@@ -13,14 +13,10 @@ All planets must have Trade Ministry, Intelligence Ministry and Archaeology Mini
 
 Compilation:
 
-	$ panda install JSON::RPC
-	$ panda install ufo
-	$ panda install Form 
-
+	$ panda install LacunaCookbuk
+	# To get dependencies
 	$ git clone https://github.com/teodozjan/lacuna-cookbuk.git
 	$ cd lacuna-cookbuk
-	$ cp lib/LacunaCookbuk/SampleConfig.pm lib/LacunaCookbuk/Config.pm 
-	$ editor lib/LacunaCookbuk/Config.pm 
 
 	$ ufo
 	$ make install
@@ -28,7 +24,9 @@ Compilation:
 Fun with client:
 
     $ perl6 bin/client.pl --taks=all
-
+    # will die
+    $ edit /var/login.pl
+    $ perl6 bin/client.pl --taks=all
 
 Things that seem to work:
 
@@ -42,19 +40,16 @@ Things that seem to work:
 	- Automatic voting in parliament
 	- List incoming ships
 	- Delete Parliament messages automatically 
+	- Normal log in placed var
 
 =head1 TODO Functions
 
-	- Normal log in in /etc or var
 	- Specify different upgrade order for different planets
 	- Autobalance supply chains (send to home planet)
 	- Autobalance home planet (if all supply chains will become 0 it won't go negative on happiness)
 
 =head1 TODO Code smell
 
-	- Remove logic from Model classess
-	- Don't give bodybuilder everyone
+	- Dont want clone repository... it should create own folder if required
 	- Change loops to list generic functions where possible
-	- Due to perl6 compilation has no spec yet and diffrenet parrot backends treat differently INIT {} blocks it is not safe to declare class attributes that do time or disk consuming operations 
-
 
