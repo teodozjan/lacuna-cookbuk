@@ -1,6 +1,3 @@
-=begin pod
-
-
 
 =head1 NAME LacunaCookbuk
 
@@ -8,7 +5,7 @@ Client.pm aka client.pl is main client for LacunaCookbuk
 
 =head1 SYNOPSIS
 
-Script helps L<B<https://us1.lacunaexpanse.com/>> players doing boring tasks like moving glyphs to one place that can make plans from them or searching where excess fighters can be put. The intention was putting perl6 into life. 
+Script helps https://us1.lacunaexpanse.com players doing boring tasks like moving glyphs to one place that can make plans from them or searching where excess fighters can be put. The intention was putting perl6 into life. 
 
 I use parrot backend for building this. 
 
@@ -28,7 +25,6 @@ Compilation:
 	$ ufo
 	$ make install
 
-
 Fun with client:
 
     $ perl6 bin/client.pl --taks=all
@@ -36,28 +32,29 @@ Fun with client:
 
 Things that seem to work:
 
-=item Caching planets and its buildings
-=item Finding out what ores are on planets
-=item Checking whether space port or intelligence ministries are full
-=item Moving glyphs and plans between planets
-=item Assembling halls
-=item Upgrading rules
-=item Find ineffective ships to replace
-=item Automatic voting in parliament
-=item List incoming ships
-=item Delete Parliament messages automatically 
+	- Caching planets and its buildings
+	- Finding out what ores are on planets
+	- Checking whether space port or intelligence ministries are full
+	- Moving glyphs and plans between planets
+	- Assembling halls
+	- Upgrading rules
+	- Find ineffective ships to replace
+	- Automatic voting in parliament
+	- List incoming ships
+	- Delete Parliament messages automatically 
 
 =head1 TODO Functions
 
-=item Specify different upgrade order for different planets
-=item Autobalance supply chains (send to home planet)
-=item Autobalance home planet (if all supply chains will become 0 it won't go negative on happiness)
+	- Normal log in in /etc or var
+	- Specify different upgrade order for different planets
+	- Autobalance supply chains (send to home planet)
+	- Autobalance home planet (if all supply chains will become 0 it won't go negative on happiness)
 
 =head1 TODO Code smell
 
-=item Remove logic from Model classess
-=item Don't give bodybuilder everyone
-=item Change loops to list generic functions where possible
-=item Due to perl6 compilation has no spec yet and diffrenet parrot backends treat differently INIT {} blocks it is not safe to declare class attributes that do time or disk consuming operations 
+	- Remove logic from Model classess
+	- Don't give bodybuilder everyone
+	- Change loops to list generic functions where possible
+	- Due to perl6 compilation has no spec yet and diffrenet parrot backends treat differently INIT {} blocks it is not safe to declare class attributes that do time or disk consuming operations 
 
-=end pod
+
