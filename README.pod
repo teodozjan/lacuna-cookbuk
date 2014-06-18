@@ -33,27 +33,43 @@ Fun with client:
 Things that seem to work:
 
 - Caching planets and its buildings
+
 - Finding out what ores are on planets
+
 - Checking whether space port or intelligence ministries are full
+
 - Moving glyphs and plans between planets
+
 - Assembling halls
+
 - Upgrading rules
+
 - Find ineffective ships to replace
+
 - Automatic voting in parliament
+
 - List incoming ships
+
 - Delete Parliament messages automatically 
 
 =head1 TODO Functions
 
 - Normal log in in /etc or var
+
 - Specify different upgrade order for different planets
+
 - Autobalance supply chains (send to home planet)
+
 - Autobalance home planet (if all supply chains will become 0 it won't go negative on happiness)
 
 =head1 TODO Code smell
 
 - Remove logic from Model classess
+
 - Don't give bodybuilder everyone
+
 - Change loops to list generic functions where possible
+
 - Due to perl6 compilation has no spec yet and diffrenet parrot backends treat differently INIT {} blocks it is not safe to declare class attributes that do time or disk consuming operations 
+
 
