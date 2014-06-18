@@ -1,6 +1,7 @@
 {
     "name"        : "LacunaCookbuk",
     "version"     : "*",
+    "author"	  : "github:teodozjan",
     "description" : "Lacuna expanse player helper",
     "depends"     : [ "JSON::RPC", "Form", "Term::ANSIColor"],
     "provides"    : {
