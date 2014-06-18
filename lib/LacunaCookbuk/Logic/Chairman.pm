@@ -1,13 +1,14 @@
 use v6;
 
-use LacunaCookbuk::Logic;
+use LacunaCookbuk::Model::Body;
+use LacunaCookbuk::Logic::BodyBuilder;
 use LacunaCookbuk::Logic::Chairman::Building;
 use LacunaCookbuk::Logic::Chairman::Resource;
 use LacunaCookbuk::Logic::Chairman::BuildGoal;
 
 use Term::ANSIColor;
 
-class Chairman does Logic;
+class Chairman;
 
 has BuildGoal @.build_goals;
 
@@ -111,7 +112,7 @@ method production(Resource $resource --> Building::Building) {
 
 
 method all {
-    for self.bodybuilder.planets -> Planet $planet {
+    for (planets) -> Body $planet {
 	next if $planet.is_home;
 	note BOLD, "Upgrading " ~ $planet.name, RESET;
 	self.build($planet)

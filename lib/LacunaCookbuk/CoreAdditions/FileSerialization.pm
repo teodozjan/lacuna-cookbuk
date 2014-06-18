@@ -1,28 +1,28 @@
 use v6;
 
-role FileSerialization;
+module FileSerialization;
 
-method serialize returns Str {
-    self.perl
+sub serialize($what) returns Str {
+    $what.perl
 }
 
-method deserialize(Str $sth){
+sub deserialize(Str $sth){
     EVAL $sth
 }
 
-method to_file($path) {
+sub to_file($path, $what) is export {
     given open($path, :w) {
-	.say(self.serialize);
+	.say(serialize($what));
 	.close
     }
 }
 
-method from_file($path) {
-    note "Reading class from file may be very slow";
+sub from_file($path) is export {
+    #note "Reading class from file may be very slow";
     if $path.IO ~~ :e {
-	self.deserialize(slurp $path)
+	return deserialize(slurp $path)
     } else {
 	warn "Cannot read $path";
-	return self.new;
+        False;
 }
 }

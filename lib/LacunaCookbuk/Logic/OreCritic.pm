@@ -1,10 +1,11 @@
 use v6;
 
-use LacunaCookbuk::Logic;
+use LacunaCookbuk::Model::Body::Planet;
+use LacunaCookbuk::Logic::BodyBuilder;
 use Form;
 use Term::ANSIColor;
 
-class OreCritic does Logic;
+class OreCritic;
 
 constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
 constant $ore_format_str = '{<<<<<<<<<<<<<<<<<<<}  ' ~ '{||||} ' x 20;
@@ -39,34 +40,12 @@ submethod elaborate_ores(Planet $planet, Str @header) {
 submethod elaborate_ore {
 
     say "Planets -- Potential ores";
-    my Str @header = self.bodybuilder.home_planet.ore.keys;
+    my Str @header = home_planet.ore.keys;
     @header.unshift('Planet name');
     print BOLD, form($ore_format_str, @header), RESET;
     
-    for self.bodybuilder.planets -> Planet $planet {
+    for (planets) -> Planet $planet {
 	self.elaborate_ores($planet, @header);
     }    
 }
 
-submethod elaborate_spies{
-    say "\nIntellignece -- Spies";
-    my @header = <planet num limit details>;
-    print form ($limited_format, @header);
-    say $ruler;
-    for self.bodybuilder.planets -> Planet $planet {
-	self.elaborate_intelligence($planet);
-    }
-}
-
-method format_spies(Spy @spies --> Str) {
-    my %assignments;
-    for @spies -> Spy $spy {
-	%assignments{$spy.assignment}++;
-    }
-
-    my Str $ret;
-    for %assignments.keys -> Str $key {
-	$ret ~=	$key ~ ':' ~%assignments{$key} ~ '   ';
-    }
-    $ret;
-}

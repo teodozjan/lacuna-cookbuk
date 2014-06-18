@@ -1,8 +1,8 @@
 use v6;
 
-use LacunaCookbuk::Logic;
 use LacunaCookbuk::Model::Inbox;
-class Secretary does Logic;
+
+class Secretary;
 
 method clean(@tags){
     my Inbox $box .= new;

@@ -1,11 +1,12 @@
 use v6;
 
-use LacunaCookbuk::Logic;
+
 use Form;
 use Term::ANSIColor;
 
+use LacunaCookbuk::Logic::BodyBuilder;
 
-class Commander does Logic;
+class Commander;
 my Str $form =
     color('white') ~ '{<<<<<<<<<<<<<<<<<<} '
     ~ color('red') ~ '{||||||}'
@@ -15,7 +16,7 @@ my Str $form =
 method find_incoming {
 
     print BOLD, form($form, 'Body', 'Hostile', 'Ally', 'Own'), RESET;
-    for self.bodybuilder.planets, self.bodybuilder.stations -> Body $body {
+    for (planets, stations) -> Body $body {
 	my $status = $body.get_status<body>;	
 	next if none($status<num_incoming_enemy>,
 		     $status<num_incoming_ally>,

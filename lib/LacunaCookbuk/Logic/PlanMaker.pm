@@ -1,9 +1,8 @@
 use v6;
 
 use LacunaCookbuk::Model::Body::Planet;
-use LacunaCookbuk::Logic;
-
-class PlanMaker does Logic;
+use LacunaCookbuk::Logic::BodyBuilder;
+class PlanMaker;
 
 constant $ANTHRACITE = "anthracite";
 constant $BAUXITE = "bauxite";
@@ -60,7 +59,7 @@ constant %recipes =
 
 #TODO use achaeology instead of trade
 method makePossibleHalls {
-  my $home_planet = self.bodybuilder.home_planet;
+  my $home_planet = home_planet;
   my Trade $t = $home_planet.find_trade_ministry;
   my %glyphs = $t.get_glyphs_hash();
 
@@ -97,7 +96,7 @@ method !countPlans(@planRecipe, %glyphs) {
 
 method createRecipe(@recipe, Int $quantity) {
     return if $quantity == 0;
-    my $home_planet = self.bodybuilder.home_planet;
+    my $home_planet = home_planet;
     $home_planet.find_archaeology_ministry().assemble_glyphs(@recipe, $quantity)
 }
 

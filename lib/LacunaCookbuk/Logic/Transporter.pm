@@ -1,12 +1,13 @@
 use v6;
 
 use LacunaCookbuk::Model::Body::Planet;
-use LacunaCookbuk::Logic;
+use LacunaCookbuk::Logic::BodyBuilder;
+use LacunaCookbuk::Model::Empire;
 use LacunaCookbuk::Logic::Transporter::Cargo;
 
-class Transporter does Logic;
+class Transporter;
 
-submethod transport(@goods,Planet $src, Planet $dst = self.bodybuilder.home_planet)
+submethod transport(@goods,Planet $src, Planet $dst = home_planet)
 {
   	my @cargo;
 	my $trade = $src.find_trade_ministry;
@@ -21,9 +22,9 @@ submethod transport(@goods,Planet $src, Planet $dst = self.bodybuilder.home_plan
 	say $trade.push(@packed) if @packed;   
 }
 
-submethod transport_all_cargo(Planet $dst = self.bodybuilder.home_planet) {
+submethod transport_all_cargo(Planet $dst = home_planet) {
     my @goods = (Glyphs, Plans);
-    my @planets = self.bodybuilder.planets;
+    my @planets = planets;
     for @planets -> Planet $planet {
 	#note $planet.name;	
 	next if $planet.is_home;

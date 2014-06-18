@@ -1,11 +1,11 @@
 use v6;
 
-use LacunaCookbuk::Logic;
 use Form;
 use Term::ANSIColor;
-
-
-class ShipCritic does Logic;
+use LacunaCookbuk::Model::Body::Planet;
+use LacunaCookbuk::Model::Empire;
+use LacunaCookbuk::Logic::BodyBuilder;
+class ShipCritic;
 
 constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
 constant $ruler = '-' x 160;
@@ -41,13 +41,13 @@ submethod elaborate_ships {
 	my @header = <planet free all details>;
 	print  form ($limited_format, @header);
 	say $ruler, RESET;
-	for self.bodybuilder.planets -> Planet $planet {
+	for (planets) -> Planet $planet {
 	    %ports{$planet.name} = self.elaborate_spaceport($planet);
 	}
 
     }
     {
-	my %available = self.bodybuilder.home_planet.find_shipyard.get_buildable;
+	my %available = home_planet.find_shipyard.get_buildable;
 	for %ports.pairs -> $pair {
 	    
 	    my @shipz = $pair.value.view_all_ships;

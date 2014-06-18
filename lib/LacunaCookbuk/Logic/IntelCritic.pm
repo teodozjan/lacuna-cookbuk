@@ -1,11 +1,12 @@
 use v6;
 
-use LacunaCookbuk::Logic;
+use LacunaCookbuk::Model::Body::Planet;
+use LacunaCookbuk::Logic::BodyBuilder;
 use Form;
 use Term::ANSIColor;
 
 
-class IntelCritic does Logic;
+class IntelCritic;
 
 constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
 constant $ruler = '-' x 160;
@@ -29,7 +30,7 @@ submethod elaborate_spies{
     my @header = <planet num limit details>;
     print form ($limited_format, @header);
     say $ruler;
-    for self.bodybuilder.planets -> Planet $planet {
+    for (planets) -> Planet $planet {
 	self.elaborate_intelligence($planet);
     }
 }

@@ -1,20 +1,19 @@
 use v6;
 
-use LacunaCookbuk::Model::LacunaSession;
+use LacunaCookbuk::Model::Empire;
 
 
-
-class Inbox is LacunaSession;
+class Inbox;
 
 constant $URL = '/inbox';
 
 
 method trash_messages(@msg_ids){
-    self.rpc($URL).trash_messages(self.session_id,$(@msg_ids))<success>
+    rpc($URL).trash_messages(session_id,$(@msg_ids))<success>
 }
 
 method view_inbox(@tags){
- 	self.rpc($URL).view_inbox(self.session_id, %(tags => @tags))<messages>
+ 	rpc($URL).view_inbox(session_id, %(tags => @tags))<messages>
 }
 
 

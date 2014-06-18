@@ -1,18 +1,18 @@
 use v6;
 
-use LacunaCookbuk::Model::LacunaSession;
 use LacunaCookbuk::Model::Building::BuildingView;
+use LacunaCookbuk::Id;
+use LacunaCookbuk::Model::Empire;
 
-role LacunaBuilding is LacunaSession;
+role LacunaBuilding does Id;
 
-has $.id;
 has $.url; 
 
 
 method upgrade {
-    self.rpc(self.url).upgrade(self.session_id, self.id);    
+    rpc(self.url).upgrade(session_id, self.id);    
 }
 
 method view returns BuildingView {    
-    BuildingView.new(|self.rpc(self.url).view(self.session_id, self.id)<building>);    
+    BuildingView.new(|rpc(self.url).view(session_id, self.id)<building>);    
 }

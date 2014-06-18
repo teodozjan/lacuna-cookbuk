@@ -1,8 +1,8 @@
 use v6;
 
-use LacunaCookbuk::Model::LacunaSession;
+use LacunaCookbuk::Id;
 
-class Ship is LacunaSession;
+class Ship does Id;
 has %.attr;
 
 multi method gist {

@@ -1,14 +1,15 @@
 use v6;
 
-use LacunaCookbuk::Logic;
+
 use LacunaCookbuk::Model::Body::SpaceStation;
 use LacunaCookbuk::Model::Building::Parliament;
+use LacunaCookbuk::Logic::BodyBuilder;
 
-class Ambassador does Logic;
+class Ambassador;
 
 
 submethod vote_all(Bool $vote) {
-    for self.bodybuilder.stations -> SpaceStation $station {
+    for (stations) -> SpaceStation $station {
 	my Parliament $par = $station.find_parliament;
 	next unless $par;
 	my @prop = $par.view_propositions;
