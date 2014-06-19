@@ -44,7 +44,7 @@ method upgrade(LacunaBuilding @buildings, BuildGoal $goal --> BuildGoal){
 	my $view := $building.view;
 	if $view.upgrade<can> {
 	    $building.upgrade;
-	    note "Upgrade started " ~ $goal.building;
+	    note colored("Upgrade started " ~ $goal.building, 'green');
 	} else {
 	    given $view.upgrade<reason>[0] {
 		when $UNSUSTAINABLE {
