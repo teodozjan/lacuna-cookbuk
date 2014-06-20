@@ -34,7 +34,6 @@ Things that seem to work:
 	- Automatic voting in parliament
 	- List incoming ships
 	- Delete Parliament messages automatically 
-	- Normal log in placed var
 
 =head1 TODO Functions
 
