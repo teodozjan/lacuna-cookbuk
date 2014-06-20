@@ -17,10 +17,10 @@ Compilation:
 
 Fun with client:
 
-    $ perl6 bin/client.pl --taks=all
+    $ lacunacookbuk_client --taks=all
     # will die
     $ nano .lacuna_cookbuk/login.pl
-    $ perl6 bin/client.pl --taks=all --update
+    $ lacunacookbuk_client --taks=all --update
 
 Things that seem to work:
 
