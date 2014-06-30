@@ -18,7 +18,7 @@ Compilation:
 Fun with client:
 
     $ lacunacookbuk_client --taks=all
-    # will die
+    # will die but will also prefill settings
     $ nano .lacuna_cookbuk/login.pl
     $ lacunacookbuk_client --taks=all --update
 
