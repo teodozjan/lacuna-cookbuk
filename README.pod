@@ -1,7 +1,7 @@
 
 =head1 NAME LacunaCookbuk
 
-LacunaCookbuk was intended to be something similar to cookbuk for creating glyphs. But real life changed it to client with library that has only one implementing client. 
+LacunaCookbuk was intended to be something similar to cookbook for creating glyphs. But real life changed it to client with library that has only one implementing client. 
 
 =head1 SYNOPSIS
 
