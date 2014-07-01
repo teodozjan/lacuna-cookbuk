@@ -37,6 +37,7 @@ Things that seem to work:
 
 =head1 TODO Functions
 
+       - Automatic repair
        - Space port plans
        - Automatic trade posting
        - Specify different upgrade order for different planets
