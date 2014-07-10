@@ -5,8 +5,6 @@ use JSON::RPC::Client;
 #! Data provided by this class are required by anything in this  game 
 class Empire;
 
-my $path = INIT make_path('login.pl');
-
 constant $EMPIRE = '/empire';
 my %status;
 my %login;
@@ -46,6 +44,8 @@ submethod planets_hash {
 }
 
 sub find_credentials returns Hash {
+    my $path = make_path('login.pl');
+
     my $obj = from_file($path);
     
     if $obj {

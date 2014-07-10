@@ -10,14 +10,19 @@ class BodyBuilder;
 my Planet @planets;
 my SpaceStation @stations;
 
-my $path_planets = make_path('planets.pl');
-my $path_stations = make_path('stations.pl');
+
 submethod read {
+    my $path_planets = make_path('planets.pl');
+    my $path_stations = make_path('stations.pl');
+
     @planets = from_file($path_planets);
     @stations = from_file($path_stations);
 }
 
 submethod write {
+    my $path_planets = make_path('planets.pl');
+    my $path_stations = make_path('stations.pl');
+
     to_file($path_planets, @planets);
     to_file($path_stations, @stations);
 }
