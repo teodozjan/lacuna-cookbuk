@@ -5,7 +5,7 @@ use JSON::RPC::Client;
 #! Data provided by this class are required by anything in this  game 
 class Empire;
 
-my $path = make_path('login.pl');
+my $path = INIT make_path('login.pl');
 
 constant $EMPIRE = '/empire';
 my %status;
