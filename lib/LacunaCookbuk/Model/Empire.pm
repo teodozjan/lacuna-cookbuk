@@ -52,7 +52,7 @@ sub find_credentials returns Hash {
 	%login = $obj;
     } else {
 	%login  = 
-	    :api_key('anonymous'),
+	    :api_key('07a052e0-d92b-49bb-ad38-cc1e433eb869'),
 	    :MyGreatEmpire('password');
 	to_file($path, %login);
 	die "Must fill your data in $path, data were pregenerated for you"
@@ -74,7 +74,7 @@ sub session_id is export {
     $session_id;
 }
 
-sub make_path(Str $anyth) is cached is export {
+sub make_path(Str $anyth) is export {
     mkdir('.lacuna_cookbuk') unless '.lacuna_cookbuk'.IO ~~ :e;
     IO::Path.new('.lacuna_cookbuk/' ~ $anyth)
 }
