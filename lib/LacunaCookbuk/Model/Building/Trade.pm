@@ -64,7 +64,7 @@ method get_push_ships($targetId = Empire.home_planet_id) {
 
 method push($cargo, $dst_planet_id = Empire.home_planet_id) {   
     
-    my %ship = rpc($URL).push_items(session_id, self.id, $dst_planet_id, $cargo, %(:ship_id(self.find_fastest_ship<id>), :stay(0)))<ship>;
+    my %ship = %(rpc($URL).push_items(session_id, self.id, $dst_planet_id, $cargo, %(:ship_id(self.find_fastest_ship<id>), :stay(0)))<ship>);
     
     Ship.new(attr => %ship)
 }

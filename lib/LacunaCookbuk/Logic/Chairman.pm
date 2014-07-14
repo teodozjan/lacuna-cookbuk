@@ -41,7 +41,7 @@ method upgrade(LacunaBuilding @buildings, BuildGoal $goal --> BuildGoal){
     for @buildings -> LacunaBuilding $building {
 	next unless $goal.level > $building.view.level;#goal reached
 
-	my $view := $building.view;
+	my $view = $building.view;
 	if $view.upgrade<can> {
 	    $building.upgrade;
 	    note colored("Upgrade started " ~ $goal.building, 'green');
