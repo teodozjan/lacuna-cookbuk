@@ -57,7 +57,7 @@ submethod find_intelligence_ministry(--> Intelligence) {
 	if $building.url ~~ $Intelligence::URL {
 	    my $id = $building.id;
 	    
-	    my %attr = rpc($building.url).view(session_id, $id)<spies>;	  
+	    my %attr = %(rpc($building.url).view(session_id, $id)<spies>);	  
 	    %attr<id> = $id;
 	    return Intelligence.new(|%attr);
 	}
