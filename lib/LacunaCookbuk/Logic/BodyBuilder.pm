@@ -3,6 +3,7 @@ use v6;
 use LacunaCookbuk::Model::Body::SpaceStation;
 use LacunaCookbuk::Model::Body::Planet;
 use PerlStore::FileStore;
+use LacunaCookbuk::Model::LacunaBuilding;
 use LacunaCookbuk::Model::Empire;
 
 class BodyBuilder;
@@ -11,12 +12,30 @@ my Planet @planets;
 my SpaceStation @stations;
 
 
-submethod read {
+method read {
+
+
     my $path_planets = make_path('planets.pl');
     my $path_stations = make_path('stations.pl');
 
+=begin pod
     @planets = from_file($path_planets);
     @stations = from_file($path_stations);
+=end pod
+
+
+
+    #moar hack
+    note 'Readin $path_planets';
+    my $plan = slurp $path_planets;
+    @planets = EVAL $plan;
+
+    #moar hack
+    note 'Readin $path_stations';
+    my $stat =  slurp $path_stations;
+    @stations = EVAL $stat; 
+
+
 }
 
 submethod write {
@@ -51,7 +70,7 @@ submethod process_all_bodies {
     BodyBuilder.write;
 }
 
-sub home_planet(--> Planet) is cached is export {
+sub home_planet(--> Planet) is export {
     for @planets -> Planet $planet {
 	return $planet if $planet.is_home;
     }

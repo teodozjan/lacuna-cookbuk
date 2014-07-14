@@ -49,7 +49,7 @@ method cut_size(@cargo, Int $limit --> Array){
 
 }
 
-my %csizes = {"glyph" => 100, "plan" => 10000};
+my %csizes = %("glyph" => 100, "plan" => 10000);
 submethod container_size(Str $type --> Int){
     %csizes{$type};
 }

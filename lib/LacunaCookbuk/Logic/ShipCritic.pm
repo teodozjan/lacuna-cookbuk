@@ -18,7 +18,7 @@ submethod elaborate_spaceport(Planet $planet --> SpacePort) {
 #bug?
     my Int $free = $spaceport.docks_available;    
     my Str $docks = $free == 0 ?? "FULL" !! ~$free;
-    my Str $max = ~$spaceport.max_ships;
+    my Str $max = $spaceport.max_ships == 0 ?? "NONE!" !! ~$spaceport.max_ships ;
     my %shipz = $spaceport.docked_ships;
     my Str $ships = self.format_ships(%shipz);
     

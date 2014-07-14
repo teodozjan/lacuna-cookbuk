@@ -59,8 +59,8 @@ constant %recipes =
 
 #TODO use achaeology instead of trade
 method makePossibleHalls {
-  my $home_planet = home_planet;
-  my Trade $t = $home_planet.find_trade_ministry;
+  my $hp = home_planet;
+  my Trade $t = $hp.find_trade_ministry;
   my %glyphs = $t.get_glyphs_hash();
 
   for @(keys %recipes).grep(/Halls/) -> $recipename {
@@ -96,7 +96,7 @@ method !countPlans(@planRecipe, %glyphs) {
 
 method createRecipe(@recipe, Int $quantity) {
     return if $quantity == 0;
-    my $home_planet = home_planet;
-    $home_planet.find_archaeology_ministry().assemble_glyphs(@recipe, $quantity)
+    my $hp = home_planet;
+    $hp.find_archaeology_ministry().assemble_glyphs(@recipe, $quantity)
 }
 
