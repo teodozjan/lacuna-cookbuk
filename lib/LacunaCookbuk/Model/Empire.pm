@@ -16,6 +16,10 @@ sub lacuna_url(Str $url){
 }
 
 sub rpc(Str $name --> JSON::RPC::Client) is export {
+#- TODO moarvm is so fast that we exceed 60 request per minute
+#- that is hard limit for lacuna expanse
+#- there could be somethin more pretty but I have no time
+    sleep 1; 
     JSON::RPC::Client.new( url => lacuna_url($name))
 }
 
