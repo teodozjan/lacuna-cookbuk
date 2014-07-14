@@ -40,7 +40,7 @@ submethod find_space_port(--> SpacePort) {
     for self.buildings -> LacunaBuilding $building {
 	
 	if $building.url ~~ $SpacePort::URL {
-	    my %attr = rpc($SpacePort::URL).view(session_id,$building.id);
+	    my %attr = %(rpc($SpacePort::URL).view(session_id,$building.id));
 	    %attr<id> = $building.id;
 	    return SpacePort.new(|%attr)
 	}

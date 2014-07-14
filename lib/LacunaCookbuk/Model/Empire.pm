@@ -26,8 +26,8 @@ sub rpc(Str $name --> JSON::RPC::Client) is export {
 submethod create_session {
     my %login = find_credentials;
     my %logged = %(rpc($EMPIRE).login(|%login));
-    %status = %%logged<status>;
-    $session_id = %%logged<session_id>
+    %status = %(%logged<status>);
+    $session_id = %logged<session_id>
 }
 
 submethod close_session {
@@ -63,7 +63,7 @@ sub find_credentials returns Hash {
 		die "Must fill your data in $path, data were pregenerated for you"
 	    } 
 
-	    %login = EVAL $file;
+	    %login = %(EVAL $file);
     
 
     return %login;
