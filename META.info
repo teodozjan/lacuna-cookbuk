@@ -5,7 +5,7 @@
     "description" : "Lacuna expanse player helper",
     "depends"     : [ "JSON::RPC", "Form", "Term::ANSIColor", "PerlStore"],
     "provides"    : {
-	        "LacunaCookbuk::Client" : "lib/LacunaCookbuk/Client.pm"
+	        "LacunaCookbuk::Client" : "lib/LacunaCookbuk/Client.pm6"
 	 },
     "source-url"  : "git://github.com/teodozjan/lacuna-cookbuk.git"
 }
