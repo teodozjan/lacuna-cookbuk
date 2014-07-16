@@ -48,6 +48,11 @@ method upgrade(LacunaBuilding @buildings, BuildGoal $goal --> BuildGoal){
 	} else {
 	    given $view.upgrade<reason>[0] {
 		when $UNSUSTAINABLE {
+		    unless $view.upgrade<reason>[2] {
+			note colored($view.upgrade<reason>[1] ~ "do it yourself", 'red');
+			next
+		    }
+
 		    my Resource $resource = value_of($view.upgrade<reason>[2]);
 		    note 'Need to produce more ' ~ $resource  ~ ' for ' ~ $goal.building;
 		    my $new_goal =  BuildGoal.new(building=> self.production($resource), level => 30);
