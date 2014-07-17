@@ -30,7 +30,7 @@ submethod find_trade_ministry(--> Trade) {
 
 submethod find_shipyard(--> Shipyard) { 
     for self.buildings -> LacunaBuilding $building {
-	return Shipyard.new(id => $building.id, url=>$building.url) if $building.url ~~ $Shipyard::URL;
+	return Shipyard.new(id => $building.id, url => $building.url) if $building.url ~~ $Shipyard::URL;
     }
     note "No shipyard on " ~ self.name;
     Shipyard;
