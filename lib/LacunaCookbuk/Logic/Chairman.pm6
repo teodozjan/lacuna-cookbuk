@@ -21,24 +21,26 @@ constant $NOT_ENOUGH_STORAGE = 1011;
 
 method build(Body $body) {
     for self.build_goals -> BuildGoal $goal {
-      #| to avoid infinite recurence
+	#| to avoid infinite recurence
+	#| may be not needed TODO: check
       constant TRIAL_LIMIT = 5;
       my $alt_goal = $goal;
       my $trial = 0;
 	repeat {
-
 	    return if $alt_goal.level < 1;
-	    last if ++$trial == TRIAL_LIMIT;
-	    my LacunaBuilding @buildings = $body.find_buildings('/' ~ $alt_goal.building);
-	    $alt_goal = self.upgrade(@buildings, $alt_goal);
-
+	    last if ++$trial == TRIAL_LIMIT;	    
+	    $alt_goal = self.upgrade($body, $alt_goal);
 	} while $alt_goal
 
    }
 }
 
-method upgrade(LacunaBuilding @buildings, BuildGoal $goal --> BuildGoal){
+method upgrade(Body $body, BuildGoal $goal --> BuildGoal){
+    my LacunaBuilding @buildings = $body.find_buildings('/' ~ $goal.building);
+   
+    
     for @buildings -> LacunaBuilding $building {
+	warn $building.perl;
 	my $view = $building.view;
 	next unless $goal.level > $view.level;#goal reached
 
@@ -56,16 +58,29 @@ method upgrade(LacunaBuilding @buildings, BuildGoal $goal --> BuildGoal){
 
 		    my Resource $resource = value_of($view.upgrade<reason>[2]);
 		    note 'Need to produce more ' ~ $resource  ~ ' for ' ~ $goal.building;
-		    my $new_goal =  BuildGoal.new(building=> self.production($resource), level => 30);
-		    note "Too low $resource for upgrading $resource" && return $new_goal unless $new_goal.building == $goal.building;
+		    my $new_goal =  BuildGoal.new(building => self.production($resource), level => 15);
+		    if $new_goal.building != $goal.building {
+			note "Too low $resource for upgrading {$new_goal.building}";
+			return $new_goal;
+			} else {
+			note "Cannot upgrade itself";
+			next
+		    }
 		}
 		when $NOT_ENOUGH_STORAGE {
 		    my Resource $resource = value_of($view.upgrade<reason>[2]);
-		    note "Need to store more $resource for {$goal.building}";
-
-		    my $new_goal =  BuildGoal.new(building=> self.storage($resource), level => 30);
-                    # To understand recurrence you need to understand recurrence
-		    note "Too low storage for upgrading storage" && return $new_goal unless $new_goal.building == $goal.building;
+		    my $quantity = $view.upgrade<cost>{$resource};
+		    my $status = $body.get_status<body>;
+		    my $capacity = $status{$resource ~ '_capacity'};
+		    note "Need to have $quantity of $resource for {$goal.building}";
+		    
+		    if  $quantity > $capacity {
+			note "To small stores will try to upgrade";
+			my $new_goal = BuildGoal.new(building=> self.storage($resource), level => 15);
+			return $new_goal unless $new_goal.building == $goal.building;
+			} else {
+			note "Capacity of $capacity is sufficent, stores will be left as is";
+		    }
 		}
 		when $NO_ROOM_IN_QUEUE {
 		    note 'Queue full';

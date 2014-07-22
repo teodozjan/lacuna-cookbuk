@@ -14,7 +14,7 @@ class Planet is Body;
 
 submethod find_archaeology_ministry(--> Archaeology) {
     for self.buildings -> LacunaBuilding $building {
-	return Archaeology.new(id => $building.id) if $building.url ~~ $Archaeology::URL;
+	return Archaeology.new(id => $building.id, url => $Archaeology::URL) if $building.url ~~ $Archaeology::URL;
     }
     note "No archaeology ministry on " ~ self.name;
     Archaeology;
@@ -22,7 +22,7 @@ submethod find_archaeology_ministry(--> Archaeology) {
 
 submethod find_trade_ministry(--> Trade) { 
     for self.buildings -> LacunaBuilding $building {
-	return Trade.new(id => $building.id, url=>$building.url) if $building.url ~~ $Trade::URL;
+	return Trade.new(id => $building.id, url => $Trade::URL) if $building.url ~~ $Trade::URL;
     }
     note "No trade ministry on " ~ self.name;
     Trade;
@@ -30,7 +30,7 @@ submethod find_trade_ministry(--> Trade) {
 
 submethod find_shipyard(--> Shipyard) { 
     for self.buildings -> LacunaBuilding $building {
-	return Shipyard.new(id => $building.id, url => $building.url) if $building.url ~~ $Shipyard::URL;
+	return Shipyard.new(id => $building.id, url => $Shipyard::URL) if $building.url ~~ $Shipyard::URL;
     }
     note "No shipyard on " ~ self.name;
     Shipyard;
@@ -42,6 +42,7 @@ submethod find_space_port(--> SpacePort) {
 	if $building.url ~~ $SpacePort::URL {
 	    my %attr = %(rpc($SpacePort::URL).view(session_id,$building.id));
 	    %attr<id> = $building.id;
+	    %attr<url> = $SpacePort::URL;
 	    return SpacePort.new(|%attr)
 	}
     }
@@ -57,8 +58,9 @@ submethod find_intelligence_ministry(--> Intelligence) {
 	if $building.url ~~ $Intelligence::URL {
 	    my $id = $building.id;
 	    
-	    my %attr = %(rpc($building.url).view(session_id, $id)<spies>);	  
+	    my %attr = %(rpc($Intelligence::URL).view(session_id, $id)<spies>);	  
 	    %attr<id> = $id;
+	    %attr<url> = $Intelligence::URL;
 	    return Intelligence.new(|%attr);
 	}
     }
@@ -74,7 +76,7 @@ submethod find_development_ministry(--> Development) {
 	    my $id = $building.id;
 	    my %resp = rpc($building.url).view(session_id, $id);
 	    my %attr = %resp;
-	    %attr<url> = $building.url;
+	    %attr<url> = $Development::URL;
 	    %attr<id> = $id;
 	    return Development.new(|%attr);
 	}

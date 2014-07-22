@@ -53,7 +53,7 @@ method ordinary {
 #= Will upgrade buildings in order passed to L<doc:LacunaCookbuk::Chariman> chairman will work only on existing buildings but this may change in future
 method chairman {
     my BuildGoal $saw .= new(building => Building::Building::saw, level=>12);
-    my BuildGoal $wastet .=  new(building => Building::Building::wastetreatment, level=>15);
+    my BuildGoal $wastet .=  new(building => Building::Building::wastedigester, level=>15);
     my BuildGoal $space .=  new(building => Building::Building::spaceport, level=>10);
     my BuildGoal $arch .=  new(building => Building::Building::archaeology, level=>30);
     my BuildGoal $sec .= new(building => Building::Building::security, level => 30); 
