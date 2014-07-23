@@ -19,7 +19,6 @@ submethod get_buildings {
     %!ore = %(%buildings<status><body><ore>);    
     my LacunaBuilding @result = gather for keys %buildings<buildings> -> $building_id {
 	my LacunaBuilding $building = LacunaBuilding.new(id => $building_id, url => %buildings<buildings>{$building_id}<url>);
-	note $building.perl;
 	take $building;
     }   
 
