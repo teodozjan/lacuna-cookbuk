@@ -38,11 +38,12 @@ submethod elaborate_ore {
 	self.elaborate_ores($planet, @header, @summarize);
     }    
 
+    my $max = @summarize.max;
+    @summarize .= map:{Int(.Int *100 / $max)};
     @summarize.unshift("Summary");
     
-    #- we need to stringify I don't know why
-    print BOLD, form($ore_format_str, @summarize.map:{.Str}), RESET;
+    
+    print BOLD, form($ore_format_str, @summarize.map:{.Str ~ '%'}), RESET;
 }
-
 
 
