@@ -40,7 +40,7 @@ method upgrade(Body $body, BuildGoal $goal --> BuildGoal){
    
     
     for @buildings -> LacunaBuilding $building {
-	warn $building.perl;
+
 	my $view = $building.view;
 	next unless $goal.level > $view.level;#goal reached
 
