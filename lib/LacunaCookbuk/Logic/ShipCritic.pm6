@@ -21,7 +21,7 @@ submethod elaborate_spaceport(Planet $planet --> SpacePort) {
     my Str $max = $spaceport.max_ships == 0 ?? "NONE!" !! ~$spaceport.max_ships ;
     my %shipz = $spaceport.docked_ships;
     my Str $ships = self.format_ships(%shipz);
-    
+    $ships = "✈" unless $ships;
     
     print form( 
 	$limited_format,
