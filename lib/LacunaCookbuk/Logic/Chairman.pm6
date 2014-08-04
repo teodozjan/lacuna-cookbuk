@@ -19,7 +19,7 @@ constant $NOT_ENOUGH_STORAGE = 1011;
 
 
 
-method build(Body $body) {
+method build(Body $body  = home_planet) {
     for self.build_goals -> BuildGoal $goal {
         my $alt_goal = $goal;
 
@@ -33,22 +33,20 @@ method build(Body $body) {
 
 method upgrade(Body $body, BuildGoal $goal --> BuildGoal){
     my LacunaBuilding @buildings = $body.find_buildings('/' ~ $goal.building);
-   
-    
+ 
     for @buildings -> LacunaBuilding $building {
 
 	my $view = $building.view;
 	next unless $goal.level > $view.level;#goal reached
-
 	
- 	if $view.upgrade<can> {
+	if $view.upgrade<can> {
 	    $building.upgrade;
 	    note colored("Upgrade started " ~ $goal.building, 'green');
 	} else {
 	    given $view.upgrade<reason>[0] {
 		when $UNSUSTAINABLE {
 		    unless $view.upgrade<reason>[2] {
-			note colored($view.upgrade<reason>[1] ~ "do it yourself", 'red');
+			note colored($view.upgrade<reason>[1] ~ " Problem will not be handled by Chairman", 'red');
 			next
 		    }
 
@@ -134,12 +132,6 @@ method all {
 	note BOLD, "Upgrading " ~ $planet.name, RESET;
 	self.build($planet)
     }
-}
-
-method upgrade_home {
-    self.build(home_planet);
-
-
 }
 
 sub value_of(Str $str --> Resource){
