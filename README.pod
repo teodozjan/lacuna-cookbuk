@@ -23,7 +23,9 @@ Fun with client:
     $ lacunacookbuk_client --taks=all --update
 
 You can also try to use it without compiling
-    $  PERL6LIB=/your/path/lacuna-cookbuk/lib: perl6 /home/kamil/dev/lacuna-cookbuk/bin/lacunacookbuk_client --tasks=chairman
+
+    $  PERL6LIB=/your/path/lacuna-cookbuk/lib: perl6 /your/path/lacuna-cookbuk/bin/lacunacookbuk_client --help
+    
 Precompiling is the most changin part of perl6 backends so it may be used as failsafe mode
 
     
