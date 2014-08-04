@@ -21,14 +21,10 @@ constant $NOT_ENOUGH_STORAGE = 1011;
 
 method build(Body $body) {
     for self.build_goals -> BuildGoal $goal {
-	#| to avoid infinite recurence
-	#| may be not needed TODO: check
-      constant TRIAL_LIMIT = 5;
-      my $alt_goal = $goal;
-      my $trial = 0;
+        my $alt_goal = $goal;
+
 	repeat {
 	    return if $alt_goal.level < 1;
-	    last if ++$trial == TRIAL_LIMIT;	    
 	    $alt_goal = self.upgrade($body, $alt_goal);
 	} while $alt_goal
 
@@ -45,7 +41,7 @@ method upgrade(Body $body, BuildGoal $goal --> BuildGoal){
 	next unless $goal.level > $view.level;#goal reached
 
 	
-	if $view.upgrade<can> {
+ 	if $view.upgrade<can> {
 	    $building.upgrade;
 	    note colored("Upgrade started " ~ $goal.building, 'green');
 	} else {
@@ -140,6 +136,12 @@ method all {
     }
 }
 
+method upgrade_home {
+    self.build(home_planet);
+
+
+}
+
 sub value_of(Str $str --> Resource){
     given $str {
 	when 'food' {return food;}
@@ -149,6 +151,5 @@ sub value_of(Str $str --> Resource){
 	when 'waste' {return waste;}
 	when 'happiness' {return happiness;}
 	default{die $str}
-
     }
 }
