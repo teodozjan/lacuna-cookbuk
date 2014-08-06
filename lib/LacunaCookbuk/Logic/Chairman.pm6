@@ -6,6 +6,8 @@ use LacunaCookbuk::Logic::Chairman::Building;
 use LacunaCookbuk::Logic::Chairman::Resource;
 use LacunaCookbuk::Logic::Chairman::BuildGoal;
 
+use LacunaCookbuk::Model::Building::Development;
+
 use Term::ANSIColor;
 
 class Chairman;
@@ -17,19 +19,31 @@ constant $NO_ROOM_IN_QUEUE = 1009;
 constant $INCOMPLETE_PENDING_BUILD = 1010;
 constant $NOT_ENOUGH_STORAGE = 1011;
 
-
+sub print_queue_summary(Body $body  = home_planet) {
+    my Development $dev = $body.find_development_ministry;
+    for $dev.build_queue -> %item {
+	say %item<name> ~ " ⌛" ~ DateTime.new(now + %item<seconds_remaining>); 	
+    }
+}
 
 method build(Body $body  = home_planet) {
     for self.build_goals -> BuildGoal $goal {
         my $alt_goal = $goal;
 
-	repeat {
-	    return if $alt_goal.level < 1;
+	repeat while $alt_goal {
+	    if $alt_goal.level < 1 {
+		# It looks like you cannot call last on repeat loop
+		print_queue_summary;
+		return;
+	    }
 	    $alt_goal = self.upgrade($body, $alt_goal);
-	} while $alt_goal
+	} 
 
-   }
+   }  
+   print_queue_summary($body);
 }
+
+
 
 method upgrade(Body $body, BuildGoal $goal --> BuildGoal){
     my LacunaBuilding @buildings = $body.find_buildings('/' ~ $goal.building);
@@ -130,7 +144,7 @@ method all {
     for (planets) -> Body $planet {
 	next if $planet.is_home;
 	note BOLD, "Upgrading " ~ $planet.name, RESET;
-	self.build($planet)
+	self.build($planet);
     }
 }
 
