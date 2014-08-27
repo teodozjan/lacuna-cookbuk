@@ -19,21 +19,21 @@ constant $NO_ROOM_IN_QUEUE = 1009;
 constant $INCOMPLETE_PENDING_BUILD = 1010;
 constant $NOT_ENOUGH_STORAGE = 1011;
 
-sub print_queue_summary(Body $body  = home_planet) {
+sub print_queue_summary(Body $body = home_planet) {
     my Development $dev = $body.find_development_ministry;
     for $dev.build_queue -> %item {
-	say %item<name> ~ " ⌛" ~ DateTime.new(now + %item<seconds_remaining>); 	
+	note colored(%item<name> ~ " ⌛" ~ DateTime.new(now + %item<seconds_remaining>), 'blue'); 	
     }
 }
 
-method build(Body $body  = home_planet) {
+method build(Body $body = home_planet) {
     for self.build_goals -> BuildGoal $goal {
         my $alt_goal = $goal;
 
 	repeat while $alt_goal {
 	    if $alt_goal.level < 1 {
 		# It looks like you cannot call last on repeat loop
-		print_queue_summary;
+		print_queue_summary($body);
 		return;
 	    }
 	    $alt_goal = self.upgrade($body, $alt_goal);
