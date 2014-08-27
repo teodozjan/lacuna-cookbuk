@@ -101,14 +101,16 @@ method upgrade_home{
     my BuildGoal $saw2 .= new(building => Building::Building::saw, level=> 30);
     my BuildGoal $trade .= new(building => Building::Building::trade, level=> 30);
     my BuildGoal $university .= new(building => Building::Building::university, level=> 30);
-
+    my BuildGoal $capitol .= new(building => Building::Building::capitol, level=> 30);
+    my BuildGoal $stockpile .= new(building => Building::Building::stockpile, level=> 30);
     my BuildGoal @goals = (
-       $saw,
-       $wastet,$space, $arch, $sec,
-       $politic, $mayhem, $intel, $espionage, $intelli,
-       $happy,
-       $saw2, $trade, $university
-	   );
+	$saw,
+	$wastet,$space, $arch, $sec,
+	$politic, $mayhem, $intel, $espionage, $intelli,
+	$happy,
+	$saw2, $trade, $university,
+	$capitol, $stockpile
+	);
 
 	my $c = Chairman.new(build_goals=>(@goals));
 	$c.build;
