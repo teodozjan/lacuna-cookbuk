@@ -57,3 +57,6 @@ Things that seem to work:
        - Tidy	 - planet/station mess
        - Change loops to list generic functions where possible
 
+### Doesn't compile?
+
+The unofficial [continuous integration](http://host07.perl6.com:8080/report/teodozjan) for my projects will tell whether this project compiles with newest [rakudo](https://en.wikipedia.org/wiki/Rakudo_Perl_6).
