@@ -53,18 +53,19 @@ submethod process_all_bodies {
     for Empire.planets_hash.keys -> $planet_id {      
 	my Body $body .= new(id => $planet_id);
 	$body.get_buildings;
-	#todo consider usability of having separate classes for space station and planet while it can be a fields
-	my SpaceStation $station .= new(id => $planet_id, buildings => $body.buildings);
-	my Planet $planet .= new(id => $planet_id, buildings => $body.buildings, ore => $body.ore);
+		
+	
        
-	if $station.find_parliament {
+	if $body.is_station {
+	    my SpaceStation $station .= new(id => $planet_id, buildings => $body.buildings);
 	    note $station.name ~ " is a Space Station";
 	    @stations.push($station)
-	}elsif $planet.find_trade_ministry {
+	}elsif $body.is_planet {
+	    my Planet $planet .= new(id => $planet_id, buildings => $body.buildings, ore => $body.ore);
 	    note $planet.name ~ " is a Planet";
 	    @planets.push($planet)
 	}else {
-	    warn $planet.name ~ " Cannot be used";
+	    warn $body.name ~ " Cannot be used -- neither planet neither station";
 	}
     } 
     BodyBuilder.write;

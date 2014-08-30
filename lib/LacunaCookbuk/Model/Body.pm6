@@ -52,3 +52,17 @@ method find_buildings(Str $url) {
 method name(--> Str) {
     Empire.planet_name(self.id);
 }
+
+submethod is_planet returns Bool {
+    for self.buildings -> LacunaBuilding $building {
+	return True if $building.url ~~ '/planetarycommand';
+    }
+    False;
+}   
+
+submethod is_station returns Bool {
+    for self.buildings -> LacunaBuilding $building {
+	return True if $building.url ~~ '/stationcommand';
+    }
+    False;
+}   
