@@ -51,7 +51,7 @@ submethod elaborate_ships {
 	for %ports.pairs -> $pair {
 	    
 	    my @shipz = $pair.value.view_all_ships;
-	    say;
+	    say();
 	    say BOLD, $pair.key;
 	    say $ruler;
 	    print form($ship_templ, 'Name', 'ID', 'Speed','Stealth', 'Hold size', 'Combat', 'Task'), RESET;
