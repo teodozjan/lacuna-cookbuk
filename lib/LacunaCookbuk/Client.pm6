@@ -15,7 +15,7 @@ use LacunaCookbuk::Logic::Secretary;
 
 use LacunaCookbuk::Model::Empire;
 
-#= LacunaCookbuk main client
+#| LacunaCookbuk main client
 class Client;
 
 sub create_session is export {
@@ -26,23 +26,23 @@ sub close_session is export {
     Empire.close_session;
 }
 
-#= Will show summary for docks and scuttle ships that have efficency lower 45% if ship is docked
+#| Will show summary for docks and scuttle ships that have efficency lower 45% if ship is docked
 method ships {    
     ShipCritic.elaborate_ships;
 }
 
-#= Will show all ores on planet stub 
+#| Will show all ores on planet stub 
 method ore {    
     OreCritic.elaborate_ore;
 }
 
-#= Will vote YES to ALL propostions. Be careful if you care about politics
+#| Will vote YES to ALL propostions. Be careful if you care about politics
 method votes {
     Secretary.clean(["Parliament"]);
     Ambassador.vote_all(True);
 }
 
-#= Create Halls of Vrbansk and transport all glyphs and plans to home planet
+#| Create Halls of Vrbansk and transport all glyphs and plans to home planet
 method ordinary {
     say "Creating all possible halls";
     PlanMaker.makePossibleHalls;
@@ -51,7 +51,8 @@ method ordinary {
     Transporter.transport_all_cargo;
 }
 
-#= Will upgrade buildings in order passed to L<doc:LacunaCookbuk::Chariman> chairman will work only on existing buildings but this may change in future
+#| Will upgrade buildings in order passed to L<doc:LacunaCookbuk::Chariman>
+#| chairman will work only on existing buildings but this may change in future
 method chairman {
     my BuildGoal $saw .= new(building => Building::Building::saw, level=>12);
     my BuildGoal $wastet .=  new(building => Building::Building::wastedigester, level=>15);
