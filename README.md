@@ -1,9 +1,9 @@
 
-=head1 NAME LacunaCookbuk
+### NAME LacunaCookbuk
 
 LacunaCookbuk was intended to be something similar to cookbook for creating glyphs. But real life changed it to client with library that has only one implementing client. 
 
-=head1 SYNOPSIS
+### SYNOPSIS
 
 Script helps https://us1.lacunaexpanse.com players doing boring tasks like moving glyphs to one place that can make plans from them or searching where excess fighters can be put. The intention was putting perl6 into life. 
 
@@ -42,7 +42,7 @@ Things that seem to work:
 	- List incoming ships
 	- Delete Parliament messages automatically 
 
-=head1 TODO Functions
+### TODO Functions
 
        - Automatic repair
        - Space port plans
@@ -51,7 +51,7 @@ Things that seem to work:
        - Autobalance supply chains (send to home planet)
        - Autobalance home planet (if all supply chains will become 0 it won't go negative on happiness)
 
-=head1 TODO Code smell
+### TODO Code smell
 
        - Change some classes into modules
        - Tidy	 - planet/station mess
