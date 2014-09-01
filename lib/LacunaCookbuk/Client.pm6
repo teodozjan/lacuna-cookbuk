@@ -18,10 +18,12 @@ use LacunaCookbuk::Model::Empire;
 #| LacunaCookbuk main client
 class Client;
 
+#| Login
 sub create_session is export {
     Empire.create_session;   
 }
 
+#| Logout
 sub close_session is export {
     Empire.close_session;
 }
@@ -82,7 +84,8 @@ method chairman {
     $c.all;
 }
 
-method upgrade_home{
+#| Use power of chairman to upgrade home planet
+method upgrade_home {
     my BuildGoal $saw .= new(building => Building::Building::saw, level=> 12);
     my BuildGoal $wastet .=  new(building => Building::Building::wastedigester, level=>15);
     my BuildGoal $space .=  new(building => Building::Building::spaceport, level=>10);
@@ -117,10 +120,12 @@ method upgrade_home{
 	$c.build;
 }
 
+#| Print list of incoming ships
 method defend {
     Commander.find_incoming;
 }
 
+#| Print summary of spies
 method spies {
     IntelCritic.elaborate_spies;
 }
