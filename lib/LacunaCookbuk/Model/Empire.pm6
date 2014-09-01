@@ -2,7 +2,7 @@ use v6;
 use PerlStore::FileStore;
 use JSON::RPC::Client;
 
-#! Data provided by this class are required by anything in this  game 
+#| Data provided by this class are required by anything in this  game 
 class Empire;
 
 constant $EMPIRE = '/empire';
@@ -16,10 +16,10 @@ sub lacuna_url(Str $url){
 }
 
 sub rpc(Str $name --> JSON::RPC::Client) is export {
-#- TODO moarvm is so fast that we exceed 60 request per minute
-#- that is hard limit for lacuna expanse
-#- there could be somethin more pretty but I have no time
-#- Cannot be is cached
+#= TODO moarvm is so fast that we exceed 60 request per minute
+#= that is hard limit for lacuna expanse
+#= there could be somethin more pretty but I have no time
+#= Cannot be is cached
     sleep 1; 
     JSON::RPC::Client.new( url => lacuna_url($name))
 }
@@ -71,13 +71,13 @@ sub find_credentials returns Hash {
     
 }
 
-#= Need testing
+#| Need testing
 submethod api_key(Str $key) {
 ...
 #    %login<api_key> = $key;
 }
 
-#= Need testing
+#| Need testing
 submethod credentials(Pair $user_password){ 
 ...
 #    %login{$user_password.key} = $user_password.value;
