@@ -47,7 +47,7 @@ method votes {
 #| Create Halls of Vrbansk and transport all glyphs and plans to home planet
 method ordinary {
     say "Creating all possible halls";
-    PlanMaker.makePossibleHalls;
+    PlanMaker.make_possible_halls;
     
     say "Transporting all glyphs to home planet if possible";
     Transporter.transport_all_cargo;
@@ -128,6 +128,11 @@ method defend {
 #| Print summary of spies
 method spies {
     IntelCritic.elaborate_spies;
+}
+
+#| Print all plans can be made of glyphs in stock
+method plans {
+    PlanMaker.show_possible_plans;
 }
 
 

@@ -40,6 +40,7 @@ Things that seem to work:
 	- List incoming ships
 	- Delete Parliament messages automatically 
 	- Rename agents to their home planet name
+	- Printing whan plans can be made from current stock
 
 ### TODO Functions
 

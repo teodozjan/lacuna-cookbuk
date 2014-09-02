@@ -58,22 +58,36 @@ constant %recipes =
 
 
 #TODO use achaeology instead of trade
-method makePossibleHalls {
+method show_possible_plans {
+  my $hp = home_planet;
+  my Trade $t = $hp.find_trade_ministry;
+  my %glyphs = $t.get_glyphs_hash();
+
+  for @(keys %recipes) -> $recipename {
+    say $recipename;
+    print "\t";
+    my $count = self!count_plans(%recipes{$recipename}, %glyphs);
+    say $count if $count;    
+  }
+} 
+
+
+#TODO use achaeology instead of trade
+method make_possible_halls {
   my $hp = home_planet;
   my Trade $t = $hp.find_trade_ministry;
   my %glyphs = $t.get_glyphs_hash();
 
   for @(keys %recipes).grep(/Halls/) -> $recipename {
     say $recipename;
-    my $count = self!countPlans(%recipes{$recipename}, %glyphs);
+    my $count = self!count_plans(%recipes{$recipename}, %glyphs);
     say $count;
     self.createRecipe(%recipes{$recipename}, $count) if $count > 0 ;
   }
-}
+} 
 
 
-
-method !countPlans(@planRecipe, %glyphs) {
+method !count_plans(@planRecipe, %glyphs) {
   my Int $num = 0;
 
     for @planRecipe -> $glp {
@@ -94,7 +108,7 @@ method !countPlans(@planRecipe, %glyphs) {
     return $num;
 }
 
-method createRecipe(@recipe, Int $quantity) {
+method create_recipe(@recipe, Int $quantity) {
     return if $quantity == 0;
     my $hp = home_planet;
     $hp.find_archaeology_ministry().assemble_glyphs(@recipe, $quantity)
