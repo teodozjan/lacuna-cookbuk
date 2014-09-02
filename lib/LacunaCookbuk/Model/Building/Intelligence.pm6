@@ -5,7 +5,6 @@ use LacunaCookbuk::Model::LacunaBuilding;
 use LacunaCookbuk::Model::Spy;
 
 class Intelligence does LacunaBuilding;
-#has $.view = rpc($url).view(session_id, self.id)<spies>;
 
 constant $URL = '/intelligence';
 has $.maximum;
@@ -23,5 +22,9 @@ method get_view_spies {
 	}
     }
     @list;
+}
+
+method name_spy(Str $spy_id, Str $name){
+    rpc($URL).name_spy(session_id, self.id, $spy_id, $name);
 }
 

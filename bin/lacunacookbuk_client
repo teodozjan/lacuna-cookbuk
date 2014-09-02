@@ -6,7 +6,7 @@ use LacunaCookbuk::Client;
 
 
 multi sub MAIN(Bool :$help!){
-note "Available tasks" ~ Client.^methods.join(", ")
+note "Available tasks " ~ Client.^methods.join(", ")
 }
 
 multi sub MAIN(:$tasks!, Bool :$update?){

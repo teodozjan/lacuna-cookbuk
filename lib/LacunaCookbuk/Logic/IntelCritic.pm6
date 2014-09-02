@@ -16,13 +16,24 @@ submethod elaborate_intelligence(Planet $planet) {
     my Str $numspies = ~$imini.current;
     my Str $max = ~$imini.maximum;   
     my Str $spies = $numspies == 0 ?? "NONE!!!" !! ~$numspies;
-    
-    my Str $spiesl = self.format_spies($imini.get_view_spies);
+    my @list = $imini.get_view_spies;
+    my Str $spiesl = self.format_spies(@list);
+    rename_spies($planet, @list);
     
     print form( 
 	$limited_format,
 	$planet.name, $spies, $max, $spiesl);
 
+}
+
+sub rename_spies($planet, @spies){
+    my Intelligence $imini = $planet.find_intelligence_ministry;
+    for @spies -> Spy $spy {
+	if $spy.name ~~ "Agent Null"  {
+	    $imini.name_spy($spy.id, $planet.name);
+	    note "Renamed spy {$spy.name}";
+	}
+    }
 }
 
 submethod elaborate_spies{
@@ -35,7 +46,7 @@ submethod elaborate_spies{
     }
 }
 
-method format_spies(Spy @spies --> Str) {
+method format_spies(@spies --> Str) {
     my %assignments;
     for @spies -> Spy $spy {
 	%assignments{$spy.assignment}++;

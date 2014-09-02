@@ -39,6 +39,7 @@ Things that seem to work:
 	- Automatic voting in parliament
 	- List incoming ships
 	- Delete Parliament messages automatically 
+	- Rename agents to their home planet name
 
 ### TODO Functions
 
