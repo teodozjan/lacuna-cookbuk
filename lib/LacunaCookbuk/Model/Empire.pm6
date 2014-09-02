@@ -23,7 +23,7 @@ sub lacuna_url(Str $url){
 
 sub rpc(Str $name --> JSON::RPC::Client) is export {
     sleep 1 until $counter; 
-    say --$counter;
+    --$counter;
     JSON::RPC::Client.new( url => lacuna_url($name))
 }
 
