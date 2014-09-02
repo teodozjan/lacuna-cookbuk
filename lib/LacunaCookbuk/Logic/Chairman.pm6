@@ -26,23 +26,33 @@ sub print_queue_summary(Body $body = home_planet) {
     }
 }
 
+
 method build(Body $body = home_planet) {
+    if $body.get_happiness < 0 {
+	note colored("Planet is negative happiness. Leaving...", 'red');
+	return;
+    }
+   
     for self.build_goals -> BuildGoal $goal {
         my $alt_goal = $goal;
-
+	my $i=5;
 	repeat while $alt_goal {
 	    if $alt_goal.level < 1 {
 		# It looks like you cannot call last on repeat loop
 		print_queue_summary($body);
 		return;
 	    }
+	    
+	    if --$i == 0 {
+		note colored("Infinite recursion. Did you play with supply chains?", 'red');
+		return
+	    }
 	    $alt_goal = self.upgrade($body, $alt_goal);
 	} 
-
-   }  
-   print_queue_summary($body);
+	
+    }  
+    print_queue_summary($body);
 }
-
 
 
 method upgrade(Body $body, BuildGoal $goal --> BuildGoal){
