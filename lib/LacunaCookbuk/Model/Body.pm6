@@ -26,9 +26,8 @@ submethod get_buildings {
 }
 
 method get_buildings_view {#( --> BuildingsView) {
-    gather for self.buildings -> %building {
-	my $rpc = rpc(%building<url>);
-	my %building_view =  $rpc.view(session_id, %building<id>);
+    gather for self.buildings -> %building {	
+	my %building_view =  rpc(%building<url>).view(session_id, %building<id>);
 	%building_view<building><id> = %building<id>;	 
 	take %building_view<building>;
     }     

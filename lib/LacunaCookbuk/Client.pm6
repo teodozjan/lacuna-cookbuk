@@ -20,7 +20,8 @@ class Client;
 
 #| Login
 sub create_session is export {
-    Empire.create_session;   
+    Empire.start_rpc_keeper;    
+    Empire.create_session;     
 }
 
 #| Logout

@@ -7,20 +7,23 @@ class Empire;
 
 constant $EMPIRE = '/empire';
 my %status;
-
+my Int $counter=0;
 my $session_id;
 
+#| Lacuna expanse has 60 requests per minute limit
+#| this option is much more optimal than sleep every second
+#| lets leave margin to don't get exception
+method start_rpc_keeper {
+    $*SCHEDULER.cue: {$counter=50}, :every(60);
+}
 
 sub lacuna_url(Str $url){
     'http://us1.lacunaexpanse.com'~ $url
 }
 
 sub rpc(Str $name --> JSON::RPC::Client) is export {
-#= TODO moarvm is so fast that we exceed 60 request per minute
-#= that is hard limit for lacuna expanse
-#= there could be somethin more pretty but I have no time
-#= Cannot be is cached
-    sleep 1; 
+    sleep 1 until $counter; 
+    say --$counter;
     JSON::RPC::Client.new( url => lacuna_url($name))
 }
 
