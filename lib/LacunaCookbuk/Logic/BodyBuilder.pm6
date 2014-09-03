@@ -6,19 +6,20 @@ use PerlStore::FileStore;
 use LacunaCookbuk::Model::LacunaBuilding;
 use LacunaCookbuk::Model::Empire;
 
+#| Class is responsible for reading bodies and storing them
 class BodyBuilder;
 
 my Planet @planets;
 my SpaceStation @stations;
 
 
-method read {
-
-
+submethod read {
     my $path_planets = make_path('planets.pl');
     my $path_stations = make_path('stations.pl');
 
 =begin pod
+I want this code back
+
     @planets = from_file($path_planets);
     @stations = from_file($path_stations);
 =end pod
@@ -52,9 +53,7 @@ submethod process_all_bodies {
     @stations = ();
     for Empire.planets_hash.keys -> $planet_id {      
 	my Body $body .= new(id => $planet_id);
-	$body.get_buildings;
-		
-	
+	$body.get_buildings;	
        
 	if $body.is_station {
 	    my SpaceStation $station .= new(id => $planet_id, buildings => $body.buildings);
@@ -65,7 +64,7 @@ submethod process_all_bodies {
 	    note $planet.name ~ " is a Planet";
 	    @planets.push($planet)
 	}else {
-	    warn $body.name ~ " Cannot be used -- neither planet neither station";
+	    warn $body.name ~ " Cannot be used -- neither planet nor station";
 	}
     } 
     BodyBuilder.write;
@@ -85,3 +84,4 @@ sub planets is export {
 sub stations is export {
     @stations
 }
+
