@@ -12,7 +12,6 @@ use LacunaCookbuk::Logic::Chairman::BuildGoal;
 use LacunaCookbuk::Logic::Ambassador;
 use LacunaCookbuk::Logic::Commander;
 use LacunaCookbuk::Logic::Secretary;
-
 use LacunaCookbuk::Model::Empire;
 
 #| LacunaCookbuk main client
