@@ -82,7 +82,7 @@ method make_possible_halls {
     say $recipename;
     my $count = self!count_plans(%recipes{$recipename}, %glyphs);
     say $count;
-    self.createRecipe(%recipes{$recipename}, $count) if $count > 0 ;
+    self.create_recipe(%recipes{$recipename}, $count) if $count > 0 ;
   }
 } 
 
