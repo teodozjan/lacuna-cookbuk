@@ -6,7 +6,7 @@ use LacunaCookbuk::Client;
 
 
 multi sub MAIN(Bool :$help!){
-note "Available tasks " ~ Client.^methods.join(", ")
+    note "Available tasks " ~ (Client.^methods.map:{.gist}).join(", ")
 }
 
 multi sub MAIN(:$tasks!, Bool :$update?){
@@ -24,9 +24,10 @@ multi sub MAIN(:$tasks!, Bool :$update?){
   } else {
       BodyBuilder.read;
   }
+
   for @todo -> $willdo {
-			$client."$willdo"();
-		       }
+      $client."$willdo"();
+  }
 
   close_session;  
 }
