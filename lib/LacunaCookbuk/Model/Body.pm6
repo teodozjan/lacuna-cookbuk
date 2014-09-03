@@ -40,6 +40,7 @@ method get_happiness(--> Int:D){
 
 }
 
+
 method find_buildings(Str $url) {
     my LacunaBuilding @buildings = gather for self.buildings -> LacunaBuilding $building {
 	take $building if $building.url ~~ $url;
@@ -52,6 +53,7 @@ method name(--> Str) {
     Empire.planet_name(self.id);
 }
 
+
 submethod is_planet returns Bool {
     for self.buildings -> LacunaBuilding $building {
 	return True if $building.url ~~ '/planetarycommand';
@@ -59,9 +61,11 @@ submethod is_planet returns Bool {
     False;
 }   
 
+
 submethod is_station returns Bool {
     for self.buildings -> LacunaBuilding $building {
 	return True if $building.url ~~ '/stationcommand';
     }
     False;
 }   
+
