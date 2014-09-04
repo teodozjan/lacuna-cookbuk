@@ -70,7 +70,7 @@ method upgrade(Body $body, BuildGoal $goal --> BuildGoal){
 	    given $view.upgrade<reason>[0] {
 		when $UNSUSTAINABLE {
 		    unless $view.upgrade<reason>[2] {
-			note colored($view.upgrade<reason>[1] ~ " Problem will not be handled by Chairman", 'red');
+			note colored($view.upgrade<reason>[1], 'red');
 			next
 		    }
 
