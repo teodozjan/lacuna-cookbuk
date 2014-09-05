@@ -3,23 +3,32 @@
 use v6;
 
 use LacunaCookbuk::Client;
+use Term::ANSIColor;
+
+sub USAGE() {
+say 'Usage:
+  /home/kamil/dev/lacuna-cookbuk/bin/lacunacookbuk_client --help 
+  /home/kamil/dev/lacuna-cookbuk/bin/lacunacookbuk_client --tasks=<Any> [--update]
+
+Tasks should be separated by comma'; 
+
+}
 
 
 multi sub MAIN(Bool :$help!){
-    note "Available tasks " ~ (Client.^methods.map:{.gist}).join(", ")
+    USAGE();
+    say "\nAvailable tasks" ~ (Client.^methods.map:{"\n\t" ~ colored(.gist, "bold") ~ ":\n\t\t " ~ .WHY ~ "\n"})
 }
 
-multi sub MAIN(:$tasks!, Bool :$update?){
+multi sub MAIN(Str :$tasks!, Bool :$update?){
 
   my Client $client .= new;
  
   create_session;
 
-  my @todo=$tasks.split(/\s+/);
+  my @todo=$tasks.split(/","/);
 
-  @todo := <defend ordinary spies chairman ships votes> if @todo.grep('all');
-
-  if $update {
+   if $update {
       BodyBuilder.process_all_bodies;
   } else {
       BodyBuilder.read;
