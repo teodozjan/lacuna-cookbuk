@@ -5,6 +5,7 @@ use LacunaCookbuk::Model::Body::Planet;
 use PerlStore::FileStore;
 use LacunaCookbuk::Model::LacunaBuilding;
 use LacunaCookbuk::Model::Empire;
+use Term::ANSIColor;
 
 #| Class is responsible for reading bodies and storing them
 class BodyBuilder;
@@ -51,16 +52,17 @@ submethod write {
 submethod process_all_bodies {
     @planets = ();
     @stations = ();
-    for Empire.planets_hash.keys -> $planet_id {      
-	my Body $body .= new(id => $planet_id);
+    for Empire.planets_hash.keys -> $planet_id {
+	#TODO report rakudobug for .=
+	my Body $body = Body.new(id => $planet_id);
 	$body.get_buildings;	
        
 	if $body.is_station {
-	    my SpaceStation $station .= new(id => $planet_id, buildings => $body.buildings);
+	    my SpaceStation $station .= new(id => $planet_id, buildings => $body.buildings,  x => $body.x, y => $body.y);
 	    note $station.name ~ " is a Space Station";
 	    @stations.push($station)
 	}elsif $body.is_planet {
-	    my Planet $planet .= new(id => $planet_id, buildings => $body.buildings, ore => $body.ore);
+	    my Planet $planet .= new(id => $planet_id, buildings => $body.buildings, ore => $body.ore, x => $body.x, y => $body.y);
 	    note $planet.name ~ " is a Planet";
 	    @planets.push($planet)
 	}else {
@@ -85,3 +87,19 @@ sub stations is export {
     @stations
 }
 
+constant $ZONE_SIZE = 250;
+
+submethod report_zones {
+    for @planets, @stations -> $body {
+	my Int $zone_x = (+$body.x / $ZONE_SIZE).Int;	
+	my Int $zone_y = (+$body.y / $ZONE_SIZE).Int;
+
+	my $color = "default";
+	$color = "blue" if all($zone_x, $zone_y) == 0;
+	$color = "yellow" if all($zone_x.abs, $zone_y.abs) == 1;
+	$color = "green" if $zone_x == -3 and $zone_y == 0;
+	say colored("{$body.name} is in zone $zone_x|$zone_y", $color);
+    }
+
+
+}

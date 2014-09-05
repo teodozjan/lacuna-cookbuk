@@ -136,3 +136,8 @@ method plans {
 }
 
 
+#| Where are my planets? It is not best implementation
+#| but at least grep capable
+method zones {
+    BodyBuilder.report_zones;
+}

@@ -4,11 +4,13 @@ use v6;
 use LacunaCookbuk::Model::LacunaBuilding;
 use LacunaCookbuk::Model::Empire;
 
-class Body does Id;
+role Body does Id;
 
 constant $URL = '/body';
 has LacunaBuilding @.buildings;
 has %.ore; 
+has $.x;
+has $.y;
 
 method get_status { 
     rpc($URL).get_status(session_id, self.id);
@@ -16,7 +18,11 @@ method get_status {
 
 submethod get_buildings { 
   my %buildings = %(rpc($URL).get_buildings(session_id, self.id));
-    %!ore = %(%buildings<status><body><ore>);    
+    %!ore = %(%buildings<status><body><ore>);
+    
+    $!x =  %buildings<status><body><x>;
+    $!y =  %buildings<status><body><y>;
+
     my LacunaBuilding @result = gather for keys %buildings<buildings> -> $building_id {
 	my LacunaBuilding $building = LacunaBuilding.new(id => $building_id, url => %buildings<buildings>{$building_id}<url>);
 	take $building;
