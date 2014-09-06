@@ -15,16 +15,16 @@ Compilation:
 
 Fun with client:
 
-    $ lacunacookbuk_client --taks=all
+    $ lacunacookbuk_client --update --tasks=defend
     # will die but will also prefill settings
     $ nano .lacuna_cookbuk/login.pl
-    $ lacunacookbuk_client --taks=all --update
+    $ lacunacookbuk_client --taks=defend,ordinary,chairman --update
 
 You can also try to use it without compiling
 
     $  PERL6LIB=/your/path/lacuna-cookbuk/lib: perl6 /your/path/lacuna-cookbuk/bin/lacunacookbuk_client --help
     
-Precompiling is the most changin part of perl6 backends so it may be used as failsafe mode
+Precompiling is the most changing part of perl6 backends so it may be used as failsafe mode
 
     
 Things that seem to work:
@@ -41,21 +41,23 @@ Things that seem to work:
 	- Delete Parliament messages automatically 
 	- Rename agents to their home planet name
 	- Printing what plans can be made from current stock
+	- Showing where are the colonies (primitive text)
 
 ### TODO Functions
 
        - Automatic repair
        - Space port plans
        - Automatic trade posting
-       - Specify different upgrade order for different planets
-       - Autobalance supply chains (send to home planet)
-       - Autobalance home planet (if all supply chains will become 0 it won't go negative on happiness)
 
 ### TODO Code smell
 
        - Change some classes into modules
        - Tidy	 - planet/station mess
        - Change loops to list generic functions where possible
+
+### Form module
+
+[Form module](https://github.com/mathw/form/) fails tests but installing it with panda --notests will solve the problem
 
 ### Doesn't compile?
 
