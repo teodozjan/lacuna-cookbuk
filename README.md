@@ -5,14 +5,6 @@ LacunaCookbuk was intended to be something similar to cookbook for creating glyp
 
 ### SYNOPSIS
 
-Script helps https://us1.lacunaexpanse.com players doing boring tasks like moving glyphs to one place that can make plans from them or searching where excess fighters can be put. The intention was putting perl6 into life. 
-
-All planets must have Trade Ministry, Intelligence Ministry and Archaeology Ministry. All space stations must have Parliament.
-
-Compilation:
-
-	$ panda install LacunaCookbuk
-
 Fun with client:
 
     $ lacunacookbuk_client --update --tasks=defend
@@ -20,11 +12,21 @@ Fun with client:
     $ nano .lacuna_cookbuk/login.pl
     $ lacunacookbuk_client --taks=defend,ordinary,chairman --update
 
+### DESCRIPTION    
+    
+Precompiling is the most changing part of perl6 backends so it may be used as failsafe mode
+
+Script helps https://us1.lacunaexpanse.com players doing boring tasks like moving glyphs to one place that can make plans from them or searching where excess fighters can be put. The intention was putting perl6 into life. 
+
+All planets must have Trade Ministry, Intelligence Ministry and Archaeology Ministry. All space stations must have Parliament.
+
+Compilation:
+
+    $ panda install LacunaCookbuk
+
 You can also try to use it without compiling
 
     $  PERL6LIB=/your/path/lacuna-cookbuk/lib: perl6 /your/path/lacuna-cookbuk/bin/lacunacookbuk_client --help
-    
-Precompiling is the most changing part of perl6 backends so it may be used as failsafe mode
 
     
 Things that seem to work:
@@ -54,10 +56,6 @@ Things that seem to work:
        - Change some classes into modules
        - Tidy	 - planet/station mess
        - Change loops to list generic functions where possible
-
-### Form module
-
-[Form module](https://github.com/mathw/form/) fails tests but installing it with panda --notests will solve the problem
 
 ### Doesn't compile?
 
