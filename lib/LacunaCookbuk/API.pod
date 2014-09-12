@@ -1,0 +1,47 @@
+=begin pod
+
+=head1 Model
+
+Model contains choosen attributes inisde classes and and low level methodsto contact game serwers like get mentioned attributes or do something. No decisions or logic should be found here.
+
+=head1 Logic
+
+=head2 Ambassador	
+
+Contains methods allowing B<Parliament> operations
+
+=head2 BodyBuilder
+
+Supplies building list and saves it to disk
+
+=head2 Chairman	
+
+Chairman controls upgradeprocess
+
+=head2 Commander
+
+=head2 IntelCritic
+
+Takes care of spies
+
+=head2 OreCritic
+
+Displays the ore
+
+=head2 PlanMaker
+
+Takes cares of glyphs
+
+=head2 Secretary
+
+Can handle mailbox?
+
+=head2 ShipCritic
+
+Takes care of ships
+
+=head2 Transporter
+
+Allows to send cargo with fastest ship available
+	
+=end pod
