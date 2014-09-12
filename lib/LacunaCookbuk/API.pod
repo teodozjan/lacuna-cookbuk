@@ -1,4 +1,4 @@
-=begin pod
+
 
 =head1 Model
 
@@ -44,4 +44,4 @@ Takes care of ships
 
 Allows to send cargo with fastest ship available
 	
-=end pod
+
