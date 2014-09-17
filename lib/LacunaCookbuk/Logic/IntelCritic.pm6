@@ -5,7 +5,7 @@ use LacunaCookbuk::Logic::BodyBuilder;
 use Form;
 use Term::ANSIColor;
 
-
+#= This class has evil design. REFACTOR me
 class IntelCritic;
 
 constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
@@ -18,12 +18,36 @@ sub elaborate_intelligence(Planet $planet) {
     my Str $spies = $numspies == 0 ?? "NONE!!!" !! ~$numspies;
     my @list = $imini.get_view_spies;
     my Str $spiesl = format_spies(@list);
-    rename_spies($planet, @list);
     
     print form( 
 	$limited_format,
 	$planet.name, $spies, $max, $spiesl);
 
+}
+
+sub rename_intelligence(Planet $planet) {
+    note "Looking for Agent null on $planet";
+    my Intelligence $imini = $planet.find_intelligence_ministry;
+    my @list = $imini.get_view_spies;
+    my Str $spiesl = format_spies(@list);
+    rename_spies($planet, @list);	
+    
+}
+
+sub elaborate_staff(Planet $planet) {
+    say "Planet $planet";
+    my Intelligence $imini = $planet.find_intelligence_ministry;
+    my @list = $imini.get_view_spies;
+    my Str $spiesl = format_spies(@list);
+    show_spies($planet, @list);
+    
+}
+
+sub show_spies($planet, @spies){
+    my Intelligence $imini = $planet.find_intelligence_ministry;
+    for @spies -> Spy $spy {
+	say $spy.perl;
+    }
 }
 
 sub rename_spies($planet, @spies){
@@ -44,6 +68,15 @@ submethod elaborate_spies{
     for (planets) -> Planet $planet {
 	elaborate_intelligence($planet);
     }
+    
+    for (planets) -> Planet $planet {
+	rename_intelligence($planet);
+    }
+    
+    for (planets) -> Planet $planet {
+	elaborate_staff($planet);
+    }
+
 }
 
  sub format_spies(@spies --> Str) {
