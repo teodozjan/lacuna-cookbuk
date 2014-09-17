@@ -11,13 +11,13 @@ class IntelCritic;
 constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
 constant $ruler = '-' x 160;
 
-submethod elaborate_intelligence(Planet $planet) {
+sub elaborate_intelligence(Planet $planet) {
     my Intelligence $imini = $planet.find_intelligence_ministry;
     my Str $numspies = ~$imini.current;
     my Str $max = ~$imini.maximum;   
     my Str $spies = $numspies == 0 ?? "NONE!!!" !! ~$numspies;
     my @list = $imini.get_view_spies;
-    my Str $spiesl = self.format_spies(@list);
+    my Str $spiesl = format_spies(@list);
     rename_spies($planet, @list);
     
     print form( 
@@ -42,11 +42,11 @@ submethod elaborate_spies{
     print form ($limited_format, @header);
     say $ruler;
     for (planets) -> Planet $planet {
-	self.elaborate_intelligence($planet);
+	elaborate_intelligence($planet);
     }
 }
 
-method format_spies(@spies --> Str) {
+ sub format_spies(@spies --> Str) {
     my %assignments;
     for @spies -> Spy $spy {
 	%assignments{$spy.assignment}++;
@@ -60,3 +60,4 @@ method format_spies(@spies --> Str) {
     }
     $ret;
 }
+
