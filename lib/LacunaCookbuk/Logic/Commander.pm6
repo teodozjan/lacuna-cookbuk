@@ -8,7 +8,7 @@ use LacunaCookbuk::Logic::BodyBuilder;
 
 class Commander;
 my Str $form =
-    color('white') ~ '{<<<<<<<<<<<<<<<<<<} '
+    color('default') ~ '{<<<<<<<<<<<<<<<<<<} '
     ~ color('red') ~ '{||||||}'
     ~ color('magenta') ~'{||||||}'
     ~ colored('{||||||}','green');
