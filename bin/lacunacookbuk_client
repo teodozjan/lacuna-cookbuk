@@ -17,12 +17,12 @@ Tasks should be separated by comma';
 
 multi sub MAIN(Bool :$help!){
     USAGE();
-    say "\nAvailable tasks" ~ (Client.^methods.map:{"\n\t" ~ colored(.gist, "bold") ~ ":\n\t\t " ~ .WHY ~ "\n"})
+    say "\nAvailable tasks" ~ (LacunaCookbuk::Client.^methods.map:{"\n\t" ~ colored(.gist, "bold") ~ ":\n\t\t " ~ .WHY ~ "\n"})
 }
 
 multi sub MAIN(Str :$tasks!, Bool :$update?){
 
-  my Client $client .= new;
+  my LacunaCookbuk::Client $client .= new;
  
   create_session;
 

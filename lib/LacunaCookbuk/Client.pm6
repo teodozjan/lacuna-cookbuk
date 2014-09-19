@@ -15,7 +15,7 @@ use LacunaCookbuk::Logic::Secretary;
 use LacunaCookbuk::Model::Empire;
 
 #| LacunaCookbuk main client
-class Client;
+class LacunaCookbuk::Client;
 
 #| Login
 sub create_session is export {
