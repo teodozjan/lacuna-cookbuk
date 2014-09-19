@@ -56,22 +56,22 @@ method ordinary {
 #| Will upgrade buildings in order passed to L<doc:LacunaCookbuk::Chariman>
 #| chairman will work only on existing buildings but this may change in future
 method chairman {
-    my BuildGoal $saw .= new(building => Building::Building::saw, level=>12);
-    my BuildGoal $wastet .=  new(building => Building::Building::wastedigester, level=>15);
-    my BuildGoal $space .=  new(building => Building::Building::spaceport, level=>10);
-    my BuildGoal $arch .=  new(building => Building::Building::archaeology, level=>30);
-    my BuildGoal $sec .= new(building => Building::Building::security, level => 30); 
+    my BuildGoal $saw .= new(building => Building::saw, level=>12);
+    my BuildGoal $wastet .=  new(building => Building::wastedigester, level=>15);
+    my BuildGoal $space .=  new(building => Building::spaceport, level=>10);
+    my BuildGoal $arch .=  new(building => Building::archaeology, level=>30);
+    my BuildGoal $sec .= new(building => Building::security, level => 30); 
 
 
-    my BuildGoal $politic .= new(building => Building::Building::politicstraining,level => 15);
-    my BuildGoal $mayhem .= new(building => Building::Building::mayhemtraining, level => 15);
-    my BuildGoal $intel .= new(building => Building::Building::inteltraining, level => 15);
-    my BuildGoal $espionage .= new(building => Building::Building::espionage, level => 15);
-    my BuildGoal $intelli .= new(building => Building::Building::intelligence, level =>15);
+    my BuildGoal $politic .= new(building => Building::politicstraining,level => 15);
+    my BuildGoal $mayhem .= new(building => Building::mayhemtraining, level => 15);
+    my BuildGoal $intel .= new(building => Building::inteltraining, level => 15);
+    my BuildGoal $espionage .= new(building => Building::espionage, level => 15);
+    my BuildGoal $intelli .= new(building => Building::intelligence, level =>15);
 
-    my BuildGoal $happy .= new(building => Building::Building::entertainment, level => 30);
+    my BuildGoal $happy .= new(building => Building::entertainment, level => 30);
 
-    my BuildGoal $mercenaries .= new(building => Building::Building::mercenariesguild, level => 30);
+    my BuildGoal $mercenaries .= new(building => Building::mercenariesguild, level => 30);
 
     my BuildGoal @goals = (
 	$saw,
@@ -86,27 +86,27 @@ method chairman {
 
 #| Use power of chairman to upgrade home planet
 method upgrade_home {
-    my BuildGoal $saw .= new(building => Building::Building::saw, level=> 12);
-    my BuildGoal $wastet .=  new(building => Building::Building::wastedigester, level=>15);
-    my BuildGoal $space .=  new(building => Building::Building::spaceport, level=>10);
-    my BuildGoal $arch .=  new(building => Building::Building::archaeology, level=>30);
-    my BuildGoal $sec .= new(building => Building::Building::security, level => 30); 
+    my BuildGoal $saw .= new(building => Building::saw, level=> 12);
+    my BuildGoal $wastet .=  new(building => Building::wastedigester, level=>15);
+    my BuildGoal $space .=  new(building => Building::spaceport, level=>10);
+    my BuildGoal $arch .=  new(building => Building::archaeology, level=>30);
+    my BuildGoal $sec .= new(building => Building::security, level => 30); 
 
-    my BuildGoal $politic .= new(building => Building::Building::politicstraining,level => 15);
-    my BuildGoal $mayhem .= new(building => Building::Building::mayhemtraining, level => 15);
-    my BuildGoal $intel .= new(building => Building::Building::inteltraining, level => 15);
-    my BuildGoal $espionage .= new(building => Building::Building::espionage, level => 15);
-    my BuildGoal $intelli .= new(building => Building::Building::intelligence, level =>15);
+    my BuildGoal $politic .= new(building => Building::politicstraining,level => 15);
+    my BuildGoal $mayhem .= new(building => Building::mayhemtraining, level => 15);
+    my BuildGoal $intel .= new(building => Building::inteltraining, level => 15);
+    my BuildGoal $espionage .= new(building => Building::espionage, level => 15);
+    my BuildGoal $intelli .= new(building => Building::intelligence, level =>15);
 
-    my BuildGoal $happy .= new(building => Building::Building::entertainment, level => 30);
+    my BuildGoal $happy .= new(building => Building::entertainment, level => 30);
 
-    my BuildGoal $mercenaries .= new(building => Building::Building::mercenariesguild, level => 30);
+    my BuildGoal $mercenaries .= new(building => Building::mercenariesguild, level => 30);
 
-    my BuildGoal $saw2 .= new(building => Building::Building::saw, level=> 30);
-    my BuildGoal $trade .= new(building => Building::Building::trade, level=> 30);
-    my BuildGoal $university .= new(building => Building::Building::university, level=> 30);
-    my BuildGoal $capitol .= new(building => Building::Building::capitol, level=> 30);
-    my BuildGoal $stockpile .= new(building => Building::Building::stockpile, level=> 30);
+    my BuildGoal $saw2 .= new(building => Building::saw, level=> 30);
+    my BuildGoal $trade .= new(building => Building::trade, level=> 30);
+    my BuildGoal $university .= new(building => Building::university, level=> 30);
+    my BuildGoal $capitol .= new(building => Building::capitol, level=> 30);
+    my BuildGoal $stockpile .= new(building => Building::stockpile, level=> 30);
     my BuildGoal @goals = (
 	$saw,
 	$wastet,$space, $arch, $sec,

@@ -114,37 +114,37 @@ method upgrade(Body $body, BuildGoal $goal --> BuildGoal){
     BuildGoal;
 }
 
-method storage(Resource $resource --> Building::Building) {
+method storage(Resource $resource --> Building) {
     
     given $resource {
-	when food {return Building::Building::foodreserve}
-	when ore {return Building::Building::orestorage}
-	when water {return Building::Building::waterstorage}
-	when waste {return Building::Building::wastesequestration}
-	when energy {return Building::Building::energyreserve}
+	when food {return foodreserve}
+	when ore {return orestorage}
+	when water {return waterstorage}
+	when waste {return wastesequestration}
+	when energy {return energyreserve}
 	default{die $resource}
     }
 }
 
-method production(Resource $resource --> Building::Building) {
+method production(Resource $resource --> Building) {
     
     given $resource {
 	when food {
-	    my @array of Building::Building = (Building::Building::dairy, 
-				     Building::Building::lapis,
-				     Building::Building::apple,
-				     Building::Building::beeldeban,
-				     Building::Building::algae,
-				     Building::Building::malcud
+	    my @array of Building = (dairy, 
+				     lapis,
+				     apple,
+				     beeldeban,
+				     algae,
+				     malcud
 		);
 	    return @array.pick }#FIXME
 	when ore {
-	    my @array of Building::Building = (Building::Building::mine, Building::Building::orerefinery);
+	    my @array of Building = (mine, orerefinery);
 	    return  @array.pick
 	}
-	when water {return Building::Building::atmosphericevaporator}
-#	when waste {return Building::wastesequestration}
-	when energy {return Building::Building::singularity}
+	when water {return atmosphericevaporator}
+#	when waste {return wastesequestration}
+	when energy {return singularity}
 	default{die $resource}
     }
 }
