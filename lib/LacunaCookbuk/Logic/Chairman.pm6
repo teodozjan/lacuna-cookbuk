@@ -10,7 +10,7 @@ use LacunaCookbuk::Model::Structure::Development;
 
 use Term::ANSIColor;
 
-class Chairman;
+class LacunaCookbuk::Logic::Chairman;
 
 has BuildGoal @.build_goals;
 

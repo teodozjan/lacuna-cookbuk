@@ -5,7 +5,7 @@ use LacunaCookbuk::Model::Body::SpaceStation;
 use LacunaCookbuk::Model::Structure::Parliament;
 use LacunaCookbuk::Logic::BodyBuilder;
 
-class Ambassador;
+class LacunaCookbuk::Logic::Ambassador;
 
 
 submethod vote_all(Bool $vote) {

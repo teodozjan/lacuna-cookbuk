@@ -5,7 +5,7 @@ use LacunaCookbuk::Logic::BodyBuilder;
 use LacunaCookbuk::Model::Empire;
 use LacunaCookbuk::Logic::Transporter::Cargo;
 
-class Transporter;
+class LacunaCookbuk::Logic::Transporter;
 
 submethod transport(@goods,Planet $src, Planet $dst = home_planet)
 {

@@ -8,7 +8,7 @@ use LacunaCookbuk::Model::Empire;
 use Term::ANSIColor;
 
 #| Class is responsible for reading bodies and storing them
-class BodyBuilder;
+class LacunaCookbuk::Logic::BodyBuilder;
 
 my Planet @planets;
 my SpaceStation @stations;
@@ -69,7 +69,7 @@ submethod process_all_bodies {
 	    warn $body.name ~ " Cannot be used -- neither planet nor station";
 	}
     } 
-    BodyBuilder.write;
+    LacunaCookbuk::Logic::BodyBuilder.write;
 }
 
 sub home_planet(--> Planet) is export {

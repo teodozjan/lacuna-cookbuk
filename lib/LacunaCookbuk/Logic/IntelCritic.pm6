@@ -6,7 +6,7 @@ use Form;
 use Term::ANSIColor;
 
 #= This class has evil design. REFACTOR me
-class IntelCritic;
+class LacunaCookbuk::Logic::IntelCritic;
 
 constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
 constant $ruler = '-' x 160;

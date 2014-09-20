@@ -2,7 +2,7 @@ use v6;
 
 use LacunaCookbuk::Model::Inbox;
 
-class Secretary;
+class LacunaCookbuk::Logic::Secretary;
 
 method clean(@tags){
     my Inbox $box .= new;

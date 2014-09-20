@@ -2,7 +2,8 @@ use v6;
 
 use LacunaCookbuk::Model::Body::Planet;
 use LacunaCookbuk::Logic::BodyBuilder;
-class PlanMaker;
+
+class LacunaCookbuk::Logic::PlanMaker;
 
 constant $ANTHRACITE = "anthracite";
 constant $BAUXITE = "bauxite";
