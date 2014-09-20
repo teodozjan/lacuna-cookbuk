@@ -2,7 +2,7 @@ use v6;
 
 
 use LacunaCookbuk::Model::Body::SpaceStation;
-use LacunaCookbuk::Model::Building::Parliament;
+use LacunaCookbuk::Model::Structure::Parliament;
 use LacunaCookbuk::Logic::BodyBuilder;
 
 class Ambassador;

@@ -7,7 +7,7 @@ use LacunaCookbuk::Logic::IntelCritic;
 use LacunaCookbuk::Logic::PlanMaker;
 use LacunaCookbuk::Logic::Transporter;
 use LacunaCookbuk::Logic::Chairman;
-use LacunaCookbuk::Logic::Chairman::Building;
+use LacunaCookbuk::Logic::Chairman::BuildingEnum;
 use LacunaCookbuk::Logic::Chairman::BuildGoal;
 use LacunaCookbuk::Logic::Ambassador;
 use LacunaCookbuk::Logic::Commander;
@@ -56,22 +56,22 @@ method ordinary {
 #| Will upgrade buildings in order passed to L<doc:LacunaCookbuk::Chariman>
 #| chairman will work only on existing buildings but this may change in future
 method chairman {
-    my BuildGoal $saw .= new(building => Building::saw, level=>12);
-    my BuildGoal $wastet .=  new(building => Building::wastedigester, level=>15);
-    my BuildGoal $space .=  new(building => Building::spaceport, level=>10);
-    my BuildGoal $arch .=  new(building => Building::archaeology, level=>30);
-    my BuildGoal $sec .= new(building => Building::security, level => 30); 
+    my BuildGoal $saw .= new(building => LacunaCookbuk::BuildingEnum::saw, level=>12);
+    my BuildGoal $wastet .=  new(building => LacunaCookbuk::BuildingEnum::wastedigester, level=>15);
+    my BuildGoal $space .=  new(building => LacunaCookbuk::BuildingEnum::spaceport, level=>10);
+    my BuildGoal $arch .=  new(building => LacunaCookbuk::BuildingEnum::archaeology, level=>30);
+    my BuildGoal $sec .= new(building => LacunaCookbuk::BuildingEnum::security, level => 30); 
 
 
-    my BuildGoal $politic .= new(building => Building::politicstraining,level => 15);
-    my BuildGoal $mayhem .= new(building => Building::mayhemtraining, level => 15);
-    my BuildGoal $intel .= new(building => Building::inteltraining, level => 15);
-    my BuildGoal $espionage .= new(building => Building::espionage, level => 15);
-    my BuildGoal $intelli .= new(building => Building::intelligence, level =>15);
+    my BuildGoal $politic .= new(building => LacunaCookbuk::BuildingEnum::politicstraining,level => 15);
+    my BuildGoal $mayhem .= new(building => LacunaCookbuk::BuildingEnum::mayhemtraining, level => 15);
+    my BuildGoal $intel .= new(building => LacunaCookbuk::BuildingEnum::inteltraining, level => 15);
+    my BuildGoal $espionage .= new(building => LacunaCookbuk::BuildingEnum::espionage, level => 15);
+    my BuildGoal $intelli .= new(building => LacunaCookbuk::BuildingEnum::intelligence, level =>15);
 
-    my BuildGoal $happy .= new(building => Building::entertainment, level => 30);
+    my BuildGoal $happy .= new(building => LacunaCookbuk::BuildingEnum::entertainment, level => 30);
 
-    my BuildGoal $mercenaries .= new(building => Building::mercenariesguild, level => 30);
+    my BuildGoal $mercenaries .= new(building => LacunaCookbuk::BuildingEnum::mercenariesguild, level => 30);
 
     my BuildGoal @goals = (
 	$saw,
@@ -86,27 +86,27 @@ method chairman {
 
 #| Use power of chairman to upgrade home planet
 method upgrade_home {
-    my BuildGoal $saw .= new(building => Building::saw, level=> 12);
-    my BuildGoal $wastet .=  new(building => Building::wastedigester, level=>15);
-    my BuildGoal $space .=  new(building => Building::spaceport, level=>10);
-    my BuildGoal $arch .=  new(building => Building::archaeology, level=>30);
-    my BuildGoal $sec .= new(building => Building::security, level => 30); 
+    my BuildGoal $saw .= new(building => LacunaCookbuk::BuildingEnum::saw, level=> 12);
+    my BuildGoal $wastet .=  new(building => LacunaCookbuk::BuildingEnum::wastedigester, level=>15);
+    my BuildGoal $space .=  new(building => LacunaCookbuk::BuildingEnum::spaceport, level=>10);
+    my BuildGoal $arch .=  new(building => LacunaCookbuk::BuildingEnum::archaeology, level=>30);
+    my BuildGoal $sec .= new(building => LacunaCookbuk::BuildingEnum::security, level => 30); 
 
-    my BuildGoal $politic .= new(building => Building::politicstraining,level => 15);
-    my BuildGoal $mayhem .= new(building => Building::mayhemtraining, level => 15);
-    my BuildGoal $intel .= new(building => Building::inteltraining, level => 15);
-    my BuildGoal $espionage .= new(building => Building::espionage, level => 15);
-    my BuildGoal $intelli .= new(building => Building::intelligence, level =>15);
+    my BuildGoal $politic .= new(building => LacunaCookbuk::BuildingEnum::politicstraining,level => 15);
+    my BuildGoal $mayhem .= new(building => LacunaCookbuk::BuildingEnum::mayhemtraining, level => 15);
+    my BuildGoal $intel .= new(building => LacunaCookbuk::BuildingEnum::inteltraining, level => 15);
+    my BuildGoal $espionage .= new(building => LacunaCookbuk::BuildingEnum::espionage, level => 15);
+    my BuildGoal $intelli .= new(building => LacunaCookbuk::BuildingEnum::intelligence, level =>15);
 
-    my BuildGoal $happy .= new(building => Building::entertainment, level => 30);
+    my BuildGoal $happy .= new(building => LacunaCookbuk::BuildingEnum::entertainment, level => 30);
 
-    my BuildGoal $mercenaries .= new(building => Building::mercenariesguild, level => 30);
+    my BuildGoal $mercenaries .= new(building => LacunaCookbuk::BuildingEnum::mercenariesguild, level => 30);
 
-    my BuildGoal $saw2 .= new(building => Building::saw, level=> 30);
-    my BuildGoal $trade .= new(building => Building::trade, level=> 30);
-    my BuildGoal $university .= new(building => Building::university, level=> 30);
-    my BuildGoal $capitol .= new(building => Building::capitol, level=> 30);
-    my BuildGoal $stockpile .= new(building => Building::stockpile, level=> 30);
+    my BuildGoal $saw2 .= new(building => LacunaCookbuk::BuildingEnum::saw, level=> 30);
+    my BuildGoal $trade .= new(building => LacunaCookbuk::BuildingEnum::trade, level=> 30);
+    my BuildGoal $university .= new(building => LacunaCookbuk::BuildingEnum::university, level=> 30);
+    my BuildGoal $capitol .= new(building => LacunaCookbuk::BuildingEnum::capitol, level=> 30);
+    my BuildGoal $stockpile .= new(building => LacunaCookbuk::BuildingEnum::stockpile, level=> 30);
     my BuildGoal @goals = (
 	$saw,
 	$wastet,$space, $arch, $sec,

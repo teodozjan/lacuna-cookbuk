@@ -1,6 +1,6 @@
 use v6;
 
-use LacunaCookbuk::Model::Building::Trade;
+use LacunaCookbuk::Model::Structure::Trade;
 
 role Cargo{
     method gather(Trade $Trade --> List) { ... }   

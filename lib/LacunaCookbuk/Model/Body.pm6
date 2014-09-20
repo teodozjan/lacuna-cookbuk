@@ -41,7 +41,7 @@ method get_buildings_view {#( --> BuildingsView) {
 
 
 method get_happiness(--> Int:D){
-    my %res = rpc($URL).get_status(session_id, self.id);
+    my %res = %(rpc($URL).get_status(session_id, self.id));
     %res<body><happiness>;
 
 }

@@ -1,6 +1,6 @@
 use v6;
 
-use LacunaCookbuk::Model::Building::BuildingView;
+use LacunaCookbuk::Model::Structure::BuildingView;
 use LacunaCookbuk::Id;
 use LacunaCookbuk::Model::Empire;
 

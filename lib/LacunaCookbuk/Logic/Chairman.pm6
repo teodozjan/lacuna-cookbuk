@@ -2,11 +2,11 @@ use v6;
 
 use LacunaCookbuk::Model::Body;
 use LacunaCookbuk::Logic::BodyBuilder;
-use LacunaCookbuk::Logic::Chairman::Building;
+use LacunaCookbuk::Logic::Chairman::BuildingEnum;
 use LacunaCookbuk::Logic::Chairman::Resource;
 use LacunaCookbuk::Logic::Chairman::BuildGoal;
 
-use LacunaCookbuk::Model::Building::Development;
+use LacunaCookbuk::Model::Structure::Development;
 
 use Term::ANSIColor;
 
@@ -114,7 +114,7 @@ method upgrade(Body $body, BuildGoal $goal --> BuildGoal){
     BuildGoal;
 }
 
-method storage(Resource $resource --> Building) {
+method storage(Resource $resource --> LacunaCookbuk::BuildingEnum) {
     
     given $resource {
 	when food {return foodreserve}
@@ -126,11 +126,11 @@ method storage(Resource $resource --> Building) {
     }
 }
 
-method production(Resource $resource --> Building) {
+method production(Resource $resource --> LacunaCookbuk::BuildingEnum) {
     
     given $resource {
 	when food {
-	    my @array of Building = (dairy, 
+	    my @array of LacunaCookbuk::BuildingEnum = (dairy, 
 				     lapis,
 				     apple,
 				     beeldeban,
@@ -139,7 +139,7 @@ method production(Resource $resource --> Building) {
 		);
 	    return @array.pick }#FIXME
 	when ore {
-	    my @array of Building = (mine, orerefinery);
+	    my @array of LacunaCookbuk::BuildingEnum = (mine, orerefinery);
 	    return  @array.pick
 	}
 	when water {return atmosphericevaporator}

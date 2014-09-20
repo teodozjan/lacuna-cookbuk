@@ -1,9 +1,9 @@
 use v6;
-use LacunaCookbuk::Logic::Chairman::Building;
+use LacunaCookbuk::Logic::Chairman::BuildingEnum;
 
 class BuildGoal;
 
-has Building $.building;
+has LacunaCookbuk::BuildingEnum $.building;
 has Int $.level;
 
 

@@ -8,13 +8,14 @@ class Empire;
 constant $EMPIRE = '/empire';
 my %status;
 my Int $counter=0;
+constant $counter_limit=50;
 my $session_id;
 
 #| Lacuna expanse has 60 requests per minute limit
 #| this option is much more optimal than sleep every second
 #| lets leave margin to don't get exception
 method start_rpc_keeper {
-    $*SCHEDULER.cue: {$counter=50}, :every(60);
+    $*SCHEDULER.cue: {$counter=$counter_limit}, :every(60);
 }
 
 sub lacuna_url(Str $url){

@@ -1,7 +1,7 @@
 use v6;
 
 use LacunaCookbuk::Model::Body;
-use LacunaCookbuk::Model::Building::Parliament;
+use LacunaCookbuk::Model::Structure::Parliament;
 
 class SpaceStation is Body;
 

@@ -3,12 +3,12 @@ use v6;
 use LacunaCookbuk::Model::Empire;
 use LacunaCookbuk::Model::Body;
 
-use LacunaCookbuk::Model::Building::Archaeology;
-use LacunaCookbuk::Model::Building::Trade;
-use LacunaCookbuk::Model::Building::SpacePort;
-use LacunaCookbuk::Model::Building::Intelligence;
-use LacunaCookbuk::Model::Building::Development;
-use LacunaCookbuk::Model::Building::Shipyard;
+use LacunaCookbuk::Model::Structure::Archaeology;
+use LacunaCookbuk::Model::Structure::Trade;
+use LacunaCookbuk::Model::Structure::SpacePort;
+use LacunaCookbuk::Model::Structure::Intelligence;
+use LacunaCookbuk::Model::Structure::Development;
+use LacunaCookbuk::Model::Structure::Shipyard;
 
 class Planet is Body;
 
