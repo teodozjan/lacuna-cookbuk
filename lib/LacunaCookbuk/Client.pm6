@@ -35,7 +35,7 @@ method ships {
 
 #| Will show all ores on planet stub 
 method ore {    
-    OreCritic.elaborate_ore;
+   LacunaCookbuk::Logic::OreCritic.elaborate_ore;
 }
 
 #| Will vote YES to ALL propostions. Be careful if you care about politics

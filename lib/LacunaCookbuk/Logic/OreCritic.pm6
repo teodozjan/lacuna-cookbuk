@@ -5,7 +5,7 @@ use LacunaCookbuk::Logic::BodyBuilder;
 use Form;
 use Term::ANSIColor;
 
-class OreCritic;
+class LacunaCookbuk::Logic::OreCritic;
 
 constant $ore_format_str = '{<<<<<<<<<<<<<<<<<<<}  ' ~ '{||||} ' x 20;
 constant $ruler = '-' x 160;
