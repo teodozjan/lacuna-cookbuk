@@ -30,7 +30,7 @@ sub close_session is export {
 
 #| Will show summary for docks and scuttle ships that have efficency lower 45% if ship is docked
 method ships {    
-    ShipCritic.elaborate_ships;
+   LacunaCookbuk::Logic::ShipCritic.elaborate_ships;
 }
 
 #| Will show all ores on planet stub 
