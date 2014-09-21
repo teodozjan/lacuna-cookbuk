@@ -1,14 +1,14 @@
-
+=begin pod
 
 =head1 Model
 
-Model contains choosen attributes inisde classes and and low level methodsto contact game serwers like get mentioned attributes or do something. No decisions or logic should be found here.
+Model contains choosen attributes inisde classes and and low level methods to contact game servers like get mentioned attributes or do something. No decisions or logic should be found here.
 
 =head1 Logic
 
 =head2 Ambassador	
 
-Contains methods allowing B<Parliament> operations
+Contains methods allowing B<Parliament> operations. 
 
 =head2 BodyBuilder
 
@@ -16,13 +16,15 @@ Supplies building list and saves it to disk
 
 =head2 Chairman	
 
-Chairman controls upgradeprocess
+P<doc:LacunaCookbuk::Logic::Chairman>
 
 =head2 Commander
 
+L<doc:LacunaCookbuk::Logic::Commander>
+
 =head2 IntelCritic
 
-Takes care of spies
+L<doc:LacunaCookbuk::Logic::IntelCritic>
 
 =head2 OreCritic
 
@@ -30,11 +32,11 @@ Displays the ore
 
 =head2 PlanMaker
 
-Takes cares of glyphs
+L<doc:LacunaCookbuk::Logic::PlanMaker>
 
 =head2 Secretary
 
-Can handle mailbox?
+L<doc:LacunaCookbuk::Logic::Secretary>
 
 =head2 ShipCritic
 
@@ -44,4 +46,4 @@ Takes care of ships
 
 Allows to send cargo with fastest ship available
 	
-
+=end pod

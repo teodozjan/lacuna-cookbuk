@@ -11,9 +11,9 @@ has $.id;
 
 
 method upgrade {
-    rpc($!url).upgrade(session_id, self.id);    
+    rpc($!url).upgrade(session_id, $!id);    
 }
 
 method view returns BuildingView {    
-    BuildingView.new(|rpc($!url).view(session_id, $!id)<building>);    
+    BuildingView.new(|%(rpc($!url).view(session_id, $!id)<building>));    
 }

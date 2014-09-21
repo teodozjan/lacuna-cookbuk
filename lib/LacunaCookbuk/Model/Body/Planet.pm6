@@ -74,7 +74,7 @@ submethod find_development_ministry(--> Development) {
 	
 	if $building.url ~~ $Development::URL {
 	    my $id = $building.id;
-	    my %resp = %(rpc($building.url).view(session_id, $id));
+	    my %resp = %(rpc($Development::URL).view(session_id, $id));
 	    my %attr = %resp;
 	    %attr<url> = $Development::URL;
 	    %attr<id> = $id;
