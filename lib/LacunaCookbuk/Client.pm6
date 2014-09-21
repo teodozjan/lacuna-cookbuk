@@ -1,16 +1,17 @@
 
 use v6;
 
+use LacunaCookbuk::Logic::Chairman::BuildingEnum;
 
-use LacunaCookbuk::Logic::Chairman::BuildGoal;
+use LacunaCookbuk::Logic::Chairman;
+use LacunaCookbuk::Logic::Chairman::Resource;
+
 use LacunaCookbuk::Logic::ShipCritic;
 use LacunaCookbuk::Logic::OreCritic;
 use LacunaCookbuk::Logic::IntelCritic;
 use LacunaCookbuk::Logic::PlanMaker;
 use LacunaCookbuk::Logic::Transporter;
-use LacunaCookbuk::Logic::Chairman;
-use LacunaCookbuk::Logic::Chairman::Resource;
-use LacunaCookbuk::Logic::Chairman::BuildingEnum;
+
 use LacunaCookbuk::Logic::Ambassador;
 use LacunaCookbuk::Logic::Commander;
 use LacunaCookbuk::Logic::Secretary;
@@ -89,27 +90,27 @@ method chairman {
 
 #| Use power of chairman to upgrade home planet
 method upgrade_home {
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $saw .= new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::saw, level=> 12);
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $wastet .=  new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::wastedigester, level=>15);
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $space .=  new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::spaceport, level=>10);
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $arch .=  new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::archaeology, level=>30);
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $sec .= new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::security, level => 30); 
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $saw .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::saw, level=> 12);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $wastet .=  new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::wastedigester, level=>15);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $space .=  new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::spaceport, level=>10);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $arch .=  new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::archaeology, level=>30);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $sec .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::security, level => 30); 
 
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $politic .= new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::politicstraining,level => 15);
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $mayhem .= new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::mayhemtraining, level => 15);
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $intel .= new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::inteltraining, level => 15);
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $espionage .= new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::espionage, level => 15);
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $intelli .= new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::intelligence, level =>15);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $politic .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::politicstraining,level => 15);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $mayhem .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::mayhemtraining, level => 15);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $intel .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::inteltraining, level => 15);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $espionage .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::espionage, level => 15);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $intelli .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::intelligence, level =>15);
 
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $happy .= new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::entertainment, level => 30);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $happy .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::entertainment, level => 30);
 
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $mercenaries .= new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::mercenariesguild, level => 30);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $mercenaries .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::mercenariesguild, level => 30);
 
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $saw2 .= new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::saw, level=> 30);
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $trade .= new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::trade, level=> 30);
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $university .= new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::university, level=> 30);
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $capitol .= new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::capitol, level=> 30);
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $stockpile .= new(building => LacunaCookbuk::Logic::Chairman::LacunaCookbuk::Logic::Chairman::BuildingEnum::stockpile, level=> 30);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $saw2 .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::saw, level=> 30);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $trade .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::trade, level=> 30);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $university .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::university, level=> 30);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $capitol .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::capitol, level=> 30);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $stockpile .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::stockpile, level=> 30);
     my LacunaCookbuk::Logic::Chairman::BuildGoal @goals = (
 	$saw,
 	$wastet,$space, $arch, $sec,

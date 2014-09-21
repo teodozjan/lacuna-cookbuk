@@ -6,11 +6,16 @@ use LacunaCookbuk::Logic::BodyBuilder;
 use LacunaCookbuk::Model::Structure::Development;
 use LacunaCookbuk::Logic::Chairman::Resource;
 use LacunaCookbuk::Logic::Chairman::BuildingEnum;
-use LacunaCookbuk::Logic::Chairman::BuildGoal;
+
 use Term::ANSIColor;
 
 #| Chairman is the class that does all the magic.
 class LacunaCookbuk::Logic::Chairman;
+
+class BuildGoal {
+    has LacunaCookbuk::Logic::Chairman::BuildingEnum $.building;
+    has Int $.level;
+}
 
 has LacunaCookbuk::Logic::Chairman::BuildGoal @.build_goals;
 
@@ -33,7 +38,7 @@ method build(Body $body = home_planet) {
 	return;
     }
    
-    for self.build_goals -> $goal {
+    for @!build_goals -> $goal {
         my $alt_goal = $goal;
 	my $i=5;
 	repeat while $alt_goal {
@@ -150,7 +155,7 @@ sub production(LacunaCookbuk::Logic::Chairman::Resource $resource --> LacunaCook
 }
 
 
-sub all {
+submethod all {
     for (planets) -> Body $planet {
 	next if $planet.is_home;
 	note BOLD, "Upgrading " ~ $planet.name, RESET;
