@@ -29,9 +29,9 @@ multi sub MAIN(Str :$tasks!, Bool :$update?){
   my @todo=$tasks.split(/","/);
 
    if $update {
-      BodyBuilder.process_all_bodies;
+      LacunaCookbuk::Logic::BodyBuilder.process_all_bodies;
   } else {
-      BodyBuilder.read;
+      LacunaCookbuk::Logic::BodyBuilder.read;
   }
 
   for @todo -> $willdo {
