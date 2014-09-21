@@ -7,8 +7,7 @@ use Term::ANSIColor;
 
 sub USAGE() {
 say 'Usage:
-  /home/kamil/dev/lacuna-cookbuk/bin/lacunacookbuk_client --help 
-  /home/kamil/dev/lacuna-cookbuk/bin/lacunacookbuk_client --tasks=<Any> [--update]
+$*USAGE
 
 Tasks should be separated by comma'; 
 

@@ -2,17 +2,17 @@ use v6;
 
 use LacunaCookbuk::Model::Body;
 use LacunaCookbuk::Logic::BodyBuilder;
-use LacunaCookbuk::Logic::Chairman::BuildingEnum;
-use LacunaCookbuk::Logic::Chairman::Resource;
-use LacunaCookbuk::Logic::Chairman::BuildGoal;
 
 use LacunaCookbuk::Model::Structure::Development;
-
+use LacunaCookbuk::Logic::Chairman::Resource;
+use LacunaCookbuk::Logic::Chairman::BuildingEnum;
+use LacunaCookbuk::Logic::Chairman::BuildGoal;
 use Term::ANSIColor;
 
+#| Chairman is the class that does all the magic.
 class LacunaCookbuk::Logic::Chairman;
 
-has BuildGoal @.build_goals;
+has LacunaCookbuk::Logic::Chairman::BuildGoal @.build_goals;
 
 constant $UNSUSTAINABLE = 1012;
 constant $NO_ROOM_IN_QUEUE = 1009;
@@ -33,7 +33,7 @@ method build(Body $body = home_planet) {
 	return;
     }
    
-    for self.build_goals -> BuildGoal $goal {
+    for self.build_goals -> $goal {
         my $alt_goal = $goal;
 	my $i=5;
 	repeat while $alt_goal {
@@ -47,7 +47,7 @@ method build(Body $body = home_planet) {
 		note colored("Infinite recursion. Did you play with supply chains?", 'red');
 		return
 	    }
-	    $alt_goal = self.upgrade($body, $alt_goal);
+	    $alt_goal = upgrade($body, $alt_goal);
 	} 
 	
     }  
@@ -55,7 +55,7 @@ method build(Body $body = home_planet) {
 }
 
 
-method upgrade(Body $body, BuildGoal $goal --> BuildGoal){
+sub upgrade(Body $body, $goal --> LacunaCookbuk::Logic::Chairman::BuildGoal){
     my LacunaBuilding @buildings = $body.find_buildings('/' ~ $goal.building);
  
     for @buildings -> LacunaBuilding $building {
@@ -74,9 +74,9 @@ method upgrade(Body $body, BuildGoal $goal --> BuildGoal){
 			next
 		    }
 
-		    my Resource $resource = value_of($view.upgrade<reason>[2]);
+		    my $resource = value_of($view.upgrade<reason>[2]);
 		    note 'Need to produce more ' ~ $resource  ~ ' for ' ~ $goal.building;
-		    my $new_goal =  BuildGoal.new(building => self.production($resource), level => 15);
+		    my $new_goal =  LacunaCookbuk::Logic::Chairman::BuildGoal.new(building => production($resource), level => 15);
 		    if $new_goal.building != $goal.building {
 			note "Too low $resource for upgrading {$new_goal.building}";
 			return $new_goal;
@@ -86,7 +86,7 @@ method upgrade(Body $body, BuildGoal $goal --> BuildGoal){
 		    }
 		}
 		when $NOT_ENOUGH_STORAGE {
-		    my Resource $resource = value_of($view.upgrade<reason>[2]);
+		    my $resource = value_of($view.upgrade<reason>[2]);
 		    my $quantity = $view.upgrade<cost>{$resource};
 		    my $status = $body.get_status<body>;
 		    my $capacity = $status{$resource ~ '_capacity'};
@@ -94,7 +94,7 @@ method upgrade(Body $body, BuildGoal $goal --> BuildGoal){
 		    
 		    if  $quantity > $capacity {
 			note "To small stores will try to upgrade";
-			my $new_goal = BuildGoal.new(building=> self.storage($resource), level => 15);
+			my $new_goal = LacunaCookbuk::Logic::Chairman::BuildGoal.new(building=> storage($resource), level => 15);
 			return $new_goal unless $new_goal.building == $goal.building;
 			} else {
 			note "Capacity of $capacity is sufficent, stores will be left as is";
@@ -103,7 +103,7 @@ method upgrade(Body $body, BuildGoal $goal --> BuildGoal){
 		when $NO_ROOM_IN_QUEUE {
 		    note 'Queue full';
 		    # Unclean
-		    return BuildGoal.new(level => -1); 
+		    return LacunaCookbuk::Logic::Chairman::BuildGoal.new(level => -1); 
 			#last;
 		}
 		when $INCOMPLETE_PENDING_BUILD {next}
@@ -111,10 +111,10 @@ method upgrade(Body $body, BuildGoal $goal --> BuildGoal){
 	    }		
 	}
     }    
-    BuildGoal;
+    LacunaCookbuk::Logic::Chairman::BuildGoal;
 }
 
-method storage(Resource $resource --> LacunaCookbuk::BuildingEnum) {
+sub storage(LacunaCookbuk::Logic::Chairman::Resource $resource --> LacunaCookbuk::Logic::Chairman::BuildingEnum) {
     
     given $resource {
 	when food {return foodreserve}
@@ -126,11 +126,11 @@ method storage(Resource $resource --> LacunaCookbuk::BuildingEnum) {
     }
 }
 
-method production(Resource $resource --> LacunaCookbuk::BuildingEnum) {
+sub production(LacunaCookbuk::Logic::Chairman::Resource $resource --> LacunaCookbuk::Logic::Chairman::BuildingEnum) {
     
     given $resource {
 	when food {
-	    my @array of LacunaCookbuk::BuildingEnum = (dairy, 
+	    my @array of LacunaCookbuk::Logic::Chairman::BuildingEnum = (dairy, 
 				     lapis,
 				     apple,
 				     beeldeban,
@@ -139,7 +139,7 @@ method production(Resource $resource --> LacunaCookbuk::BuildingEnum) {
 		);
 	    return @array.pick }#FIXME
 	when ore {
-	    my @array of LacunaCookbuk::BuildingEnum = (mine, orerefinery);
+	    my @array of LacunaCookbuk::Logic::Chairman::BuildingEnum = (mine, orerefinery);
 	    return  @array.pick
 	}
 	when water {return atmosphericevaporator}
@@ -150,15 +150,15 @@ method production(Resource $resource --> LacunaCookbuk::BuildingEnum) {
 }
 
 
-method all {
+sub all {
     for (planets) -> Body $planet {
 	next if $planet.is_home;
 	note BOLD, "Upgrading " ~ $planet.name, RESET;
-	self.build($planet);
+	.build($planet);
     }
 }
 
-sub value_of(Str $str --> Resource){
+sub value_of(Str $str --> LacunaCookbuk::Logic::Chairman::Resource){
     given $str {
 	when 'food' {return food;}
 	when 'ore' {return ore;}
@@ -169,3 +169,4 @@ sub value_of(Str $str --> Resource){
 	default{die $str}
     }
 }
+
