@@ -4,8 +4,6 @@ use v6;
 use LacunaCookbuk::Logic::Chairman::BuildingEnum;
 
 use LacunaCookbuk::Logic::Chairman;
-use LacunaCookbuk::Logic::Chairman::Resource;
-
 use LacunaCookbuk::Logic::ShipCritic;
 use LacunaCookbuk::Logic::OreCritic;
 use LacunaCookbuk::Logic::IntelCritic;
@@ -85,7 +83,7 @@ method chairman {
 	);
 
     my $c =LacunaCookbuk::Logic::Chairman.new(build_goals=>(@goals));
-    $c.all;
+    $c.build_all;
 }
 
 #| Use power of chairman to upgrade home planet

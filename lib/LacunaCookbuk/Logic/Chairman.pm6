@@ -4,13 +4,16 @@ use LacunaCookbuk::Model::Body;
 use LacunaCookbuk::Logic::BodyBuilder;
 
 use LacunaCookbuk::Model::Structure::Development;
-use LacunaCookbuk::Logic::Chairman::Resource;
 use LacunaCookbuk::Logic::Chairman::BuildingEnum;
 
 use Term::ANSIColor;
 
 #| Chairman is the class that does all the magic.
 class LacunaCookbuk::Logic::Chairman;
+
+#| Basic resources that regulate any planet int the empire
+enum LacunaCookbuk::Logic::Chairman::Resource <food ore water energy waste happiness>;
+
 
 class BuildGoal {
     has LacunaCookbuk::Logic::Chairman::BuildingEnum $.building;
@@ -155,11 +158,11 @@ sub production(LacunaCookbuk::Logic::Chairman::Resource $resource --> LacunaCook
 }
 
 
-submethod all {
+submethod build_all {
     for (planets) -> Body $planet {
 	next if $planet.is_home;
 	note BOLD, "Upgrading " ~ $planet.name, RESET;
-	.build($planet);
+	self.build($planet);
     }
 }
 
