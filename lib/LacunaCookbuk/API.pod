@@ -6,44 +6,33 @@ Model contains choosen attributes inisde classes and and low level methods to co
 
 =head1 Logic
 
-=head2 Ambassador	
+L<doc:LacunaCookbuk::Logic::Ambassador>
+P<doc:LacunaCookbuk::Logic::Ambassador>
 
-Contains methods allowing B<Parliament> operations. 
+P<doc:LacunaCookbuk::Logic::BodyBuilder>
 
-=head2 BodyBuilder
-
-Supplies building list and saves it to disk
-
-=head2 Chairman	
-
+L<doc:LacunaCookbuk::Logic::Chairman>
 P<doc:LacunaCookbuk::Logic::Chairman>
 
-=head2 Commander
-
-L<doc:LacunaCookbuk::Logic::Commander>
-
-=head2 IntelCritic
+L<doc:LacunaCookbuk::Logic::Chairman>
+P<doc:LacunaCookbuk::Logic::Commander>
 
 L<doc:LacunaCookbuk::Logic::IntelCritic>
+P<doc:LacunaCookbuk::Logic::IntelCritic>
 
-=head2 OreCritic
-
-Displays the ore
-
-=head2 PlanMaker
+L<doc:LacunaCookbuk::Logic::OreCritic>
+P<doc:LacunaCookbuk::Logic::OreCritic>
 
 L<doc:LacunaCookbuk::Logic::PlanMaker>
-
-=head2 Secretary
+P<doc:LacunaCookbuk::Logic::PlanMaker>
 
 L<doc:LacunaCookbuk::Logic::Secretary>
+P<doc:LacunaCookbuk::Logic::Secretary>
 
-=head2 ShipCritic
+L<doc:LacunaCookbuk::Logic::ShipCritic>
+P<doc:LacunaCookbuk::Logic::ShipCritic>
 
-Takes care of ships
-
-=head2 Transporter
-
-Allows to send cargo with fastest ship available
+L<doc:LacunaCookbuk::Logic::Transporter>
+P<doc:LacunaCookbuk::Logic::Transporter>
 	
 =end pod
