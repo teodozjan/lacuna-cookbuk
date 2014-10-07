@@ -25,7 +25,15 @@ sub lacuna_url(Str $url){
 sub rpc(Str $name --> JSON::RPC::Client) is export {
     sleep 1 until $counter; 
     --$counter;
-    JSON::RPC::Client.new( url => lacuna_url($name))
+    rpc_client($name)
+}
+
+#| we cannot use cached because of some bug
+my %cache;
+sub rpc_client($name --> JSON::RPC::Client) {
+        return %cache{$name} if %cache{$name};
+        %cache{$name} = JSON::RPC::Client.new( url => lacuna_url($name));
+
 }
 
 submethod create_session {
