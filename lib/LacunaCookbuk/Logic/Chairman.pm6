@@ -22,11 +22,14 @@ class BuildGoal {
 
 has LacunaCookbuk::Logic::Chairman::BuildGoal @.build_goals;
 
+
+has $!max_resource_building_level = 15; #=  capital ? 15 : stockpile.level
+
 constant $UNSUSTAINABLE = 1012;
 constant $NO_ROOM_IN_QUEUE = 1009;
 constant $INCOMPLETE_PENDING_BUILD = 1010;
 constant $NOT_ENOUGH_STORAGE = 1011;
-
+constant $ACCEPTABLE_RECURSION = 5;
 sub print_queue_summary(Body $body = home_planet) {
     my Development $dev = $body.find_development_ministry;
     for $dev.build_queue -> %item {
@@ -42,28 +45,19 @@ method build(Body $body = home_planet) {
     }
    
     for @!build_goals -> $goal {
-        my $alt_goal = $goal;
-	my $i=5;
-	repeat while $alt_goal {
-	    if $alt_goal.level < 1 {
-		# It looks like you cannot call last on repeat loop
-		print_queue_summary($body);
-		return;
-	    }
-	    
-	    if --$i == 0 {
-		note colored("Infinite recursion. Did you play with supply chains?", 'red');
-		return
-	    }
-	    $alt_goal = upgrade($body, $alt_goal);
-	} 
+        self.upgrade($body, $goal, $ACCEPTABLE_RECURSION);
+    } 
 	
-    }  
+  
     print_queue_summary($body);
 }
 
+method upgrade(Body $body, $goal, $infinite_recursion_protect is copy) {
+    unless --$infinite_recursion_protect {
+        note colored("Infinite recursion", "red");
+        return;
+    }
 
-sub upgrade(Body $body, $goal --> LacunaCookbuk::Logic::Chairman::BuildGoal){
     my LacunaBuilding @buildings = $body.find_buildings('/' ~ $goal.building);
  
     for @buildings -> LacunaBuilding $building {
@@ -76,6 +70,10 @@ sub upgrade(Body $body, $goal --> LacunaCookbuk::Logic::Chairman::BuildGoal){
 	    note colored("Upgrade started " ~ $goal.building, 'green');
 	} else {
 	    given $view.upgrade<reason>[0] {
+                #= =item When building is UNSUSTAINABLE we surrender if it is specific resorce.
+                #= =item In any other situation we try to get resource building.
+                #= =item If we cannot upgrade mine because of too low ore production
+                #=       we try to do it with another mine (maybe it has lower level)
 		when $UNSUSTAINABLE {
 		    unless $view.upgrade<reason>[2] {
 			note colored($view.upgrade<reason>[1], 'red');
@@ -84,15 +82,20 @@ sub upgrade(Body $body, $goal --> LacunaCookbuk::Logic::Chairman::BuildGoal){
 
 		    my $resource = value_of($view.upgrade<reason>[2]);
 		    note 'Need to produce more ' ~ $resource  ~ ' for ' ~ $goal.building;
-		    my $new_goal =  LacunaCookbuk::Logic::Chairman::BuildGoal.new(building => production($resource), level => 15);
+		    my $new_goal =  LacunaCookbuk::Logic::Chairman::BuildGoal.new(
+                        building => production($resource), 
+                        level => $!max_resource_building_level);
+
 		    if $new_goal.building != $goal.building {
 			note "Too low $resource for upgrading {$new_goal.building}";
-			return $new_goal;
-			} else {
-			note "Cannot upgrade itself";
-			next
+			self.upgrade($body, $new_goal, $infinite_recursion_protect);
+                    } else {
+                        note "Cannot upgrade itself";
+                        next
 		    }
 		}
+                #= Low storage can have two reasons: too low storage or too small stores
+                #= maybe we should improve production but we don't 
 		when $NOT_ENOUGH_STORAGE {
 		    my $resource = value_of($view.upgrade<reason>[2]);
 		    my $quantity = $view.upgrade<cost>{$resource};
@@ -102,24 +105,31 @@ sub upgrade(Body $body, $goal --> LacunaCookbuk::Logic::Chairman::BuildGoal){
 		    
 		    if  $quantity > $capacity {
 			note "To small stores will try to upgrade";
-			my $new_goal = LacunaCookbuk::Logic::Chairman::BuildGoal.new(building=> storage($resource), level => 15);
-			return $new_goal unless $new_goal.building == $goal.building;
-			} else {
-			note "Capacity of $capacity is sufficent, stores will be left as is";
+			my $new_goal = LacunaCookbuk::Logic::Chairman::BuildGoal.new(
+                            building=> storage($resource),
+                            level => $!max_resource_building_level);
+
+			if $new_goal.building != $goal.building {
+                            self.upgrade($body,$new_goal,$infinite_recursion_protect);
+                        } else {
+                            next;
+                        }
+                    } else {
+                        note "Capacity of $capacity is sufficent, stores will be left as is";
 		    }
 		}
+                #= Queue full = No options
 		when $NO_ROOM_IN_QUEUE {
 		    note 'Queue full';
-		    # Unclean
-		    return LacunaCookbuk::Logic::Chairman::BuildGoal.new(level => -1); 
-			#last;
 		}
+                #= Already upgrading! Almost like success
 		when $INCOMPLETE_PENDING_BUILD {next}
+
+                #= Panic!
 		default {die $view.upgrade}
 	    }		
 	}
     }    
-    LacunaCookbuk::Logic::Chairman::BuildGoal;
 }
 
 sub storage(LacunaCookbuk::Logic::Chairman::Resource $resource --> LacunaCookbuk::Logic::Chairman::BuildingEnum) {
