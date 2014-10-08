@@ -74,7 +74,7 @@ method find_fastest_ship {
     for self.get_push_ships -> @ships {
 	for @ships -> $ship {
 	    if $fastest_ship {
-		$fastest_ship = $ship<id> if $ship<estimated_travel_time> < $fastest_ship<estimated_travel_time>; 
+		$fastest_ship = $ship if $ship<estimated_travel_time> < $fastest_ship<estimated_travel_time>; 
 	    } else {
 		$fastest_ship = $ship;
 	    }
