@@ -18,6 +18,7 @@ enum LacunaCookbuk::Logic::Chairman::Resource <food ore water energy waste happi
 class BuildGoal {
     has LacunaCookbuk::Logic::Chairman::BuildingEnum $.building;
     has Int $.level;
+    has Bool $.priority=False;
 }
 
 has LacunaCookbuk::Logic::Chairman::BuildGoal @.build_goals;
@@ -45,25 +46,27 @@ method build(Body $body = home_planet) {
     }
    
     for @!build_goals -> $goal {
-        self.upgrade($body, $goal, $ACCEPTABLE_RECURSION);
+        note $goal.gist;
+        last unless self.upgrade($body, $goal, $ACCEPTABLE_RECURSION);
     } 
 	
   
     print_queue_summary($body);
 }
 
-method upgrade(Body $body, $goal, $infinite_recursion_protect is copy) {
+method upgrade(Body $body, $goal, $infinite_recursion_protect is copy --> Bool) {
     unless --$infinite_recursion_protect {
         note colored("Infinite recursion", "red");
-        return;
+        return False;
     }
 
     my LacunaBuilding @buildings = $body.find_buildings('/' ~ $goal.building);
- 
+
     for @buildings -> LacunaBuilding $building {
 
 	my $view = $building.view;
-	next unless $goal.level > $view.level;#goal reached
+        next unless $goal.level > $view.level;
+
 	
 	if $view.upgrade<can> {
 	    $building.upgrade;
@@ -121,6 +124,7 @@ method upgrade(Body $body, $goal, $infinite_recursion_protect is copy) {
                 #= Queue full = No options
 		when $NO_ROOM_IN_QUEUE {
 		    note 'Queue full';
+                    return False;
 		}
                 #= Already upgrading! Almost like success
 		when $INCOMPLETE_PENDING_BUILD {next}
@@ -128,8 +132,12 @@ method upgrade(Body $body, $goal, $infinite_recursion_protect is copy) {
                 #= Panic!
 		default {die $view.upgrade}
 	    }		
-	}
-    }    
+            return False if $goal.priority;
+        }
+    }
+    #= There is a funny thing about that because we won't stop if prority building is far from
+    #= desired level but keeps upgrading. This sacrifices accuracy over speed
+    return True;
 }
 
 sub storage(LacunaCookbuk::Logic::Chairman::Resource $resource --> LacunaCookbuk::Logic::Chairman::BuildingEnum) {
