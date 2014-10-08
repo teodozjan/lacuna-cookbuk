@@ -57,6 +57,11 @@ method ordinary {
 #| Will upgrade buildings in order passed to L<doc:LacunaCookbuk::Chariman>
 #| chairman will work only on existing buildings but this may change in future
 method chairman {
+    #| FIXME isolate and fill bug report
+    unless %*ENV<MVM_SPESH_DISABLE> {
+        warn "SPESH not disabled. If running on MOARVM expect throwing exceptions without real cause. Set env variable
+              MVM_SPESH_DISABLE=1 to make this message dissapear\n";
+    }
     my LacunaCookbuk::Logic::Chairman::BuildGoal $saw .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::saw, level=>12);
     my LacunaCookbuk::Logic::Chairman::BuildGoal $wastet .=  new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::wastedigester, level=>15);
     my LacunaCookbuk::Logic::Chairman::BuildGoal $space .=  new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::spaceport, level=>10, priority => True);
