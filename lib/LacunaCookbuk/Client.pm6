@@ -1,4 +1,3 @@
-
 use v6;
 
 use LacunaCookbuk::Logic::Chairman::BuildingEnum;
@@ -60,7 +59,7 @@ method ordinary {
 method chairman {
     my LacunaCookbuk::Logic::Chairman::BuildGoal $saw .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::saw, level=>12);
     my LacunaCookbuk::Logic::Chairman::BuildGoal $wastet .=  new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::wastedigester, level=>15);
-    my LacunaCookbuk::Logic::Chairman::BuildGoal $space .=  new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::spaceport, level=>10);
+    my LacunaCookbuk::Logic::Chairman::BuildGoal $space .=  new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::spaceport, level=>10, priority => True);
     my LacunaCookbuk::Logic::Chairman::BuildGoal $arch .=  new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::archaeology, level=>30);
     my LacunaCookbuk::Logic::Chairman::BuildGoal $sec .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::security, level => 30); 
 
@@ -76,10 +75,10 @@ method chairman {
     my LacunaCookbuk::Logic::Chairman::BuildGoal $mercenaries .= new(building => LacunaCookbuk::Logic::Chairman::BuildingEnum::mercenariesguild, level => 30);
 
     my LacunaCookbuk::Logic::Chairman::BuildGoal @goals = (
-	$saw,
-	$wastet,$space, $arch, $sec,
+	$space, $arch, $sec,
 	$politic, $mayhem, $intel, $espionage, $intelli,
-	$happy
+	$happy, $saw, $wastet
+
 	);
 
     my $c =LacunaCookbuk::Logic::Chairman.new(build_goals=>(@goals));
