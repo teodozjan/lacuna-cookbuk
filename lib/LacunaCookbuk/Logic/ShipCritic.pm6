@@ -8,8 +8,8 @@ use LacunaCookbuk::Logic::BodyBuilder;
 
 class LacunaCookbuk::Logic::ShipCritic;
 
-constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
-constant $ruler = '-' x 160;
+constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
+constant $ruler = '-' x 128;
 constant $ship_templ = '{<<<<<<<<<<<<<<<<<<<<<<<<<} ' ~ ' {>>>>>>>} ' x 6;
 
 submethod elaborate_spaceport(Planet $planet --> SpacePort) {
