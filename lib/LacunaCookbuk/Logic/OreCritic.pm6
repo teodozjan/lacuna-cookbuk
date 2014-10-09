@@ -7,8 +7,8 @@ use Term::ANSIColor;
 
 class LacunaCookbuk::Logic::OreCritic;
 
-constant $ore_format_str = '{<<<<<<<<<<<<<<<<<<<}  ' ~ '{||||} ' x 20;
-constant $ruler = '-' x 160;
+constant $ore_format_str = '{<<<<<<<<<<<<<<<<<<<<} ' ~ '{||} ' x 20;
+
 
 submethod elaborate_ores(Planet $planet, Str @header, @summarize) {
 #keys and values in hash 
