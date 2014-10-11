@@ -50,7 +50,7 @@ submethod elaborate_ships {
     {
 	my %available = %(home_planet.find_shipyard.get_buildable);
 	for %ports.pairs -> $pair {
-	    
+	    next unless $pair.value.repaired;
 	    my @shipz = $pair.value.view_all_ships;
 	    say();
 	    say BOLD, $pair.key;
