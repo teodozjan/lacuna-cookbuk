@@ -34,7 +34,7 @@ submethod transport(@goods,Planet $src, Planet $dst = home_planet)
     my $trade = $src.find_trade_ministry;
     return unless $trade;
     unless $trade.repaired {
-        note "Cannot use TradeMinistry on" ~ $src.name;
+        note "Cannot use TradeMinistry on " ~ $src.name;
         return;
 
     }
