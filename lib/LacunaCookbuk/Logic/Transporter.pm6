@@ -4,7 +4,7 @@ use LacunaCookbuk::Model::Body::Planet;
 use LacunaCookbuk::Logic::BodyBuilder;
 use LacunaCookbuk::Model::Empire;
 use LacunaCookbuk::Model::Structure::Trade;
-
+use Term::ANSIColor;
 
 
 class LacunaCookbuk::Logic::Transporter;
@@ -34,6 +34,13 @@ submethod transport(@goods,Planet $src, Planet $dst = home_planet)
     my @cargo;
     my $trade = $src.find_trade_ministry;
     return unless $trade;
+    if $trade.view.damaged {
+        note colored("Trade ministry damaged on {$src.name}",  'red');
+        try $trade.repair;
+        return if $!;
+        note colored("Repair successful", 'blue');
+    }
+
     for @goods -> $load {
 	@cargo.push($load.gather($trade))
     }

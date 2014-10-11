@@ -17,3 +17,7 @@ method upgrade {
 method view returns BuildingView {    
     BuildingView.new(|%(rpc($!url).view(session_id, $!id)<building>));    
 }
+
+method repair {
+    rpc($!url).repair(session_id, $!id);    
+}
