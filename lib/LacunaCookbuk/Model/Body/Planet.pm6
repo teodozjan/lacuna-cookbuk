@@ -10,6 +10,7 @@ use LacunaCookbuk::Model::Structure::Intelligence;
 use LacunaCookbuk::Model::Structure::Development;
 use LacunaCookbuk::Model::Structure::Shipyard;
 
+
 class Planet is Body;
 
 submethod find_archaeology_ministry(--> Archaeology) {
@@ -99,4 +100,5 @@ submethod calculate_sustainablity (--> Hash) {
 method is_home(--> Bool) {
     +self.id == +Empire.home_planet_id;
 }
+
 

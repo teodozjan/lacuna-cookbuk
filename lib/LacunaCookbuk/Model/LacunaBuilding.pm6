@@ -4,6 +4,8 @@ use LacunaCookbuk::Model::Structure::BuildingView;
 use LacunaCookbuk::Id;
 use LacunaCookbuk::Model::Empire;
 
+use Term::ANSIColor;
+
 role LacunaBuilding;
 
 has $.url; 
@@ -20,4 +22,14 @@ method view returns BuildingView {
 
 method repair {
     rpc($!url).repair(session_id, $!id);    
+}
+
+method repaired returns Bool {
+    if self.view.damaged {
+        note colored($!url ~ " damaged", 'red');
+        try self.repair;
+        return False if $!;
+        note colored("Repair successful", 'blue');
+    }
+    return True;
 }
