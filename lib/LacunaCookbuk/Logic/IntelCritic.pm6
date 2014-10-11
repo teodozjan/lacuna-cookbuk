@@ -8,8 +8,8 @@ use Term::ANSIColor;
 #= This class has evil design. REFACTOR me
 class LacunaCookbuk::Logic::IntelCritic;
 
-constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
-constant $ruler = '-' x 160;
+constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
+constant $ruler = '-' x 128;
 
 sub elaborate_intelligence(Planet $planet) {
     my Intelligence $imini = $planet.find_intelligence_ministry;
@@ -26,7 +26,7 @@ sub elaborate_intelligence(Planet $planet) {
 }
 
 sub rename_intelligence(Planet $planet) {
-    note "Looking for Agent null on $planet";
+    note "Looking for Agent null on {$planet.name}";
     my Intelligence $imini = $planet.find_intelligence_ministry;
     my @list = $imini.get_view_spies;
     my Str $spiesl = format_spies(@list);
@@ -35,7 +35,7 @@ sub rename_intelligence(Planet $planet) {
 }
 
 sub elaborate_staff(Planet $planet) {
-    say "Planet $planet";
+    say "Planet {$planet.name}";
     my Intelligence $imini = $planet.find_intelligence_ministry;
     my @list = $imini.get_view_spies;
     my Str $spiesl = format_spies(@list);
@@ -65,15 +65,16 @@ submethod elaborate_spies{
     my @header = <planet num limit details>;
     print form ($limited_format, @header);
     say $ruler;
-    for (planets) -> Planet $planet {
+    my @planets = planets.grep({.find_intelligence_ministry.repaired});
+    for @planets -> Planet $planet {
 	elaborate_intelligence($planet);
     }
     
-    for (planets) -> Planet $planet {
+    for @planets -> Planet $planet {
 	rename_intelligence($planet);
     }
     
-    for (planets) -> Planet $planet {
+    for @planets -> Planet $planet {
 	elaborate_staff($planet);
     }
 
