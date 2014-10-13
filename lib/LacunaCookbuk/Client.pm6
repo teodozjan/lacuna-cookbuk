@@ -148,7 +148,7 @@ method zones {
     LacunaCookbuk::Logic::BodyBuilder.report_zones;
 }
 
-# Get all planet buildings and repair
+#|Repair broken planets
 method repair {
     LacunaCookbuk::Logic::Chairman.repair_all;
 }

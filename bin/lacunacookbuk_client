@@ -3,6 +3,8 @@
 use v6;
 
 use LacunaCookbuk::Client;
+use LacunaCookbuk::Logic::Chairman;
+use LacunaCookbuk::Logic::BodyBuilder;
 use Term::ANSIColor;
 
 sub USAGE() {
@@ -25,19 +27,27 @@ multi sub MAIN(Str :$tasks!, Bool :$update?){
  
   create_session;
 
-  my @todo=$tasks.split(/","/);
-
-   if $update {
+  if $update {
       LacunaCookbuk::Logic::BodyBuilder.process_all_bodies;
   } else {
       LacunaCookbuk::Logic::BodyBuilder.read;
   }
 
+  my @todo=$tasks.split(/","/);
+  
   for @todo -> $willdo {
       $client."$willdo"();
-  }
+  }  
 
   close_session;  
 }
 
 
+multi sub MAIN(Str :$repair!){
+
+  create_session;
+  LacunaCookbuk::Logic::BodyBuilder.read;
+  LacunaCookbuk::Logic::Chairman.repair_one(find_planet($repair));
+
+  close_session;  
+}

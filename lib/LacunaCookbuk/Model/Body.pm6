@@ -16,7 +16,7 @@ method get_status {
     rpc($URL).get_status(session_id, self.id);
 }
 
-submethod get_buildings { 
+method get_buildings { 
   my %buildings = %(rpc($URL).get_buildings(session_id, self.id));
     %!ore = %(%buildings<status><body><ore>);
     
@@ -74,4 +74,5 @@ submethod is_station returns Bool {
     }
     False;
 }   
+
 

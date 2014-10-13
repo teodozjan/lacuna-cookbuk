@@ -23,9 +23,10 @@ I want this code back
 
     @planets = from_file($path_planets);
     @stations = from_file($path_stations);
+
+
+
 =end pod
-
-
 
     #moar hack
     note 'Readin $path_planets';
@@ -61,7 +62,7 @@ submethod process_all_bodies {
 	    my SpaceStation $station .= new(id => $planet_id, buildings => $body.buildings,  x => $body.x, y => $body.y);
 	    note $station.name ~ " is a Space Station";
 	    @stations.push($station)
-	}elsif $body.is_planet {
+	} elsif $body.is_planet {
 	    my Planet $planet .= new(id => $planet_id, buildings => $body.buildings, ore => $body.ore, x => $body.x, y => $body.y);
 	    note $planet.name ~ " is a Planet";
 	    @planets.push($planet)
@@ -83,6 +84,13 @@ sub planets is export {
     @planets
 }
 
+sub find_planet(Str $s) is export {
+    for @planets -> $p {
+        return $p if $p.name ~~ $s;
+    }
+
+}
+
 sub stations is export {
     @stations
 }
@@ -100,6 +108,4 @@ submethod report_zones {
 	$color = "green" if $zone_x == -3 and $zone_y == 0;
 	say colored("{$body.name} is in zone $zone_x|$zone_y", $color);
     }
-
-
 }

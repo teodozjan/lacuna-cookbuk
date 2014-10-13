@@ -196,3 +196,18 @@ sub value_of(Str $str --> LacunaCookbuk::Logic::Chairman::Resource){
     }
 }
 
+submethod repair_all {
+
+    for (planets) -> $planet {
+       self.repair_one($planet);       
+    }
+
+}
+
+submethod repair_one($planet) {
+    my @buildings = $planet.get_buildings;
+    say "{$planet.name}:";
+    for @buildings -> $b {        
+        $b.repaired;
+    }
+}
