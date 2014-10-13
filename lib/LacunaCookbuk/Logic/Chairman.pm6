@@ -208,6 +208,7 @@ submethod repair_one($planet) {
     my @buildings = $planet.get_buildings;
     say "{$planet.name}:";
     for @buildings -> $b {        
-        $b.repaired;
+        #TODO check efficency because glyph buildings have reapir cost 0
+        $b.repair;
     }
 }
