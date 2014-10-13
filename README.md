@@ -44,10 +44,9 @@ Things that seem to work:
 	- Rename agents to their home planet name
 	- Printing what plans can be made from current stock
 	- Showing where are the colonies (primitive text)
+	- Automatic repair (the evil implementation)
 
 ### TODO Functions
-
-       - Automatic repair
        - Space port plans
        - Automatic trade posting
 
