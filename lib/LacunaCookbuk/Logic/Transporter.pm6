@@ -42,7 +42,10 @@ submethod transport(@goods,Planet $src, Planet $dst = home_planet)
 	@cargo.push($load.gather($trade))
     }
     my $ship = $trade.find_fastest_ship;
-    return unless $ship;
+    unless $ship {
+        note "No ship available on {$src.name}";
+        return;
+    }
 
     my @packed = self.cut_size(@cargo, +$ship<hold_size>);
     say $trade.push(@packed) if @packed;   
