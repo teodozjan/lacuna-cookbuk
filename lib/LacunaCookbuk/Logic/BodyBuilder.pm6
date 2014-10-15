@@ -97,6 +97,35 @@ sub stations is export {
 
 constant $ZONE_SIZE = 250;
 
+
+=begin pod
+
+=head2 EXAMPLE report_zones
+
+   [33mGlitch Agina is in zone -1|-1[0m
+   [39mCircle Desert is in zone -1|0[0m
+   [39mPixel Aqua is in zone -1|0[0m
+   [39mGlitch Wasteland is in zone -1|-1[0m
+   [39mCircle Forest is in zone -1|0[0m
+   [39mCircle Square is in zone -1|0[0m
+   [39mPixel Electric is in zone -1|0[0m
+   [33mGlitch Hamburger is in zone -1|-1[0m
+   [33mGlitch Tungsten is in zone -1|-1[0m
+   [39mPixel Glow is in zone -1|0[0m
+   [39mCircle Monazite is in zone -1|0[0m
+   [39mPixel Bauxite is in zone -1|0[0m
+   [39mSS Mercury Deep Space 1 is in zone -5|-5[0m
+   [39mSS Mercury Sea Wasp is in zone -4|2[0m
+   [39mSS Mercury Vis Vires is in zone -1|2[0m
+   [39mSS Mercury Escalion V is in zone 3|2[0m
+   [39mSS Mercury Gensaki VII is in zone 4|1[0m
+   [39mSS Mercury Rising is in zone -4|2[0m
+   [39mSS Mercury Geronya HQ is in zone 3|1[0m
+   [39mSS Mercury Outer Rim is in zone -1|0[0m
+   [39mSS Mercury Phoenix Station is in zone 2|-3[0m
+
+=end pod
+
 submethod report_zones {
     for @planets, @stations -> $body {
 	my Int $zone_x = (+$body.x / $ZONE_SIZE).Int;	
