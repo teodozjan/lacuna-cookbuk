@@ -17,6 +17,6 @@ class Spy {
 
     has $.assigned_to;
     has $.based_from;
-
+    has $.mission_count;
 
 }

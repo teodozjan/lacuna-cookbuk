@@ -8,8 +8,20 @@ use Term::ANSIColor;
 #= This class has evil design. REFACTOR me
 class LacunaCookbuk::Logic::IntelCritic;
 
-constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
-constant $ruler = '-' x 128;
+constant $TERM_SIZE = 128;
+constant @summary_header = <planet num limit details>;
+constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
+constant $ruler = '-' x $TERM_SIZE;
+
+constant @spy_header = <name level politics mayhem theft intel defense offense mission_off mission_def assignment>; 
+constant $spy_format = '{<<<<<<<<<<<<<<<<<<<<} {|||} {|||||} {|||||} {|||||} {|||||} {>>>>>}/{<<<<<} {>>>>}/{<<<<<} {<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<}';
+
+BEGIN {
+    my $f1 = form($limited_format, @summary_header).chars;
+    die "$f1 summary" unless $f1 == $TERM_SIZE;
+    my $f2 = form($spy_format, @spy_header).chars;
+    die "$f2 spy format" unless $f2 == $TERM_SIZE;
+}
 
 sub elaborate_intelligence(Planet $planet) {
     my Intelligence $imini = $planet.find_intelligence_ministry;
@@ -45,8 +57,29 @@ sub elaborate_staff(Planet $planet) {
 
 sub show_spies($planet, @spies){
     my Intelligence $imini = $planet.find_intelligence_ministry;
+    print form($spy_format, @spy_header);
+    say $ruler;
+
     for @spies -> Spy $spy {
-	say $spy.perl;
+        my $delegated;
+        if ($spy.assigned_to<body_id> != $spy.based_from<body_id>) {
+            $delegated = $spy.assigned_to<name>;
+        } else {
+            $delegated = 'h';
+        }
+
+        print form($spy_format,
+                   $spy.name,
+                   $spy.level,
+                   $spy.mayhem,
+                   $spy.politics,
+                   $spy.theft,
+                   $spy.intel,
+                   $spy.defense_rating,
+                   $spy.offense_rating,
+                   $spy.mission_count<offensive>,
+                   $spy.mission_count<defensive>,
+                   $spy.assignment ~ '@' ~ $delegated);        
     }
 }
 
@@ -62,21 +95,22 @@ sub rename_spies($planet, @spies){
 
 submethod elaborate_spies{
     say "\nIntellignece -- Spies";
-    my @header = <planet num limit details>;
-    print form ($limited_format, @header);
+
+    print form ($limited_format, @summary_header);
     say $ruler;
     my @planets = planets.grep({.find_intelligence_ministry.repaired});
     for @planets -> Planet $planet {
 	elaborate_intelligence($planet);
     }
-    
+    say $ruler;    
     for @planets -> Planet $planet {
 	rename_intelligence($planet);
     }
-    
+    say $ruler;
     for @planets -> Planet $planet {
 	elaborate_staff($planet);
     }
+
 
 }
 
