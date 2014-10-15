@@ -46,16 +46,6 @@ Things that seem to work:
 	- Showing where are the colonies (primitive text)
 	- Automatic repair (the evil implementation)
 
-### TODO Functions
-       - Space port plans
-       - Automatic trade posting
-
-### TODO Code smell
-
-       - Change some classes into modules
-       - Tidy	 - planet/station mess
-       - Change loops to list generic functions where possible
-
 ### Doesn't compile?
 
 The unofficial [continuous integration](http://host07.perl6.com:8080/report/teodozjan) for my projects will tell whether this project compiles with newest [rakudo](https://en.wikipedia.org/wiki/Rakudo_Perl_6).
