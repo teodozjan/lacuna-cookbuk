@@ -46,7 +46,6 @@ method build(Body $body = home_planet) {
     }
    
     for @!build_goals -> $goal {
-        note $goal.gist;
         last unless self.upgrade($body, $goal, $ACCEPTABLE_RECURSION);
     } 
 	
@@ -65,8 +64,11 @@ method upgrade(Body $body, $goal, $infinite_recursion_protect is copy --> Bool) 
     for @buildings -> LacunaBuilding $building {
 
 	my $view = $building.view;
-        next unless $goal.level > $view.level;
-
+        unless $goal.level > $view.level {
+            say colored($goal.gist, 'green');
+            next;
+        }
+        say colored($goal.gist, 'default');
 	
 	if $view.upgrade<can> {
 	    $building.upgrade;
@@ -79,7 +81,7 @@ method upgrade(Body $body, $goal, $infinite_recursion_protect is copy --> Bool) 
                 #=       we try to do it with another mine (maybe it has lower level)
 		when $UNSUSTAINABLE {
 		    unless $view.upgrade<reason>[2] {
-			note colored($view.upgrade<reason>[1], 'red');
+			note colored(truncate($view.upgrade<reason>[1]), 'red');
 			next
 		    }
 
@@ -104,7 +106,7 @@ method upgrade(Body $body, $goal, $infinite_recursion_protect is copy --> Bool) 
 		    my $quantity = $view.upgrade<cost>{$resource};
 		    my $status = $body.get_status<body>;
 		    my $capacity = $status{$resource ~ '_capacity'};
-		    note "Need to have $quantity of $resource for {$goal.building}";
+#  		    note "Need to have $quantity of $resource for {$goal.building}";
 		    
 		    if  $quantity > $capacity {
 			note "To small stores will try to upgrade";
@@ -114,12 +116,11 @@ method upgrade(Body $body, $goal, $infinite_recursion_protect is copy --> Bool) 
 
 			if $new_goal.building != $goal.building {
                             self.upgrade($body,$new_goal,$infinite_recursion_protect);
-                        } else {
-                            next;
-                        }
-                    } else {
-                        note "Capacity of $capacity is sufficent, stores will be left as is";
-		    }
+                        } else {next}
+                    }
+#              else {
+#                        note "Capacity of $capacity is sufficent, stores will be left as is";
+#		    }
 		}
                 #= Queue full = No options
 		when $NO_ROOM_IN_QUEUE {
@@ -127,7 +128,8 @@ method upgrade(Body $body, $goal, $infinite_recursion_protect is copy --> Bool) 
                     return False;
 		}
                 #= Already upgrading! Almost like success
-		when $INCOMPLETE_PENDING_BUILD {next}
+		when $INCOMPLETE_PENDING_BUILD {
+                    next}
 
                 #= Panic!
 		default {die $view.upgrade}
@@ -211,4 +213,15 @@ submethod repair_one($planet) {
         #TODO check efficency because glyph buildings have reapir cost 0
         $b.repair;
     }
+}
+
+sub truncate(Str $s) {
+    if $s.chars >128 {
+        # this can be done so many ways that it smells like great
+        # stackoverflow question
+        return $s.chop($s.chars-125) ~ "..."
+    } else {
+        return $s;
+    }
+
 }
