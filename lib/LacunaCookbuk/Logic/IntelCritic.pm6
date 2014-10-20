@@ -38,7 +38,7 @@ sub elaborate_intelligence(Planet $planet) {
 }
 
 sub rename_intelligence(Planet $planet) {
-    note "Looking for Agent null on {$planet.name}";
+    say "Looking for Agent null on {$planet.name}";
     my Intelligence $imini = $planet.find_intelligence_ministry;
     my @list = $imini.get_view_spies;
     my Str $spiesl = format_spies(@list);
@@ -88,7 +88,7 @@ sub rename_spies($planet, @spies){
     for @spies -> Spy $spy {
 	if $spy.name ~~ "Agent Null"  {
 	    $imini.name_spy($spy.id, $planet.name);
-	    note "Renamed spy {$spy.name}";
+	    say "Renamed spy {$spy.name}";
 	}
     }
 }

@@ -38,6 +38,10 @@ submethod get_glyphs_hash { #(--> Hash) {
     %hash;
 } 
 
+submethod get_plans_hash { #(--> Hash) {
+    rpc($URL).get_plan_summary(session_id, self.id)<plans>;
+} 
+
 method get_resources {
     rpc($URL).get_stored_resources(session_id, $.id)<resources>;
 }

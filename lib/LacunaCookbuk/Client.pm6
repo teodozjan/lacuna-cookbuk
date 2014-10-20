@@ -8,10 +8,10 @@ use LacunaCookbuk::Logic::OreCritic;
 use LacunaCookbuk::Logic::IntelCritic;
 use LacunaCookbuk::Logic::PlanMaker;
 use LacunaCookbuk::Logic::Transporter;
-
 use LacunaCookbuk::Logic::Ambassador;
 use LacunaCookbuk::Logic::Commander;
 use LacunaCookbuk::Logic::Secretary;
+
 use LacunaCookbuk::Model::Empire;
 
 
@@ -148,7 +148,14 @@ method zones {
     LacunaCookbuk::Logic::BodyBuilder.report_zones;
 }
 
-#|Repair broken planets
+#| Repair broken planets
 method repair {
     LacunaCookbuk::Logic::Chairman.repair_all;
 }
+
+#| Refill Space Station Module plan pocekt
+method make_space {
+  LacunaCookbuk::Logic::PlanMaker.space_plans;
+}
+
+

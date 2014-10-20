@@ -94,7 +94,7 @@ method !count_plans(@planRecipe, %glyphs) {
     for @planRecipe -> $glp {
 
 	if !%glyphs{$glp} {
-	    note "Missing: " ~ $glp;
+	    say "Missing: " ~ $glp;
 	    return 0;
 	}
 	elsif $num == 0 
@@ -111,7 +111,30 @@ method !count_plans(@planRecipe, %glyphs) {
 
 method create_recipe(@recipe, Int $quantity) {
     return if $quantity == 0;
-    my $hp = home_planet;
-    $hp.find_archaeology_ministry().assemble_glyphs(@recipe, $quantity)
+    home_planet.find_archaeology_ministry().assemble_glyphs(@recipe, $quantity)
 }
 
+
+method space_plans {
+
+  my Trade $t = home_planet.find_trade_ministry;
+  my $pns = $t.get_plans_hash();
+  say $pns.perl;
+  say "!!!!!";
+
+
+}
+
+=begin pod
+
+=head2 Space port plans
+
+=item Find current plans
+
+=item find lowest quantity plan
+
+=item make it
+
+=item repeat until get bored
+
+=end pod

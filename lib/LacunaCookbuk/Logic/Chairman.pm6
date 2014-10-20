@@ -34,14 +34,14 @@ constant $ACCEPTABLE_RECURSION = 5;
 sub print_queue_summary(Body $body = home_planet) {
     my Development $dev = $body.find_development_ministry;
     for $dev.build_queue -> %item {
-	note colored(%item<name> ~ " ⌛" ~ DateTime.new(now + %item<seconds_remaining>), 'blue'); 	
+	say colored(%item<name> ~ " ⌛" ~ DateTime.new(now + %item<seconds_remaining>), 'blue'); 	
     }
 }
 
 
 method build(Body $body = home_planet) {
     if $body.get_happiness < 0 {
-	note colored("Planet is negative happiness. Leaving...", 'red');
+	say colored("Planet is negative happiness. Leaving...", 'red');
 	return;
     }
    
@@ -55,7 +55,7 @@ method build(Body $body = home_planet) {
 
 method upgrade(Body $body, $goal, $infinite_recursion_protect is copy --> Bool) {
     unless --$infinite_recursion_protect {
-        note colored("Infinite recursion", "red");
+        say colored("Infinite recursion", "red");
         return False;
     }
 
@@ -72,7 +72,7 @@ method upgrade(Body $body, $goal, $infinite_recursion_protect is copy --> Bool) 
 	
 	if $view.upgrade<can> {
 	    $building.upgrade;
-	    note colored("Upgrade started " ~ $goal.building, 'green');
+	    say colored("Upgrade started " ~ $goal.building, 'green');
 	} else {
 	    given $view.upgrade<reason>[0] {
                 #= =item When building is UNSUSTAINABLE we surrender if it is specific resorce.
@@ -81,21 +81,21 @@ method upgrade(Body $body, $goal, $infinite_recursion_protect is copy --> Bool) 
                 #=       we try to do it with another mine (maybe it has lower level)
 		when $UNSUSTAINABLE {
 		    unless $view.upgrade<reason>[2] {
-			note colored(truncate($view.upgrade<reason>[1]), 'red');
+			say colored(truncate($view.upgrade<reason>[1]), 'red');
 			next
 		    }
 
 		    my $resource = value_of($view.upgrade<reason>[2]);
-		    note 'Need to produce more ' ~ $resource  ~ ' for ' ~ $goal.building;
+		    say 'Need to produce more ' ~ $resource  ~ ' for ' ~ $goal.building;
 		    my $new_goal =  LacunaCookbuk::Logic::Chairman::BuildGoal.new(
                         building => production($resource), 
                         level => $!max_resource_building_level);
 
 		    if $new_goal.building != $goal.building {
-			note "Too low $resource for upgrading {$new_goal.building}";
+			say "Too low $resource for upgrading {$new_goal.building}";
 			self.upgrade($body, $new_goal, $infinite_recursion_protect);
                     } else {
-                        note "Cannot upgrade itself";
+                        say "Cannot upgrade itself";
                         next
 		    }
 		}
@@ -106,10 +106,10 @@ method upgrade(Body $body, $goal, $infinite_recursion_protect is copy --> Bool) 
 		    my $quantity = $view.upgrade<cost>{$resource};
 		    my $status = $body.get_status<body>;
 		    my $capacity = $status{$resource ~ '_capacity'};
-#  		    note "Need to have $quantity of $resource for {$goal.building}";
+#  		    say "Need to have $quantity of $resource for {$goal.building}";
 		    
 		    if  $quantity > $capacity {
-			note "To small stores will try to upgrade";
+			say "To small stores will try to upgrade";
 			my $new_goal = LacunaCookbuk::Logic::Chairman::BuildGoal.new(
                             building=> storage($resource),
                             level => $!max_resource_building_level);
@@ -119,12 +119,12 @@ method upgrade(Body $body, $goal, $infinite_recursion_protect is copy --> Bool) 
                         } else {next}
                     }
 #              else {
-#                        note "Capacity of $capacity is sufficent, stores will be left as is";
+#                        say "Capacity of $capacity is sufficent, stores will be left as is";
 #		    }
 		}
                 #= Queue full = No options
 		when $NO_ROOM_IN_QUEUE {
-		    note 'Queue full';
+		    say 'Queue full';
                     return False;
 		}
                 #= Already upgrading! Almost like success
@@ -181,7 +181,7 @@ sub production(LacunaCookbuk::Logic::Chairman::Resource $resource --> LacunaCook
 submethod build_all {
     for (planets) -> Body $planet {
 	next if $planet.is_home;
-	note BOLD, "Upgrading " ~ $planet.name, RESET;
+	say BOLD, "Upgrading " ~ $planet.name, RESET;
 	self.build($planet);
     }
 }

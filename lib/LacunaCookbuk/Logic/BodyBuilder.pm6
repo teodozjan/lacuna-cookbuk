@@ -29,12 +29,12 @@ I want this code back
 =end pod
 
     #moar hack
-    note 'Readin $path_planets';
+    say 'Readin $path_planets';
     my $plan = slurp $path_planets;
     @planets = EVAL $plan;
 
     #moar hack
-    note 'Readin $path_stations';
+    say 'Readin $path_stations';
     my $stat =  slurp $path_stations;
     @stations = EVAL $stat; 
 
@@ -60,11 +60,11 @@ submethod process_all_bodies {
        
 	if $body.is_station {
 	    my SpaceStation $station .= new(id => $planet_id, buildings => $body.buildings,  x => $body.x, y => $body.y);
-	    note $station.name ~ " is a Space Station";
+	    say $station.name ~ " is a Space Station";
 	    @stations.push($station)
 	} elsif $body.is_planet {
 	    my Planet $planet .= new(id => $planet_id, buildings => $body.buildings, ore => $body.ore, x => $body.x, y => $body.y);
-	    note $planet.name ~ " is a Planet";
+	    say $planet.name ~ " is a Planet";
 	    @planets.push($planet)
 	}else {
 	    warn $body.name ~ " Cannot be used -- neither planet nor station";

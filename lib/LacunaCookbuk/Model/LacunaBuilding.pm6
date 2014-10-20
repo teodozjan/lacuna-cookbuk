@@ -26,10 +26,10 @@ method repair {
 
 method repaired returns Bool {
     if self.view.damaged {
-        note colored($!url ~ " damaged", 'red');
+        say colored($!url ~ " damaged", 'red');
         try self.repair;
         return False if $!;
-        note colored("Repair successful", 'blue');
+        say colored("Repair successful", 'blue');
     }
     return True;
 }

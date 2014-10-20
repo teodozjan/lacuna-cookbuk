@@ -34,7 +34,7 @@ submethod transport(@goods,Planet $src, Planet $dst = home_planet)
     my $trade = $src.find_trade_ministry;
     return unless $trade;
     unless $trade.repaired {
-        note "Cannot use TradeMinistry on " ~ $src.name;
+        say "Cannot use TradeMinistry on " ~ $src.name;
         return;
 
     }
@@ -43,7 +43,7 @@ submethod transport(@goods,Planet $src, Planet $dst = home_planet)
     }
     my $ship = $trade.find_fastest_ship;
     unless $ship {
-        note "No ship available on {$src.name}";
+        say "No ship available on {$src.name}";
         return;
     }
 
@@ -55,7 +55,7 @@ submethod transport_all_cargo(Planet $dst = home_planet) {
     my @goods = (Glyphs, Plans);
     my @planets = planets;
     for @planets -> Planet $planet {
-	#note $planet.name;	
+	#say $planet.name;	
 	next if $planet.is_home;
 	self.transport(@goods, $planet, $dst);
     }

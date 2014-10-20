@@ -17,7 +17,7 @@ submethod find_archaeology_ministry(--> Archaeology) {
     for self.buildings -> LacunaBuilding $building {
 	return Archaeology.new(id => $building.id, url => $Archaeology::URL) if $building.url ~~ $Archaeology::URL;
     }
-    note "No archaeology ministry on " ~ self.name;
+    say "No archaeology ministry on " ~ self.name;
     Archaeology;
 }   
 
@@ -25,7 +25,7 @@ submethod find_trade_ministry(--> Trade) {
     for self.buildings -> LacunaBuilding $building {
 	return Trade.new(id => $building.id, url => $Trade::URL) if $building.url ~~ $Trade::URL;
     }
-    note "No trade ministry on " ~ self.name;
+    say "No trade ministry on " ~ self.name;
     Trade;
 }   
 
@@ -33,7 +33,7 @@ submethod find_shipyard(--> Shipyard) {
     for self.buildings -> LacunaBuilding $building {
 	return Shipyard.new(id => $building.id, url => $Shipyard::URL) if $building.url ~~ $Shipyard::URL;
     }
-    note "No shipyard on " ~ self.name;
+    say "No shipyard on " ~ self.name;
     Shipyard;
 } 
 
@@ -47,7 +47,7 @@ submethod find_space_port(--> SpacePort) {
 	    return SpacePort.new(|%attr)
 	}
     }
-    note "No space port on " ~ self.name;
+    say "No space port on " ~ self.name;
     SpacePort;
 }
 
@@ -65,7 +65,7 @@ submethod find_intelligence_ministry(--> Intelligence) {
 	    return Intelligence.new(|%attr);
 	}
     }
-    note "No intelligence on " ~ self.name;
+    say "No intelligence on " ~ self.name;
     Intelligence;
 }
 
@@ -82,7 +82,7 @@ submethod find_development_ministry(--> Development) {
 	    return Development.new(|%attr);
 	}
     }
-    note "No intelligence on " ~ self.name;
+    say "No intelligence on " ~ self.name;
     Development;
 }
 
