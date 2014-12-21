@@ -4,9 +4,11 @@ use v6;
 use LacunaCookbuk::Model::Body::SpaceStation;
 use LacunaCookbuk::Model::Structure::Parliament;
 use LacunaCookbuk::Logic::BodyBuilder;
+use LacunaCookbuk::Model::Empire;
 
 class LacunaCookbuk::Logic::Ambassador;
 
+constant $ALLIANCE = "/alliance"; 
 
 submethod vote_all(Bool $vote) {
     for (stations) -> SpaceStation $station {
@@ -24,3 +26,10 @@ submethod vote_all(Bool $vote) {
     }
 }
 
+submethod show_alliance(Str $name){
+    my $all = rpc($ALLIANCE);
+    say "Looking for $name";
+    my $id = $all.find(session_id,$name)<alliances>;
+    say "Found" ~ $id.perl;
+        say $all.view_profile(session_id, $id<id>)
+}

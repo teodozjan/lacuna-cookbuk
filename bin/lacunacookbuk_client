@@ -6,6 +6,7 @@ use LacunaCookbuk::Client;
 use LacunaCookbuk::Logic::Chairman;
 use LacunaCookbuk::Logic::BodyBuilder;
 use Term::ANSIColor;
+use LacunaCookbuk::Logic::Ambassador;
 
 sub USAGE() {
 say 'Usage:
@@ -15,6 +16,15 @@ Tasks should be separated by comma';
 
 }
 
+multi sub MAIN(Str :$alliance){
+#  my LacunaCookbuk::Client $client .= new;
+ 
+  create_session;
+
+  LacunaCookbuk::Logic::Ambassador.show_alliance($alliance);
+  close_session;  
+
+}
 
 multi sub MAIN(Bool :$help!){
     USAGE();

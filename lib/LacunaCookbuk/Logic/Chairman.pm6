@@ -165,7 +165,7 @@ sub production(LacunaCookbuk::Logic::Chairman::Resource $resource --> LacunaCook
 				     algae,
 				     malcud
 		);
-	    return @array.pick }#FIXME
+	    return @array.pick } #FIXME
 	when ore {
 	    my @array of LacunaCookbuk::Logic::Chairman::BuildingEnum = (mine, orerefinery);
 	    return  @array.pick

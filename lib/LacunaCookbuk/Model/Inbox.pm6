@@ -13,7 +13,7 @@ method trash_messages(@msg_ids){
 }
 
 method view_inbox(@tags){
- 	rpc($URL).view_inbox(session_id, %(tags => @tags))<messages>
+    rpc($URL).view_inbox(session_id, %(tags => @tags))<messages>
 }
 
 
