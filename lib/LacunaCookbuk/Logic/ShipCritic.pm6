@@ -56,7 +56,7 @@ submethod elaborate_ships {
 	    say BOLD, $pair.key;
 	    say $ruler;
 	    print form($ship_templ, 'Name', 'ID', 'Speed','Stealth', 'Hold size', 'Combat', 'Task'), RESET;
-	    for @shipz -> @ship_h{
+	    for @shipz -> @ship_h {
 
 		for @ship_h -> %ship {
 		    
