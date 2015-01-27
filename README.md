@@ -10,7 +10,7 @@ Fun with client:
     $ lacunacookbuk_client --update --tasks=defend
     # will die but will also prefill settings
     $ nano .lacuna_cookbuk/login.pl
-    $ lacunacookbuk_client --taks=defend,ordinary,chairman --update
+    $ lacunacookbuk_client --tasks=defend,ordinary,chairman --update
 
 ### DESCRIPTION    
     
