@@ -5,7 +5,7 @@ use LacunaCookbuk::Model::Body::Planet;
 use PerlStore::FileStore;
 use LacunaCookbuk::Model::LacunaBuilding;
 use LacunaCookbuk::Model::Empire;
-use Term::ANSIColor;
+use Terminal::ANSIColor;
 
 #| Class is responsible for reading bodies and storing them
 unit class LacunaCookbuk::Logic::BodyBuilder;

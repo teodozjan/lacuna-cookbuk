@@ -6,7 +6,7 @@ use LacunaCookbuk::Model::Structure::Development;
 use LacunaCookbuk::Logic::BodyBuilder;
 
 
-use Term::ANSIColor;
+use Terminal::ANSIColor;
 
 #| Chairman is the class that does all the magic.
 unit class LacunaCookbuk::Logic::Chairman;

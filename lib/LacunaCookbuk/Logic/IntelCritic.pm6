@@ -3,7 +3,7 @@ use v6;
 use LacunaCookbuk::Model::Body::Planet;
 use LacunaCookbuk::Logic::BodyBuilder;
 use Form;
-use Term::ANSIColor;
+use Terminal::ANSIColor;
 
 #= This class has evil design. REFACTOR me
 unit class LacunaCookbuk::Logic::IntelCritic;
