@@ -10,7 +10,7 @@ unit class LacunaCookbuk::Logic::IntelCritic;
 
 constant $TERM_SIZE = 128;
 constant @summary_header = <planet num limit details>;
-constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
+our constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>}';
 constant $ruler = '-' x $TERM_SIZE;
 
 constant @spy_header = <name level politics mayhem theft intel defense offense mission_off mission_def assignment>; 

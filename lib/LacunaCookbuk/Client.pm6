@@ -129,7 +129,7 @@ method upgrade_home {
 	$capitol, $stockpile
 	);
 
-	my $c =LacunaCookbuk::Logic::Chairman.new(build_goals=>(@goals));
+	my $c = LacunaCookbuk::Logic::Chairman.new(build_goals=>(@goals));
 	$c.build;
 }
 
@@ -163,6 +163,12 @@ method repair {
 #| Refill Space Station Module plan 
 method make_space {
   LacunaCookbuk::Logic::PlanMaker.space_plans;
+}
+
+#| Where are my planets? It is not best implementation
+#| but at least grep capable
+method waste {
+    LacunaCookbuk::Logic::BodyBuilder.report_wase;
 }
 
 
