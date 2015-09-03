@@ -90,7 +90,7 @@ sub stations is export {
 
 
 submethod report_waste {
-    for @planets, @stations -> $body {
+    for @planets -> $body {
         my $waste = $body.get_waste_stored;
         my $wasteh = $body.get_waste_hour;
         my $wastec = $body.get_waste_capacity;
