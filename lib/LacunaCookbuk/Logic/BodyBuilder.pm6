@@ -93,8 +93,8 @@ submethod report_waste {
     for @planets, @stations -> $body {
         my $waste = $body.get_waste_stored;
         my $wasteh = $body.get_waste_hour;
-        my $wasteload = $waste/$body.get_waste_capacity;
-	say "{$body.name} $waste($wasteload) at $wasteh";
+        my $wasteload = $waste*100/$body.get_waste_capacity;
+	say "{$body.name} {$waste}({$wasteload}%) at {$wasteh}";
     }
 }
 

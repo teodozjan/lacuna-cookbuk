@@ -1,7 +1,5 @@
 use v6;
 
-use LacunaCookbuk::Logic::Chairman::BuildingEnum;
-
 use LacunaCookbuk::Logic::Chairman;
 use LacunaCookbuk::Logic::ShipCritic;
 use LacunaCookbuk::Logic::OreCritic;
@@ -168,7 +166,7 @@ method make_space {
 #| Where are my planets? It is not best implementation
 #| but at least grep capable
 method waste {
-    LacunaCookbuk::Logic::BodyBuilder.report_wase;
+    LacunaCookbuk::Logic::BodyBuilder.report_waste;
 }
 
 

@@ -48,17 +48,17 @@ method get_happiness(--> Int:D){
 
 method get_waste_stored(--> Int:D){
     my %res = self.status();
-    %res<body><waste_stored>;
+    +%res<body><waste_stored>;
 }
 
 method get_waste_hour(--> Int:D){
     my %res = self.status();
-    %res<body><waste_hour>;
+    +%res<body><waste_hour>;
 }
 
-method get_waste_waste_capacity(--> Int:D){
+method get_waste_capacity(--> Int:D){
     my %res = self.status();
-    %res<body><waste_capacity>;
+    +%res<body><waste_capacity>;
 }
 
 
