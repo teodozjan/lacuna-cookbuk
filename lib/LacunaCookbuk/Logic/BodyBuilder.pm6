@@ -93,8 +93,17 @@ submethod report_waste {
     for @planets, @stations -> $body {
         my $waste = $body.get_waste_stored;
         my $wasteh = $body.get_waste_hour;
-        my $wasteload = $waste*100/$body.get_waste_capacity;
-	say "{$body.name} {$waste}({$wasteload}%) at {$wasteh}";
+        my $wastec = $body.get_waste_capacity;
+        my $wasteload;
+        if $wastec == 0 {$wasteload = -100}else{$wasteload = $waste*100/$wastec}
+        
+        my $color = "default";
+	$color = "blue" if $wasteload == 0;
+	$color = "yellow" if $wasteload < 0;
+        $color = "green" if $wasteh == 0;
+        $color = "red" if $wasteload > 99;
+	
+	say colored("{$body.name} {$waste}({$wasteload}%) at {$wasteh}",$color);
     }
 }
 
