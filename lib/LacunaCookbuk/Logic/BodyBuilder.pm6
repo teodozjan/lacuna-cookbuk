@@ -19,17 +19,17 @@ submethod read {
     my $path_stations = make_path('stations.pl');
 
 #= I want this code back
-#=    @planets = from_file($path_planets);
-#=    @stations = from_file($path_stations);
+    @planets = from_file($path_planets);
+    @stations = from_file($path_stations);
     #moar hack
-    say 'Readin $path_planets';
-    my $plan = slurp $path_planets;
-    @planets = EVAL $plan;
+#    say 'Readin $path_planets';
+#    my $plan = slurp $path_planets;
+#    @planets = EVAL $plan;
 
     #moar hack
-    say 'Readin $path_stations';
-    my $stat =  slurp $path_stations;
-    @stations = EVAL $stat; 
+#    say 'Readin $path_stations';
+#    my $stat =  slurp $path_stations;
+#    @stations = EVAL $stat; 
 
 
 }
