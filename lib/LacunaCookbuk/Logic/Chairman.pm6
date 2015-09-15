@@ -23,6 +23,10 @@ class BuildGoal {
     has LacunaCookbuk::Logic::Chairman::BuildingEnum $.building;
     has Int $.level;
     has Bool $.priority=False;
+
+    multi method gist returns Str {
+        "{$!building.key} {$!level} {$!priority}"
+    }
 }
 
 has LacunaCookbuk::Logic::Chairman::BuildGoal @.build_goals;
