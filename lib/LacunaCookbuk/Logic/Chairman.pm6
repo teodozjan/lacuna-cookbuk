@@ -215,7 +215,9 @@ submethod repair_one($planet) {
     say "{$planet.name}:";
     for @buildings -> $b {        
         #TODO check efficency because glyph buildings have repair cost 0
-        $b.repair;
+        if $b.view.damaged {
+            $b.repair;
+        }
     }
     CATCH {
         default {

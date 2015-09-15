@@ -9,5 +9,9 @@ has $.repair_costs;
 has $.efficiency;
 
 submethod damaged {
+    $!efficiency < 100    
+}
+
+submethod will_repair_cost {
     return any($!repair_costs.values) != 0;
 }
