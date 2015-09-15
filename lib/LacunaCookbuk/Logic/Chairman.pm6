@@ -235,3 +235,14 @@ sub truncate(Str $s) {
     }
 
 }
+
+submethod view_body($planet){
+    my @buildings = $planet.get_buildings;
+    dd @buildings;
+
+
+    for @buildings -> $b {
+        dd $b.view;
+    }
+
+}
