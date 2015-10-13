@@ -15,7 +15,7 @@ lives-ok {$client.defend}, 'Show attackers';
 lives-ok {$client.ordinary}, 'Make halls  and transport them';
 lives-ok {$client.chairman}, 'Upgrade buildings';
 
-lives-ok close_session, "Logout";
+lives-ok {close_session}, "Logout";
 
 
 
