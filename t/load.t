@@ -6,7 +6,7 @@ plan 1;
 
 use LacunaCookbuk::Client;
 my $client;
-lives-ok $client = LacunaCookbuk::Client.new, "Construction"; 
+lives-ok {$client = LacunaCookbuk::Client.new}, "Construction"; 
 
 lives-ok create_session, "Login";
 
