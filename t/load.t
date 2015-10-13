@@ -5,7 +5,7 @@ use Test;
 plan 2;
 
 use LacunaCookbuk::Client;
-subtest{
+subtest {
     plan 8;
     my $client;
     lives-ok {$client = LacunaCookbuk::Client.new}, 'Construction'; 
@@ -20,7 +20,10 @@ subtest{
 
     lives-ok close_session, "Logout";
 },'Spesh enabled tests';
+
 %*ENV<MVM_SPESH_DISABLE> = 1;
+#API RPC LIMIT per min protection
+sleep 60;
 subtest {
     plan 8;
     my $client;
