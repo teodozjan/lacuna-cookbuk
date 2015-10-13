@@ -76,7 +76,6 @@ method upgrade(Body $body, $goal, $infinite_recursion_protect is copy --> Bool) 
             say colored($goal.gist, 'green');
             next;
         }
-        say colored($goal.gist, 'default');
 	
 	if $view.upgrade<can> {
 	    $building.upgrade;
