@@ -4,7 +4,15 @@ use Test;
 use LacunaCookbuk::Client;
 use IO::Capture::Simple;
  
+
 plan 8;
+
+unless %*ENV<TRAVIS>{
+note "Cannot perform all test without game login data.\nIf You are not afraid go and set %*ENV<TRAVIS> true" 
+skip-rest();
+}
+
+
 my $client;
 lives-ok {$client = LacunaCookbuk::Client.new}, 'Construction'; 
 
@@ -17,6 +25,5 @@ lives-ok {capture_stdout {$client.ordinary}}, 'Make halls  and transport them';
 lives-ok {capture_stdout {$client.chairman}}, 'Upgrade buildings';
 
 lives-ok {close_session}, "Logout";
-
 
 
