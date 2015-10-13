@@ -8,8 +8,8 @@ use IO::Capture::Simple;
 plan 8;
 
 unless %*ENV<TRAVIS> {
-note "Cannot perform all test without game login data.\nIf You are not afraid go and set ENV<TRAVIS> true"; 
-skip-rest();
+skip-rest 'Cannot perform all test without game login data'; 
+exit;
 }
 
 
