@@ -48,7 +48,7 @@ submethod transport(@goods,Planet $src, Planet $dst = home_planet)
     }
 
     my @packed = self.cut_size(@cargo, +$ship<hold_size>);
-    say $trade.append(@packed) if @packed;   
+    say $trade.push_cargo(@packed) if @packed;   
 }
 
 submethod transport_all_cargo(Planet $dst = home_planet) {
