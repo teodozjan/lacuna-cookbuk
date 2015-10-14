@@ -6,7 +6,7 @@ script:
 - perl6 -MPanda::Builder -e 'Panda::Builder.build($*CWD)'
 - echo Running spesh enabled && PERL6LIB=$PWD/blib/lib prove -e perl6 -vr t/
 - echo Running spesh disabled && PERL6LIB=$PWD/blib/lib MVM_SPESH_DISABLE=1 prove -e perl6 --ll-exception --profile-filename out.json -vr t/
--cat out.json
+- cat out.json
 sudo: false
 before_install:
 - openssl aes-256-cbc -K $encrypted_e8f54b4675bd_key -iv $encrypted_e8f54b4675bd_iv
