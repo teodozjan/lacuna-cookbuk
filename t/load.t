@@ -17,15 +17,26 @@ my $client;
 lives-ok {$client = LacunaCookbuk::Client.new}, 'Construction'; 
 
 lives-ok {create_session}, 'Login';
-silent_lives_ok {LacunaCookbuk::Logic::BodyBuilder.process_all_bodies}, 'Update';
+lives-ok {
+    capture_stdout {LacunaCookbuk::Logic::BodyBuilder.process_all_bodies}
+}, 'Update';
 
-silent_lives_ok {$client.cleanbox}, 'Remove mail';
-silent_lives_ok {$client.defend}, 'Show attackers';
-silent_lives_ok {$client.ordinary}, 'Make halls  and transport them';
-silent_lives_ok {$client.chairman}, 'Upgrade buildings';
+lives-ok {
+    capture_stdout {$client.cleanbox}
+}, 'Remove mail';
+
+lives-ok {
+    capture_stdout {$client.defend}
+}, 'Show attackers';
+
+lives-ok {
+    #capture_stdout
+    {$client.ordinary}
+}, 'Make halls  and transport them';
+
+lives-ok {
+    capture_stdout {$client.chairman}
+}, 'Upgrade buildings';
 
 lives-ok {close_session}, "Logout";
 
-sub silent_lives_ok(Callable $code, $reason = ''){
-    lives-ok {capture_stdout ($code,$reason)}
-}

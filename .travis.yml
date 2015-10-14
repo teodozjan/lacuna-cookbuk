@@ -4,8 +4,8 @@ install:
 - panda --notests installdeps .
 script:
 - perl6 -MPanda::Builder -e 'Panda::Builder.build($*CWD)'
-- echo Running spesh enabled && PERL6LIB=$PWD/blib/lib prove -e perl6 -vr t/
-- echo Running spesh disabled && PERL6LIB=$PWD/blib/lib MVM_SPESH_DISABLE=1 prove -e perl6 --ll-exception --profile-filename out.json -vr t/
+- echo Running spesh enabled && PERL6LIB=$PWD/blib/lib prove -e perl6--ll-exception -vr t/
+- echo Running spesh disabled && PERL6LIB=$PWD/blib/lib MVM_SPESH_DISABLE=1 prove -e perl6 -vr t/
 - cat out.json
 sudo: false
 before_install:
