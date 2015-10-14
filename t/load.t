@@ -17,7 +17,7 @@ my $client;
 lives-ok {$client = LacunaCookbuk::Client.new}, 'Construction'; 
 
 lives-ok {create_session}, 'Login';
-capture_lives_ok {LacunaCookbuk::Logic::BodyBuilder.process_all_bodies}, 'Update';
+silent_lives_ok {LacunaCookbuk::Logic::BodyBuilder.process_all_bodies}, 'Update';
 
 silent_lives_ok {$client.cleanbox}, 'Remove mail';
 silent_lives_ok {$client.defend}, 'Show attackers';
