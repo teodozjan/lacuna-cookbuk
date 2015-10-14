@@ -30,8 +30,7 @@ lives-ok {
 }, 'Show attackers';
 
 lives-ok {
-    #capture_stdout
-    {$client.ordinary}
+    capture_stdout {$client.ordinary}
 }, 'Make halls  and transport them';
 
 lives-ok {
