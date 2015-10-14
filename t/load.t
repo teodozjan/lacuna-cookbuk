@@ -27,5 +27,5 @@ silent_lives_ok {$client.chairman}, 'Upgrade buildings';
 lives-ok {close_session}, "Logout";
 
 sub silent_lives_ok(Callable $code, $reason = ''){
-    capture_stdout {lives-ok($code,$reason)}
+    lives-ok {capture_stdout ($code,$reason)}
 }
