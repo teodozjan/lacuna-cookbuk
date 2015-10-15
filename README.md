@@ -14,7 +14,7 @@ Fun with client:
 
 ### DESCRIPTION    
     
-Precompiling is the most changing part of perl6 backends so it may be used as failsafe mode
+[![Build Status](https://travis-ci.org/teodozjan/lacuna-cookbuk.svg?branch=v3.1.2)](https://travis-ci.org/teodozjan/lacuna-cookbuk) Don't worry it is usable but SPESH has little bug that prevents it from working
 
 Script helps https://us1.lacunaexpanse.com players doing boring tasks like moving glyphs to one place that can make plans from them or searching where excess fighters can be put. The intention was putting perl6 into life. 
 
@@ -22,11 +22,6 @@ Compilation:
 
     $ panda install LacunaCookbuk
 
-You can also try to use it without compiling
-
-    $  PERL6LIB=/your/path/lacuna-cookbuk/lib: perl6 /your/path/lacuna-cookbuk/bin/lacunacookbuk_client --help
-
-    
 Things that seem to work:
 
 	- Caching planets and its buildings
