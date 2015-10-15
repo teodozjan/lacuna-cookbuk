@@ -4,7 +4,7 @@ install:
 - panda --notests installdeps .
 script:
 - perl6 -MPanda::Builder -e 'Panda::Builder.build($*CWD)'
-- echo Running spesh enabled && PERL6LIB=$PWD/blib/lib MVM_SPESH_NODELAY=1 MVM_JIT_DISABLE=1 MVM_SPESH_INLINE_DISABLE=1 MVM_SPESH_OSR_DISABLE=1 prove -e perl6 -vr t/
+- echo Running spesh enabled && PERL6LIB=$PWD/blib/lib MVM_SPESH_NODELAY=1 prove -e perl6 -vr t/
 - sleep 60
 - echo Running spesh disabled && PERL6LIB=$PWD/blib/lib MVM_SPESH_DISABLE=1 prove -e perl6 -vr t/
 
