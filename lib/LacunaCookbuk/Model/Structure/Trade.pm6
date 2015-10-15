@@ -48,7 +48,7 @@ method get_resources {
 
 
 method get_plans {
-    my Hash @array;
+    my Hash @array=();
     for rpc($URL).get_plan_summary(session_id, $.id)<plans> -> @plans
     {
 	for @plans -> %sth { 
