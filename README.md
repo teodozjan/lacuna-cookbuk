@@ -12,6 +12,9 @@ Fun with client:
     $ nano .lacuna_cookbuk/login.pl
     $ lacunacookbuk_client --tasks=defend,ordinary,chairman --update
 
+Writting own:
+         [Link documentation] (..//blob/master/lib/LacunaCookbuk/Client.pm6)
+         
 ### DESCRIPTION    
     
 [![Build Status](https://travis-ci.org/teodozjan/lacuna-cookbuk.svg?branch=v3.1.2)](https://travis-ci.org/teodozjan/lacuna-cookbuk) Don't worry it is usable but SPESH has little bug that prevents it from working
