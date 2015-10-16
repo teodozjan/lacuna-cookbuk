@@ -13,7 +13,7 @@ Fun with client:
     $ lacunacookbuk_client --tasks=defend,ordinary,chairman --update
 
 Writting own:
-         [Link documentation] (..//blob/master/lib/LacunaCookbuk/Client.pm6)
+         [Link documentation] (../master/lib/LacunaCookbuk/Client.pm6)
          
 ### DESCRIPTION    
     
