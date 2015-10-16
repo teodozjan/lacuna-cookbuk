@@ -59,7 +59,7 @@ method ordinary {
    LacunaCookbuk::Logic::Transporter.transport_all_cargo;
 }
 
-#| Will upgrade buildings in order passed to L<doc:LacunaCookbuk::Chariman>
+#| Will upgrade buildings in order passed to L<doc:LacunaCookbuk::Logic::Chairman>
 #| chairman will work only on existing buildings but this may change in future
 method chairman {
     #| FIXME isolate and fill bug report
