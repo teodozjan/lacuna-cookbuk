@@ -25,7 +25,7 @@ Instalation:
 
     $ panda install LacunaCookbuk
 
-More about panda [here])(https://github.com/tadzik/panda)
+More about panda [here](https://github.com/tadzik/panda)
 
 Things that seem to work:
 
