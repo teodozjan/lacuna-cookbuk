@@ -21,9 +21,11 @@ Writting own:
 
 Script helps https://us1.lacunaexpanse.com players doing boring tasks like moving glyphs to one place that can make plans from them or searching where excess fighters can be put. The intention was putting perl6 into life. 
 
-Compilation:
+Instalation:
 
     $ panda install LacunaCookbuk
+
+More about panda here 
 
 Things that seem to work:
 
