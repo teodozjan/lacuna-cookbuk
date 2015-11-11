@@ -5,7 +5,7 @@ use LacunaCookbuk::Model::LacunaBuilding;
 use LacunaCookbuk::Model::Empire;
 constant $URL = '/body';
 
-unit role Body does LacunaCookbuk::Id;
+unit role LacunaCookbuk::Model::Body does LacunaCookbuk::Id;
 
 has LacunaBuilding @.buildings;
 has %.ore; 

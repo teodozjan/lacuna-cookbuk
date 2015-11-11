@@ -3,7 +3,7 @@ use v6;
 use LacunaCookbuk::Model::Empire;
 use LacunaCookbuk::Model::LacunaBuilding;
 
-unit class SpacePort is LacunaBuilding;
+unit class LacunaCookbuk::Model::SpacePort is LacunaBuilding;
 
 constant $URL = '/spaceport';
 

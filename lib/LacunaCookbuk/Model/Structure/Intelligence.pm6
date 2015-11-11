@@ -4,7 +4,7 @@ use LacunaCookbuk::Model::Empire;
 use LacunaCookbuk::Model::LacunaBuilding;
 use LacunaCookbuk::Model::Spy;
 
-unit class Intelligence does LacunaBuilding;
+unit class LacunaCookbuk::Model::Intelligence does LacunaBuilding;
 
 constant $URL = '/intelligence';
 has $.maximum;
