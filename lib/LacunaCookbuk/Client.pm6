@@ -61,7 +61,7 @@ use LacunaCookbuk::Logic::Commander;
 use LacunaCookbuk::Logic::Secretary;
 
 use LacunaCookbuk::Model::Empire;
-=cut
+
 
 
 #| LacunaCookbuk main client
