@@ -39,7 +39,7 @@ constant $NO_ROOM_IN_QUEUE = 1009;
 constant $INCOMPLETE_PENDING_BUILD = 1010;
 constant $NOT_ENOUGH_STORAGE = 1011;
 constant $ACCEPTABLE_RECURSION = 5;
-sub print_queue_summary(Body $body = home_planet) {
+sub print_queue_summary(LacunaCookbuk::Model::Body $body = home_planet) {
     my Development $dev = $body.find_development_ministry;
     for $dev.build_queue -> %item {
 	say colored(%item<name> ~ " ⌛" ~ DateTime.new(now + %item<seconds_remaining>), 'blue'); 	
@@ -47,7 +47,7 @@ sub print_queue_summary(Body $body = home_planet) {
 }
 
 
-method build(Body $body = home_planet) {
+method build(LacunaCookbuk::Model::Body $body = home_planet) {
     if $body.get_happiness < 0 {
 	say colored("Planet is negative happiness. Leaving...", 'red');
 	return;
@@ -61,7 +61,7 @@ method build(Body $body = home_planet) {
     print_queue_summary($body);
 }
 
-method upgrade(Body $body, $goal, $infinite_recursion_protect is copy --> Bool) {
+method upgrade(LacunaCookbuk::Model::Body $body, $goal, $infinite_recursion_protect is copy --> Bool) {
     unless --$infinite_recursion_protect {
         say colored("Infinite recursion", "red");
         return False;
