@@ -98,7 +98,7 @@ submethod calculate_sustainablity (--> Hash) {
 }  
 
 method is_home(--> Bool) {
-    +self.id == +LacunaCookbuk::Client::Empire.home_planet_id;
+    +self.id == +LacunaCookbuk::Model::Empire.home_planet_id;
 }
 
 
