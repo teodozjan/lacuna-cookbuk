@@ -23,7 +23,7 @@ submethod find_archaeology_ministry(--> Archaeology) {
 
 submethod find_trade_ministry(--> LacunaCookbuk::Model::Structure::Trade) { 
     for self.buildings -> LacunaBuilding $building {
-	return LacunaCookbuk::Model::Structure::Trade.new(id => $building.id, url => $Trade::URL) if $building.url ~~ $Trade::URL;
+	return LacunaCookbuk::Model::Structure::Trade.new(id => $building.id, url => $LacunaCookbuk::Model::Structure::Trade::URL) if $building.url ~~ $LacunaCookbuk::Model::Structure::Trade::URL;
     }
     say "No trade ministry on " ~ self.name;
     fail();
