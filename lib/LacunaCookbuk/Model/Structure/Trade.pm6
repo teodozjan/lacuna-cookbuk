@@ -4,7 +4,7 @@ use LacunaCookbuk::Model::Empire;
 use LacunaCookbuk::Model::LacunaBuilding;
 use LacunaCookbuk::Model::Ship;
 
-unit class LacunaCookbuk::Model::Structure::Trade is LacunaBuilding;
+unit class LacunaCookbuk::Model::Structure::Trade is LacunaCookbuk::Model::LacunaBuilding;
 
 constant $URL = '/trade';
 

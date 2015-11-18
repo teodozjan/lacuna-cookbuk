@@ -6,7 +6,7 @@ use LacunaCookbuk::Model::Structure::Parliament;
 unit class SpaceStation does LacunaCookbuk::Model::Body;
 
 submethod find_parliament(--> Parliament) { 
-    for self.buildings -> LacunaBuilding $building {
+    for self.buildings -> LacunaCookbuk::Model::LacunaBuilding $building {
 	return Parliament.new(id => $building.id, url => $Parliament::URL) if $building.url ~~ $Parliament::URL;
     }
     #warn "No Parliament on " ~ self.name;

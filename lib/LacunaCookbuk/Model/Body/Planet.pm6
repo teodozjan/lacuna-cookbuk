@@ -14,7 +14,7 @@ use LacunaCookbuk::Model::Structure::Shipyard;
 unit class Planet does LacunaCookbuk::Model::Body;
 
 submethod find_archaeology_ministry(--> Archaeology) {
-    for self.buildings -> LacunaBuilding $building {
+    for self.buildings -> LacunaCookbuk::Model::LacunaBuilding $building {
 	return Archaeology.new(id => $building.id, url => $Archaeology::URL) if $building.url ~~ $Archaeology::URL;
     }
     say "No archaeology ministry on " ~ self.name;
@@ -22,7 +22,7 @@ submethod find_archaeology_ministry(--> Archaeology) {
 }   
 
 submethod find_trade_ministry(--> LacunaCookbuk::Model::Structure::Trade) { 
-    for self.buildings -> LacunaBuilding $building {
+    for self.buildings -> LacunaCookbuk::Model::LacunaBuilding $building {
 	return LacunaCookbuk::Model::Structure::Trade.new(id => $building.id, url => $LacunaCookbuk::Model::Structure::Trade::URL) if $building.url ~~ $LacunaCookbuk::Model::Structure::Trade::URL;
     }
     say "No trade ministry on " ~ self.name;
@@ -30,7 +30,7 @@ submethod find_trade_ministry(--> LacunaCookbuk::Model::Structure::Trade) {
 }   
 
 submethod find_shipyard(--> Shipyard) { 
-    for self.buildings -> LacunaBuilding $building {
+    for self.buildings -> LacunaCookbuk::Model::LacunaBuilding $building {
 	return Shipyard.new(id => $building.id, url => $Shipyard::URL) if $building.url ~~ $Shipyard::URL;
     }
     say "No shipyard on " ~ self.name;
@@ -38,7 +38,7 @@ submethod find_shipyard(--> Shipyard) {
 } 
 
 submethod find_space_port(--> SpacePort) {
-    for self.buildings -> LacunaBuilding $building {
+    for self.buildings -> LacunaCookbuk::Model::LacunaBuilding $building {
 	
 	if $building.url ~~ $SpacePort::URL {
 	    my %attr = %(rpc($SpacePort::URL).view(session_id,$building.id));
@@ -54,7 +54,7 @@ submethod find_space_port(--> SpacePort) {
 
 submethod find_intelligence_ministry(--> Intelligence) {
     
-    for self.buildings -> LacunaBuilding $building {
+    for self.buildings -> LacunaCookbuk::Model::LacunaBuilding $building {
 	
 	if $building.url ~~ $Intelligence::URL {
 	    my $id = $building.id;
@@ -71,7 +71,7 @@ submethod find_intelligence_ministry(--> Intelligence) {
 
 submethod find_development_ministry(--> Development) {
     
-    for self.buildings -> LacunaBuilding $building {
+    for self.buildings -> LacunaCookbuk::Model::LacunaBuilding $building {
 	
 	if $building.url ~~ $Development::URL {
 	    my $id = $building.id;

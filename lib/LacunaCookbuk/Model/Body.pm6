@@ -7,7 +7,7 @@ constant $URL = '/body';
 
 unit role LacunaCookbuk::Model::Body does LacunaCookbuk::Id;
 
-has LacunaBuilding @.buildings;
+has LacunaCookbuk::Model::LacunaBuilding @.buildings;
 has %.ore; 
 has $.x;
 has $.y;
@@ -23,8 +23,8 @@ method get_buildings {
     $!x =  %buildings<status><body><x>;
     $!y =  %buildings<status><body><y>;
 
-    my LacunaBuilding @result = gather for keys %buildings<buildings> -> $building_id {
-	my LacunaBuilding $building = LacunaBuilding.new(id => $building_id, url => %buildings<buildings>{$building_id}<url>);
+    my LacunaCookbuk::Model::LacunaBuilding @result = gather for keys %buildings<buildings> -> $building_id {
+	my LacunaCookbuk::Model::LacunaBuilding $building = LacunaCookbuk::Model::LacunaBuilding.new(id => $building_id, url => %buildings<buildings>{$building_id}<url>);
 	take $building;
     }   
 
@@ -68,7 +68,7 @@ method status(){
 
 
 method find_buildings(Str $url) {
-    my LacunaBuilding @buildings = gather for self.buildings -> LacunaBuilding $building {
+    my LacunaCookbuk::Model::LacunaBuilding @buildings = gather for self.buildings -> LacunaCookbuk::Model::LacunaBuilding $building {
 	take $building if $building.url ~~ $url;
     };    
     @buildings;
@@ -81,7 +81,7 @@ method name(--> Str) {
 
 
 submethod is_planet returns Bool {
-    for self.buildings -> LacunaBuilding $building {
+    for self.buildings -> LacunaCookbuk::Model::LacunaBuilding $building {
 	return True if $building.url ~~ '/planetarycommand';
     }
     False;
@@ -89,7 +89,7 @@ submethod is_planet returns Bool {
 
 
 submethod is_station returns Bool {
-    for self.buildings -> LacunaBuilding $building {
+    for self.buildings -> LacunaCookbuk::Model::LacunaBuilding $building {
 	return True if $building.url ~~ '/stationcommand';
     }
     False;

@@ -67,9 +67,9 @@ method upgrade(LacunaCookbuk::Model::Body $body, $goal, $infinite_recursion_prot
         return False;
     }
 
-    my LacunaBuilding @buildings = $body.find_buildings('/' ~ $goal.building);
+    my LacunaCookbuk::Model::LacunaBuilding @buildings = $body.find_buildings('/' ~ $goal.building);
 
-    for @buildings -> LacunaBuilding $building {
+    for @buildings -> LacunaCookbuk::Model::LacunaBuilding $building {
 
 	my $view = $building.view;
         unless $goal.level > $view.level {
