@@ -70,7 +70,7 @@ method push_cargo($cargo, $dst_planet_id = LacunaCookbuk::Model::Empire.home_pla
     
     my %ship = %(rpc($URL).push_items(session_id, self.id, $dst_planet_id, $cargo, %(:ship_id(self.find_fastest_ship<id>), :stay(0)))<ship>);
     
-    Ship.new(attr => %ship)
+    LacunaCookbuk::Model::Ship.new(attr => %ship)
 }
 
 method find_fastest_ship {

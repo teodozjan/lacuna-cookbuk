@@ -29,9 +29,9 @@ submethod find_trade_ministry(--> LacunaCookbuk::Model::Structure::Trade) {
     fail();
 }   
 
-submethod find_shipyard(--> Shipyard) { 
+submethod find_shipyard(--> LacunaCookbuk::Model::Shipyard) { 
     for self.buildings -> LacunaCookbuk::Model::LacunaBuilding $building {
-	return Shipyard.new(id => $building.id, url => $Shipyard::URL) if $building.url ~~ $Shipyard::URL;
+	return LacunaCookbuk::Model::Shipyard.new(id => $building.id, url => $Shipyard::URL) if $building.url ~~ $Shipyard::URL;
     }
     say "No shipyard on " ~ self.name;
     fail();
