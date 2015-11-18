@@ -76,7 +76,7 @@ method find_buildings(Str $url) {
 }
 
 method name(--> Str) {
-    Empire.planet_name(self.id);
+    LacunaCookbuk::Model::Empire.planet_name(self.id);
 }
 
 

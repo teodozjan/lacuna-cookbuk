@@ -69,13 +69,13 @@ unit class LacunaCookbuk::Client;
 
 #| Login
 sub create_session is export {
-    Empire.start_rpc_keeper;    
-    Empire.create_session;     
+    LacunaCookbuk::Model::Empire.start_rpc_keeper;    
+    LacunaCookbuk::Model::Empire.create_session;     
 }
 
 #| Logout
 sub close_session is export {
-    Empire.close_session;
+    LacunaCookbuk::Model::Empire.close_session;
 }
 
 #| Will show summary for docks and scuttle ships that have efficency lower 45% if ship is docked

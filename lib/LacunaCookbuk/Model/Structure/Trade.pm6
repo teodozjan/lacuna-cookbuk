@@ -62,11 +62,11 @@ method get_plans {
     
 } 
 
-method get_push_ships($targetId = Empire.home_planet_id) {
+method get_push_ships($targetId = LacunaCookbuk::Model::Empire.home_planet_id) {
     rpc($URL).get_trade_ships(session_id, $.id, $targetId)<ships>
 }
 
-method push_cargo($cargo, $dst_planet_id = Empire.home_planet_id) {   
+method push_cargo($cargo, $dst_planet_id = LacunaCookbuk::Model::Empire.home_planet_id) {   
     
     my %ship = %(rpc($URL).push_items(session_id, self.id, $dst_planet_id, $cargo, %(:ship_id(self.find_fastest_ship<id>), :stay(0)))<ship>);
     

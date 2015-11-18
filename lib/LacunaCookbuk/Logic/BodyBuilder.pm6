@@ -34,7 +34,7 @@ submethod write {
 submethod process_all_bodies {
     @planets = ();
     @stations = ();
-    for Empire.planets_hash.keys -> $planet_id {
+    for LacunaCookbuk::Model::Empire.planets_hash.keys -> $planet_id {
 	#TODO report rakudobug for .=
 	my Body $body = Body.new(id => $planet_id);
 	$body.get_buildings;	
