@@ -9,7 +9,7 @@ use LacunaCookbuk::Model::Structure::Trade;
 unit class LacunaCookbuk::Logic::Transporter;
 
 my role Cargo{
-    method gather(Trade $Trade --> List) { ... }   
+    method gather(LacunaCookbuk::Model::Structure::Trade $Trade --> List) { ... }   
 }
 
 my class Glyphs does Cargo {
@@ -34,7 +34,7 @@ submethod transport(@goods,Planet $src, Planet $dst = home_planet)
     my $trade = $src.find_trade_ministry;
     return unless $trade;
     unless $trade.repaired {
-        say "Cannot use TradeMinistry on " ~ $src.name;
+        say "Cannot use LacunaCookbuk::Model::Structure::TradeMinistry on " ~ $src.name;
         return;
 
     }
