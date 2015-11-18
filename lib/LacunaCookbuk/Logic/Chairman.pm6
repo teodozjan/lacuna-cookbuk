@@ -186,7 +186,7 @@ sub production(LacunaCookbuk::Logic::Chairman::Resource $resource --> LacunaCook
 
 
 submethod build_all {
-    for (planets) -> Body $planet {
+    for (planets) -> LacunaCookbuk::Model::Body $planet {
 	next if $planet.is_home;
 	say BOLD, "Upgrading " ~ $planet.name, RESET;
 	self.build($planet);

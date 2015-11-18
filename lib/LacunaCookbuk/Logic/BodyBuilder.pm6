@@ -36,7 +36,7 @@ submethod process_all_bodies {
     @stations = ();
     for LacunaCookbuk::Model::Empire.planets_hash.keys -> $planet_id {
 	#TODO report rakudobug for .=
-	my Body $body = Body.new(id => $planet_id);
+	my LacunaCookbuk::Model::Body $body = LacunaCookbuk::Model::Body.new(id => $planet_id);
 	$body.get_buildings;	
        
 	if $body.is_station {
