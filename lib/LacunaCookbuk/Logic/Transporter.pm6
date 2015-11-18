@@ -15,7 +15,7 @@ my role Cargo{
 my class Glyphs does Cargo {
     
 
-    method gather(Trade $trade --> List){
+    method gather(LacunaCookbuk::Model::Structure::Trade $trade --> List){
 	$trade.get_glyphs;
     }
 
@@ -23,7 +23,7 @@ my class Glyphs does Cargo {
 
 my class Plans does Cargo {
     
-    method gather(Trade $trade --> List){
+    method gather(LacunaCookbuk::Model::Structure::Trade $trade --> List){
 	$trade.get_plans;
     }
 }
