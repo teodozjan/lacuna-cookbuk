@@ -12,7 +12,7 @@ constant $limited_format= '{<<<<<<<<<<<<<<<<<<<<<<<<<} {>>>>}/{<<<<} {>>>>>>>>>>
 constant $ruler = '-' x 128;
 constant $ship_templ = '{<<<<<<<<<<<<<<<<<<<<<<<<<} ' ~ ' {>>>>>>>} ' x 6;
 
-submethod elaborate_spaceport(Planet $planet --> SpacePort) {
+submethod elaborate_spaceport(LacunaCookbuk::Model::Body::Planet $planet --> SpacePort) {
     
     my SpacePort $spaceport = $planet.find_space_port;
 
@@ -42,7 +42,7 @@ submethod elaborate_ships {
 	my @header = <planet free all details>;
 	print  form ($limited_format, @header);
 	say $ruler, RESET;
-	for (planets) -> Planet $planet {
+	for (planets) -> LacunaCookbuk::Model::Body::Planet $planet {
 	    %ports{$planet.name} = self.elaborate_spaceport($planet);
 	}
 

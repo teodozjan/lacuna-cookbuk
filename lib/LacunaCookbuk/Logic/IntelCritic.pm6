@@ -16,7 +16,7 @@ constant $ruler = '-' x $TERM_SIZE;
 constant @spy_header = <name level politics mayhem theft intel defense offense mission_off mission_def assignment>; 
 constant $spy_format = '{<<<<<<<<<<<<<<<<<<<<} {|||} {|||||} {|||||} {|||||} {|||||} {>>>>>}/{<<<<<} {>>>>}/{<<<<<} {<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<}';
 
-sub elaborate_intelligence(Planet $planet) {
+sub elaborate_intelligence(LacunaCookbuk::Model::Body::Planet $planet) {
     my Intelligence $imini = $planet.find_intelligence_ministry;
     my Str $numspies = ~$imini.current;
     my Str $max = ~$imini.maximum;   
@@ -30,7 +30,7 @@ sub elaborate_intelligence(Planet $planet) {
 
 }
 
-sub rename_intelligence(Planet $planet) {
+sub rename_intelligence(LacunaCookbuk::Model::Body::Planet $planet) {
     say "Looking for Agent null on {$planet.name}";
     my Intelligence $imini = $planet.find_intelligence_ministry;
     my @list = $imini.get_view_spies;
@@ -39,7 +39,7 @@ sub rename_intelligence(Planet $planet) {
     
 }
 
-sub elaborate_staff(Planet $planet) {
+sub elaborate_staff(LacunaCookbuk::Model::Body::Planet $planet) {
     say "Planet {$planet.name}";
     my Intelligence $imini = $planet.find_intelligence_ministry;
     my @list = $imini.get_view_spies;
@@ -92,15 +92,15 @@ submethod elaborate_spies{
     print form ($limited_format, @summary_header);
     say $ruler;
     my @planets = planets.grep({.find_intelligence_ministry.repaired});
-    for @planets -> Planet $planet {
+    for @planets -> LacunaCookbuk::Model::Body::Planet $planet {
 	elaborate_intelligence($planet);
     }
     say $ruler;    
-    for @planets -> Planet $planet {
+    for @planets -> LacunaCookbuk::Model::Body::Planet $planet {
 	rename_intelligence($planet);
     }
     say $ruler;
-    for @planets -> Planet $planet {
+    for @planets -> LacunaCookbuk::Model::Body::Planet $planet {
 	elaborate_staff($planet);
     }
 

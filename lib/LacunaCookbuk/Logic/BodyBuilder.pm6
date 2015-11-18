@@ -10,7 +10,7 @@ use Terminal::ANSIColor;
 #| Class is responsible for reading bodies and storing them
 unit class LacunaCookbuk::Logic::BodyBuilder;
 
-my Planet @planets;
+my LacunaCookbuk::Model::Body::Planet @planets;
 my SpaceStation @stations;
 
 
@@ -44,8 +44,8 @@ submethod process_all_bodies {
 	    say $station.name ~ " is a Space Station";
 	    @stations.push($station)
 	} elsif $body.is_planet {
-	    my Planet $planet .= new(id => $planet_id, buildings => $body.buildings, ore => $body.ore, x => $body.x, y => $body.y);
-	    say $planet.name ~ " is a Planet";
+	    my LacunaCookbuk::Model::Body::Planet $planet .= new(id => $planet_id, buildings => $body.buildings, ore => $body.ore, x => $body.x, y => $body.y);
+	    say $planet.name ~ " is a LacunaCookbuk::Model::Body::Planet";
 	    @planets.push($planet)
 	}else {
 	    warn $body.name ~ " Cannot be used -- neither planet nor station";
@@ -54,8 +54,8 @@ submethod process_all_bodies {
     LacunaCookbuk::Logic::BodyBuilder.write;
 }
 
-sub home_planet(--> Planet) is export {
-    for @planets -> Planet $planet {
+sub home_planet(--> LacunaCookbuk::Model::Body::Planet) is export {
+    for @planets -> LacunaCookbuk::Model::Body::Planet $planet {
 	return $planet if $planet.is_home;
     }
     fail();
