@@ -53,7 +53,7 @@ sub show_spies($planet, @spies){
     print form($spy_format, @spy_header);
     say $ruler;
 
-    for @spies -> Spy $spy {
+    for @spies ->  LacunaCookbuk::Model::Spy $spy {
         my $delegated;
         if ($spy.assigned_to<body_id> != $spy.based_from<body_id>) {
             $delegated = $spy.assigned_to<name>;
@@ -78,7 +78,7 @@ sub show_spies($planet, @spies){
 
 sub rename_spies($planet, @spies){
     my LacunaCookbuk::Model::Structure::Intelligence $imini = $planet.find_intelligence_ministry;
-    for @spies -> Spy $spy {
+    for @spies ->  LacunaCookbuk::Model::Spy $spy {
 	if $spy.name ~~ "Agent Null"  {
 	    $imini.name_spy($spy.id, $planet.name);
 	    say "Renamed spy {$spy.name}";
@@ -109,7 +109,7 @@ submethod elaborate_spies{
 
  sub format_spies(@spies --> Str) {
     my %assignments;
-    for @spies -> Spy $spy {
+    for @spies ->  LacunaCookbuk::Model::Spy $spy {
 	%assignments{$spy.assignment}++;
     }
 
