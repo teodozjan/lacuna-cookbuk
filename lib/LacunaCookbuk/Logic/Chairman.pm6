@@ -40,7 +40,7 @@ constant $INCOMPLETE_PENDING_BUILD = 1010;
 constant $NOT_ENOUGH_STORAGE = 1011;
 constant $ACCEPTABLE_RECURSION = 5;
 sub print_queue_summary(LacunaCookbuk::Model::Body $body = home_planet) {
-    my Development $dev = $body.find_development_ministry;
+    my LacunaCookbuk::Model::Structure::Development $dev = $body.find_development_ministry;
     for $dev.build_queue -> %item {
 	say colored(%item<name> ~ " ⌛" ~ DateTime.new(now + %item<seconds_remaining>), 'blue'); 	
     }

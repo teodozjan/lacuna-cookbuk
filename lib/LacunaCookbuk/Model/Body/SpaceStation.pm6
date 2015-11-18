@@ -3,13 +3,13 @@ use v6;
 use LacunaCookbuk::Model::Body;
 use LacunaCookbuk::Model::Structure::Parliament;
 
-unit class SpaceStation does LacunaCookbuk::Model::Body;
+unit class LacunaCookbuk::Model::Body::SpaceStation does LacunaCookbuk::Model::Body;
 
-submethod find_parliament(--> Parliament) { 
+submethod find_parliament(--> LacunaCookbuk::Model::Structure::Parliament) { 
     for self.buildings -> LacunaCookbuk::Model::LacunaBuilding $building {
-	return Parliament.new(id => $building.id, url => $Parliament::URL) if $building.url ~~ $Parliament::URL;
+	return LacunaCookbuk::Model::Structure::Parliament.new(id => $building.id, url => $LacunaCookbuk::Model::Structure::Parliament::URL) if $building.url ~~ $LacunaCookbuk::Model::Structure::Parliament::URL;
     }
-    #warn "No Parliament on " ~ self.name;
+    #warn "No LacunaCookbuk::Model::Structure::Parliament on " ~ self.name;
     fail();
 }
 

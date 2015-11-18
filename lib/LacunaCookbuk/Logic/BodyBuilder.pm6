@@ -11,7 +11,7 @@ use Terminal::ANSIColor;
 unit class LacunaCookbuk::Logic::BodyBuilder;
 
 my LacunaCookbuk::Model::Body::Planet @planets;
-my SpaceStation @stations;
+my LacunaCookbuk::Model::Body::SpaceStation @stations;
 
 
 submethod read {
@@ -40,7 +40,7 @@ submethod process_all_bodies {
 	$body.get_buildings;	
        
 	if $body.is_station {
-	    my SpaceStation $station .= new(id => $planet_id, buildings => $body.buildings,  x => $body.x, y => $body.y);
+	    my LacunaCookbuk::Model::Body::SpaceStation $station .= new(id => $planet_id, buildings => $body.buildings,  x => $body.x, y => $body.y);
 	    say $station.name ~ " is a Space Station";
 	    @stations.push($station)
 	} elsif $body.is_planet {

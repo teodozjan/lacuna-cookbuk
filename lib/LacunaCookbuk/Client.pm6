@@ -93,7 +93,7 @@ method votes {
    LacunaCookbuk::Logic::Ambassador.vote_all(True);
 }
 
-#| LacunaCookbuk::Model::Inbox cleaning: Parliament that is voted by alliance anyway
+#| LacunaCookbuk::Model::Inbox cleaning: LacunaCookbuk::Model::Structure::Parliament that is voted by alliance anyway
 #|                 Wasting resources is to common to allow everyone
 method cleanbox {
    LacunaCookbuk::Logic::Secretary.clean(["Parliament"]);
