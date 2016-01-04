@@ -80,10 +80,9 @@ submethod find_development_ministry(--> LacunaCookbuk::Model::Structure::Develop
 	    my $id = $building.id;
 	    my %resp = %(rpc($LacunaCookbuk::Model::Structure::Development::URL).view(session_id, $id));
 	    my %attr = %resp;
-	    dd %resp;
 	    %attr<url> = $LacunaCookbuk::Model::Structure::Development::URL;
 	    %attr<id> = $id;
-	    dd %attr;
+	    %attr<build_queue> = @() unlesss %attr<build_queue> ~~ Array;
 	    return LacunaCookbuk::Model::Structure::Development.new(|%attr);
 	}
     }
