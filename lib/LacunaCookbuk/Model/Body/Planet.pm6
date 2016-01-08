@@ -82,8 +82,7 @@ submethod find_development_ministry(--> LacunaCookbuk::Model::Structure::Develop
 	    my %attr = %resp;
 	    %attr<url> = $LacunaCookbuk::Model::Structure::Development::URL;
 	    %attr<id> = $id;
-	    dd %attr<build_queue>.elems;
-	    dd %attr<build_queue>;
+	    %attr<build_queue>:delete unless %attr<build_queue>.elems;
 	    return LacunaCookbuk::Model::Structure::Development.new(|%attr);
 	}
     }
