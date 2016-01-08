@@ -42,6 +42,10 @@ constant $ACCEPTABLE_RECURSION = 5;
 sub print_queue_summary(LacunaCookbuk::Model::Body $body = home_planet) {
     my LacunaCookbuk::Model::Structure::Development $dev = $body.find_development_ministry;
     my @queue = $dev.build_queue;
+    unless @queue {
+    	say "No queue";
+    	return;
+    }
     for @queue -> %item {
 	say colored(%item<name> ~ " ⌛" ~ DateTime.new(now + %item<seconds_remaining>), 'blue'); 	
     }
