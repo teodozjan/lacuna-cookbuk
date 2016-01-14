@@ -46,6 +46,7 @@ sub print_queue_summary(LacunaCookbuk::Model::Body $body = home_planet) {
     	say "No queue";
     	return;
     }
+    dd @queue;
     for @queue -> %item {
 	say colored(%item<name> ~ " ⌛" ~ DateTime.new(now + %item<seconds_remaining>), 'blue'); 	
     }
